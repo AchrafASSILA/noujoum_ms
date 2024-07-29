@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Role\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,6 +22,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role',
+        'image',
+        'active',
+        'adress',
+        'age',
+        'tel',
         'password',
     ];
 
@@ -42,4 +50,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    // relations
+    public function roles()
+    {
+        return $this->belongsTo(Role::class, 'role');
+    }
+    // functions
+    public function getImage()
+    {
+        $path = url('/storage/app/public/users/' . $this->image);
+        if ($this->image) {
+            return $path;
+        }
+        return 'https://cdn-icons-png.freepik.com/512/3177/3177440.png';
+    }
+    public function getFullName()
+    {
+
+        return strtoupper($this->name);
+    }
 }

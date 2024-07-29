@@ -26,4 +26,5 @@ let post = (url: string, param: any, data: any) => {
 }
 
 
-export default get;
+// export default {axiosClient , get , post} ; 
+export default axiosClient ;
