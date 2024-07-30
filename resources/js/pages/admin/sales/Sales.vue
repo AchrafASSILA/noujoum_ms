@@ -2,7 +2,7 @@
     <MainLayout>
         <div v-if="loaded">
             <h4 class="mb-5 mb-sm-0 fw-bold">
-                Sections / <span>{{ sections?.length }}</span>
+                Sales / <span>{{ sales?.length }}</span>
             </h4>
 
             <div class="card p-4 mt-3">
@@ -37,16 +37,16 @@
 
             <div
                 class="align-center gap-10 sections-wrap pt-2 pb-2"
-                v-if="sections && sections.length > 0"
+                v-if="sales && sales.length > 0"
             >
                 <v-data-table
                     :headers="headers"
-                    :items="sections"
+                    :items="sales"
                     item-value="name"
                     :search="search"
                 >
                     <template v-slot:item="{ item }">
-                        <tr :style="'border-bottom:2px solid ' + item.color">
+                        <tr>
                             <th
                                 class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0"
                             >
@@ -63,7 +63,7 @@
                                     class="form-check d-flex align-items-center mb-0"
                                 >
                                     <div class="section-img">
-                                        <img :src="item.image" alt="" />
+                                        <span>{{ item.active }}</span>
                                     </div>
                                 </div>
                             </th>
@@ -84,9 +84,7 @@
                                         <li>
                                             <button
                                                 class="dropdown-item d-flex align-items-center"
-                                                @click.prevent="
-                                                    setSection(item)
-                                                "
+                                                @click.prevent="setSale(item)"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#basicModal"
                                             >
@@ -100,7 +98,7 @@
                                             <button
                                                 class="dropdown-item d-flex align-items-center"
                                                 @click.prevent="
-                                                    deleteSection(item)
+                                                    deleteSale(item)
                                                 "
                                             >
                                                 <i
@@ -130,14 +128,14 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 v-if="isEdit" class="modal-title fs-5">
-                                Edit Section
+                                Edit Sale
                             </h1>
                             <h1
                                 v-else
                                 class="modal-title fs-5"
                                 id="addNiveauLabel"
                             >
-                                Add Section
+                                Add Sale
                             </h1>
                             <button
                                 type="button"
@@ -155,7 +153,7 @@
                                     >Title</label
                                 >
                                 <input
-                                    v-model="section.label"
+                                    v-model="sale.label"
                                     type="text"
                                     class="form-control shadow-none text-black fs-md-15 fs-lg-16"
                                     id="inputTitle"
@@ -173,35 +171,10 @@
                                     inset
                                     color="success"
                                     label="Active"
-                                    v-model="section.active"
+                                    v-model="sale.active"
                                 ></v-switch>
                             </div>
-                            <div class="mb-mb-15 mb-md-20 mt-2">
-                                <div
-                                    class="file-upload text-center position-relative"
-                                >
-                                    <img
-                                        width="150px"
-                                        :src="imageUrl"
-                                        alt="Uploaded Image"
-                                        class="preview-image"
-                                    />
-                                    <span class="d-block text-muted">
-                                        Drop Files Here Or
-                                        <span
-                                            class="text-black fw-medium position-relative"
-                                        >
-                                            Click To Upload
-                                        </span>
-                                    </span>
-                                    <input
-                                        type="file"
-                                        class="d-block shadow-none border-0 position-absolute start-0 end-0 top-0 bottom-0 z-1 opacity-0"
-                                        ref="fileInput"
-                                        @change="handleFileChange"
-                                    />
-                                </div>
-                            </div>
+
                             <Errors></Errors>
                         </div>
 
@@ -217,18 +190,18 @@
                             <button
                                 v-if="isEdit"
                                 type="button"
-                                @click="updateSection()"
+                                @click="updateSale()"
                                 class="btn btn-primary"
                             >
-                                Update section
+                                Update sale
                             </button>
                             <button
                                 v-else
                                 type="button"
-                                @click="saveSection()"
+                                @click="saveSale()"
                                 class="btn btn-primary"
                             >
-                                Save section
+                                Save sale
                             </button>
                         </div>
                     </div>
@@ -248,31 +221,27 @@ import Errors from "../../../Components/ui/Errors.vue";
 import Loader from "../../../Components/ui/Loader.vue";
 import { useSectionStore } from "../../../store/section";
 import { useErrorStore } from "../../../store/error";
+import { useSaleStore } from "../../../store/sale";
 
 // lifecycle
 onMounted(async () => {
-    await getSections();
-    imageUrl.value =
-        "https://www.eclosio.ong/wp-content/uploads/2018/08/default.png";
+    await getSales();
     loaded.value = true;
 });
 
 // vars
-let sections = ref([]);
+let sales = ref([]);
 let errors = ref([]);
-let section = ref({
+let sale = ref({
     id: "",
     label: "",
-    alias: "",
     active: true,
-    image: "",
 });
 let isEdit = ref(false);
 let loaded = ref(false);
 let closeBtn = ref("");
 
 let search = ref("");
-let imageUrl = ref("");
 
 let headers = ref([
     {
@@ -283,21 +252,21 @@ let headers = ref([
     },
     {
         align: "center",
-        key: "image",
+        key: "active",
         sortable: true,
         title: "Icon",
     },
     { align: "end", key: "actions", title: "Actions" },
 ]);
 // stores
-const sectionStore = useSectionStore();
+const saleStore = useSaleStore();
 const errorStore = useErrorStore();
 // funcs
-let getSections = async () => {
-    await sectionStore
-        .getSections()
+let getSales = async () => {
+    await saleStore
+        .getSales()
         .then((res) => {
-            sections.value = sectionStore.sections;
+            sales.value = saleStore.sales;
         })
         .catch((err) => {
             console.log("hello");
@@ -305,47 +274,47 @@ let getSections = async () => {
             errorStore.errors.push(err.response.data.msg);
         });
 };
-let updateSection = async () => {
-    await sectionStore
-        .update(section.value)
+let updateSale = async () => {
+    await saleStore
+        .update(sale.value)
         .then(() => {
             initialize();
-            Swal.fire("Success", "section updates with success", "");
+            Swal.fire("Success", "sale updates with success", "");
             closeBtn.value.click();
-            getSections();
+            getSales();
         })
         .catch((err) => {
             errorStore.errors = [];
             errorStore.errors.push(err.response.data.msg);
         });
 };
-let saveSection = async () => {
-    await sectionStore
-        .save(section.value)
+let saveSale = async () => {
+    await saleStore
+        .save(sale.value)
         .then(() => {
             initialize();
-            Swal.fire("Success", "section save with success", "");
+            Swal.fire("Success", "sale save with success", "");
             closeBtn.value.click();
-            getSections();
+            getSales();
         })
         .catch((err) => {
             errorStore.errors = [];
             errorStore.errors.push(err.response.data.msg);
         });
 };
-let deleteSection = async (sec) => {
+let deleteSale = async (sal) => {
     await Swal.fire({
-        title: "Do you want to delete this section?",
+        title: "Do you want to delete this sale?",
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: "Yes",
     }).then((result) => {
         if (result.isConfirmed) {
-            sectionStore
-                .delete(sec)
+            saleStore
+                .delete(sal)
                 .then(() => {
-                    Swal.fire("success", "sections delete with succes");
-                    getSections();
+                    Swal.fire("success", "sales delete with succes");
+                    getSales();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -355,36 +324,16 @@ let deleteSection = async (sec) => {
 };
 let initialize = () => {
     errors.value = [];
-    section.value = {
+    sale.value = {
         id: "",
         label: "",
-        alias: "",
+        active: true,
     };
     isEdit.value = false;
-    imageUrl.value =
-        "https://www.eclosio.ong/wp-content/uploads/2018/08/default.png";
 };
-let setSection = (sec) => {
-    section.value = sec;
+let setSale = (sal) => {
+    sale.value = sal;
     isEdit.value = true;
-    imageUrl.value = sec.image;
-};
-
-let handleFileChange = (event) => {
-    const input = event.target;
-    section.value.image = input.files?.[0] || null;
-    previewImage();
-};
-let previewImage = () => {
-    if (section.value.image) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            imageUrl.value = event.target?.result;
-        };
-        reader.readAsDataURL(section.value.image);
-    } else {
-        imageUrl.value = "";
-    }
 };
 </script>
 

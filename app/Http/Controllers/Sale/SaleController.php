@@ -1,34 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Section;
+namespace App\Http\Controllers\Sale;
 
 use App\Http\Controllers\Controller;
-use App\Models\Section\Section;
+use App\Models\Sale\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
-class SectionController extends Controller
+class SaleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        //
         try {
             //code...
-            $list = Section::all();
+            $list = Sale::all();
             $data = [];
-            foreach ($list as $section) {
+            foreach ($list as $sale) {
                 # code...
-                $data['sections'][] = [
-                    'id' => $section->id,
-                    'label' => $section->Label,
-                    'alias' => $section->Alias,
-                    'active' => $section->Active ? true : false,
-                    'image' => $section->getImage(),
+                $data['sales'][] = [
+                    'id' => $sale->id,
+                    'label' => $sale->Label,
+                    'active' => $sale->Active ? true : false,
+                    'open' => $sale->Open,
                 ];
             }
 
@@ -55,27 +54,17 @@ class SectionController extends Controller
         try {
             //code...
             $validation = Validator::make($request->all(), [
-                'label' => 'required|max:100|string|unique:sections',
+                'label' => 'required|max:100|string|unique:sales',
             ]);
             if ($validation->messages()->all()) {
                 return response(['msg' => $validation->messages()->all()], 403);
             }
 
-            $section = Section::create([
+            $sale = Sale::create([
                 'Label' => $request->label,
-                'Alias' => Str::slug($request->label),
                 'Active' => $request->active == true ? 1 : 0,
             ]);
-            if ($request->hasFile('file')) {
-                // move image
-                $imageName = time() . '.' . $request->file->getClientOriginalExtension();
-                $request->file->storeAs('/public/sections', $imageName);
-                // set image
-                $section->Image = $imageName;
-                // save image
-                $section->save();
-            }
-            return response(['msg' => 'Section save with succes', 'section' => $section], 200);
+            return response(['msg' => 'Sale save with succes', 'sale' => $sale], 200);
         } catch (\Exception $e) {
             //throw $e;
             return response(['msg' => $e->getMessage()], 403);
@@ -104,30 +93,21 @@ class SectionController extends Controller
     public function update(Request $request, int $id)
     {
         try {
-            $section = Section::find($id);
+            $sale = Sale::find($id);
             $validation = Validator::make($request->all(), [
-                'label' => 'required|max:100|string|unique:sections,Label,' . $section->id,
+                'label' => 'required|max:100|string|unique:sales,Label,' . $sale->id,
 
             ]);
             if ($validation->messages()->all()) {
                 return response(['msg' => $validation->messages()->all()], 403);
             }
             //code...
-            $section->update([
+            $sale->update([
                 'Label' => $request->label,
-                'Alias' => Str::slug($request->label),
                 'Active' => $request->active == true ? 1 : 0,
             ]);
-            if ($request->hasFile('file')) {
-                // move image
-                $imageName = time() . '.' . $request->file->getClientOriginalExtension();
-                $request->file->storeAs('/public/sections', $imageName);
-                // set image
-                $section->Image = $imageName;
-                // save image
-                $section->save();
-            }
-            return response(['msg' => 'section update with succes.', 'section' =>  $section], 200);
+
+            return response(['msg' => 'sale update with succes.', 'sale' =>  $sale], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], 403);
         }
@@ -142,8 +122,8 @@ class SectionController extends Controller
             //code...
             $data = array();
             $data['msg'] = 'deleted succesfully';
-            $section = Section::find($id);
-            $section->delete();
+            $sale = Sale::find($id);
+            $sale->delete();
             return response($data, 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], 200);

@@ -5,6 +5,7 @@ import Notfound from "../Components/Notfound.vue";
 import Login from "../pages/auth/Login.vue";
 import { useAuthStore } from "@/store/auth";
 import Sections from "../pages/admin/sections/Sections.vue";
+import Sales from "../pages/admin/sales/Sales.vue";
 
 // let authStore = useAuthStore();
 
@@ -31,6 +32,15 @@ const routes = [
         path: "/sections",
         name: "Sections",
         component: Sections,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/sales",
+        name: "Sales",
+        component: Sales,
         meta: {
             requiresAuth: true,
             roles: ["pinia", "founder"],

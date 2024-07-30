@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Sale\SaleController;
 use App\Http\Controllers\Section\SectionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,5 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 // other routes 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('sections', SectionController::class);
+    Route::resource('sales', SaleController::class);
 });

@@ -13,7 +13,7 @@ class Section extends Model
     // functions 
     public function getImage()
     {
-        $path =   '/sections/'  . $this->Image;
+        $path =   'http://127.0.0.1:8000/storage/sections/'  . $this->Image;
         if ($this->Image) {
             return $path;
         }
