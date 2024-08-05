@@ -36,7 +36,7 @@
 
                 <li class="sub-title sidebar-nav-item">
                     <span class="d-block text-uppercase fw-medium"
-                        >Gestion clients</span
+                        >Gestion des clients</span
                     >
                 </li>
                 <li
@@ -64,7 +64,7 @@
                             >
                                 <li class="sidebar-sub-menu-item">
                                     <router-link
-                                        to="/users"
+                                        to="/clients"
                                         class="sidebar-sub-menu-link"
                                     >
                                         Clients List
@@ -72,7 +72,15 @@
                                 </li>
                                 <li class="sidebar-sub-menu-item">
                                     <router-link
-                                        to="/add-user"
+                                        to="/archived-clients"
+                                        class="sidebar-sub-menu-link"
+                                    >
+                                        Archived Clients
+                                    </router-link>
+                                </li>
+                                <li class="sidebar-sub-menu-item">
+                                    <router-link
+                                        to="/new-client"
                                         class="sidebar-sub-menu-link"
                                     >
                                         Add Client
@@ -136,7 +144,7 @@
                                 </li>
                                 <li class="sidebar-sub-menu-item">
                                     <router-link
-                                        to="/add-user"
+                                        to="/services"
                                         class="sidebar-sub-menu-link"
                                     >
                                         Les tarifs

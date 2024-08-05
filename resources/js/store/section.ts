@@ -14,7 +14,8 @@ export const useSectionStore = defineStore("section", {
             await axiosClient
                 .get("/sections")
                 .then((res: any) => {
-                    this.sections = res.data.sections;
+                    console.log(res.data);
+                    this.sections = res.data?.sections;
                 })
                 .catch((err) => {
                     console.log(err);

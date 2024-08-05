@@ -6,6 +6,12 @@ import Login from "../pages/auth/Login.vue";
 import { useAuthStore } from "@/store/auth";
 import Sections from "../pages/admin/sections/Sections.vue";
 import Sales from "../pages/admin/sales/Sales.vue";
+import Services from "../pages/admin/services/Services.vue";
+import Clients from "../pages/admin/clients/Clients.vue";
+import AddClient from "../pages/admin/clients/AddClient.vue";
+import Client from "../pages/admin/clients/Client.vue";
+import EditClient from "../pages/admin/clients/EditClient.vue";
+import ArchivedClients from "../pages/admin/clients/ArchivedClients.vue";
 
 // let authStore = useAuthStore();
 
@@ -41,6 +47,60 @@ const routes = [
         path: "/sales",
         name: "Sales",
         component: Sales,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/services",
+        name: "Services",
+        component: Services,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/clients",
+        name: "Clients",
+        component: Clients,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/archived-clients",
+        name: "ArchivedClients",
+        component: ArchivedClients,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/client/:id",
+        name: "Client",
+        component: Client,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/new-client",
+        name: "NewClient",
+        component: AddClient,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/edit-client/:id",
+        name: "EditClient",
+        component: EditClient,
         meta: {
             requiresAuth: true,
             roles: ["pinia", "founder"],

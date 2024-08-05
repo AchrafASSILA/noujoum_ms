@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Section;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client\Client;
 use App\Models\Section\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

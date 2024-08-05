@@ -9,4 +9,11 @@ class Promotion extends Model
 {
     use HasFactory;
     protected $fillable = ['Year', 'Active'];
+
+
+    // functions 
+    public static function current()
+    {
+        return self::first();
+    }
 }
