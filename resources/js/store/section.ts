@@ -14,7 +14,6 @@ export const useSectionStore = defineStore("section", {
             await axiosClient
                 .get("/sections")
                 .then((res: any) => {
-                    console.log(res.data);
                     this.sections = res.data?.sections;
                 })
                 .catch((err) => {
@@ -29,7 +28,6 @@ export const useSectionStore = defineStore("section", {
             await axiosClient.post("/sections", formData);
         },
         async update(section: any) {
-            console.log(section.label);
             const formData = new FormData();
             formData.append("_method", "put");
             formData.append("label", section.label);

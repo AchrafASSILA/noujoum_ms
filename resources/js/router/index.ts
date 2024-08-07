@@ -3,7 +3,6 @@ import Home from "../pages/admin/Home.vue";
 import Users from "../pages/admin/users/Users.vue";
 import Notfound from "../Components/Notfound.vue";
 import Login from "../pages/auth/Login.vue";
-import { useAuthStore } from "@/store/auth";
 import Sections from "../pages/admin/sections/Sections.vue";
 import Sales from "../pages/admin/sales/Sales.vue";
 import Services from "../pages/admin/services/Services.vue";
@@ -12,8 +11,8 @@ import AddClient from "../pages/admin/clients/AddClient.vue";
 import Client from "../pages/admin/clients/Client.vue";
 import EditClient from "../pages/admin/clients/EditClient.vue";
 import ArchivedClients from "../pages/admin/clients/ArchivedClients.vue";
-
-// let authStore = useAuthStore();
+import Modules from "../pages/admin/modules/Modules.vue";
+import Calendar from "../pages/admin/edt/Calendar.vue";
 
 const routes = [
     {
@@ -44,6 +43,15 @@ const routes = [
         },
     },
     {
+        path: "/modules",
+        name: "Modules",
+        component: Modules,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
         path: "/sales",
         name: "Sales",
         component: Sales,
@@ -56,6 +64,15 @@ const routes = [
         path: "/services",
         name: "Services",
         component: Services,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/edt",
+        name: "Edt",
+        component: Calendar,
         meta: {
             requiresAuth: true,
             roles: ["pinia", "founder"],

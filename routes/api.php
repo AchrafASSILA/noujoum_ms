@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Edt\SeanceController;
+use App\Http\Controllers\Modules\ModuleController;
 use App\Http\Controllers\Sale\SaleController;
 use App\Http\Controllers\Section\SectionController;
 use App\Http\Controllers\Service\ServiceController;
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('services', ServiceController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('seances', SeanceController::class);
+    Route::resource('modules', ModuleController::class);
     Route::get('archived-clients', [ClientController::class, 'archivedClients']);
     Route::post('/unarchived-client/{id}', [ClientController::class, 'unarchived']);
     Route::delete('/delete-trached/{id}', [ClientController::class, 'deleteTrached']);

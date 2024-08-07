@@ -22,22 +22,22 @@ class SeanceController extends Controller
         try {
             $days = Seance::days();
             $seances = [];
-            foreach ($days as $key => $item) {
-
-                $list = Seance::where("Day", $key)->get();
-                foreach ($list as $item) {
-                    $seances[] = [
-                        'id' => $item->get('ID'),
-                        'title' => $item->Label . ' ' . $item->Module->Label,
-                        'start' => $key . ' ' . date('H:i', strtotime($item->Start)),
-                        'end' => $key . ' ' . date('H:i', strtotime($item->End)),
-                        'color' => '',
-                        'borderColor' => '',
-                        'textColor' =>  "#fff",
-                        'imagerul' => '',
-                    ];
-                }
+            // foreach ($days as $key => $item) {
+            // where("Day", $key)
+            $list = Seance::get();
+            foreach ($list as $item) {
+                $seances[] = [
+                    'id' => $item->get('ID'),
+                    'title' => $item->Label . ' ' . $item->module->Label,
+                    'start' =>  date('Y-m-'  .  str_pad($item->Day, 2, 0, STR_PAD_LEFT)) . ' ' . date('H:i:s', strtotime($item->Start)),
+                    'end' => date('Y-m-'  . str_pad($item->Day, 2, 0, STR_PAD_LEFT))  . ' ' . date('H:i:s', strtotime($item->End)),
+                    'color' => '',
+                    'borderColor' => '',
+                    'textColor' =>  "#fff",
+                    'imagerul' => '',
+                ];
             }
+            // }
             $data['seances'] = $seances;
 
             return response($data, 200);

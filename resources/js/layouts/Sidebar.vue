@@ -184,7 +184,7 @@
                             >
                                 <li class="sidebar-sub-menu-item">
                                     <router-link
-                                        to="/users"
+                                        to="/edt"
                                         class="sidebar-sub-menu-link"
                                     >
                                         Emplois du temp
@@ -277,6 +277,14 @@
                                         class="sidebar-sub-menu-link"
                                     >
                                         Sections
+                                    </router-link>
+                                </li>
+                                <li class="sidebar-sub-menu-item">
+                                    <router-link
+                                        to="/modules"
+                                        class="sidebar-sub-menu-link"
+                                    >
+                                        Modules
                                     </router-link>
                                 </li>
                                 <li class="sidebar-sub-menu-item">

@@ -16423,3 +16423,16 @@ iframe {
     padding-left: 100px;
   }
 }/*# sourceMappingURL=style.css.map */
+
+
+
+.fc-v-event{
+  background-color: #6560f0 !important;
+  border-color: #6560f0 !important;
+  color: white !important; 
+}
+.fc-v-event .fc-event-main{
+  background-color: #6560f0 !important;
+  border-color: #6560f0 !important;
+  color: white !important; 
+}

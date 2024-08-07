@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
+use App\Http\Controllers\Controller;
 use App\Models\Module\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -16,8 +17,9 @@ class ModuleController extends Controller
     public function index()
     {
         try {
-            $list = Module::all();
+            $list = Module::orderBy('created_at', 'DESC')->get();
             $data = [];
+            $data['modules'] = [];
             foreach ($list as $module) {
                 $data['modules'][] = [
                     'id' => $module->id,
@@ -31,7 +33,7 @@ class ModuleController extends Controller
             return response($data, 200);
         } catch (\Exception $e) {
             //throw $th;
-            return response(['msg' => $e->getMessage()], 400);
+            return response(['msg' => [$e->getMessage()]], 400);
         }
     }
 
@@ -67,7 +69,7 @@ class ModuleController extends Controller
             return response(['msg' => 'Module save with succes', 'module' => $module], 200);
         } catch (\Exception $e) {
             //throw $e;
-            return response(['msg' => $e->getMessage()], 403);
+            return response(['msg' => [$e->getMessage()]], 403);
         }
     }
 
@@ -111,7 +113,7 @@ class ModuleController extends Controller
             ]);
             return response(['msg' => 'Module update with succes.', 'module' =>  $module], 200);
         } catch (\Exception $e) {
-            return response(['msg' => $e->getMessage()], 403);
+            return response(['msg' => [$e->getMessage()]], 403);
         }
     }
 
@@ -128,7 +130,7 @@ class ModuleController extends Controller
             $module->delete();
             return response($data, 200);
         } catch (\Exception $e) {
-            return response(['msg' => $e->getMessage()], 200);
+            return response(['msg' => [$e->getMessage()]], 200);
         }
     }
 }

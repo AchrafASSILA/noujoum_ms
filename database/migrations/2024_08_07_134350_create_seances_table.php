@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('Sale')->nullable();
             $table->unsignedBigInteger('Section')->nullable();
             $table->unsignedBigInteger('UserBy');
-            $table->unsignedBigInteger('Module')->nullable();
+            $table->unsignedBigInteger('Module');
             // $table->unsignedBigInteger('Collaborateur')->nullable();
             $table->foreign('Sale')->references('id')->on('sales')->onDelete("SET NULL");
             $table->foreign('Section')->references('id')->on('sections')->onDelete("SET NULL");
