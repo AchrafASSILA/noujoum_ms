@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Client;
 
+use PDF;
+use App\Exports\ClientsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Client\Client;
 use App\Models\Inscription\Inscription;
 use App\Models\Promotion\Promotion;
 use App\Models\User;
+use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClientController extends Controller
 {
@@ -327,5 +331,26 @@ class ClientController extends Controller
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], 200);
         }
+    }
+    public function export()
+    {
+        // dd('hello');
+        return Excel::download(new ClientsExport, 'cliets.xlsx');
+    }
+    public function exportPdf()
+    {
+        $fileName = 'clients.pdf';
+        $clients = Client::all();
+        $html = view()->make('impressions/clients', ['clients' => $clients])->render();
+        // $pdf = new TCPDF;
+        // $pdf::SetTitle('clients');
+        // $pdf::AddPage();
+        // $pdf::writeHTML($html);
+        PDF::SetTitle('Hello World');
+        PDF::AddPage();
+        PDF::writeHTML($html);;
+        PDF::Output('clients.pdf');
+        // return $pdf::Output(public_path($fileName), 'F');
+        // return response()->download(public_path($fileName));
     }
 }

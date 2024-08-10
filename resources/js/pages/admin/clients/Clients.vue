@@ -1,9 +1,50 @@
 <template>
     <MainLayout>
         <div v-if="loaded">
-            <h4 class="mb-5 mb-sm-0 fw-bold mb-5">
-                Clients / <span>{{ clients?.length }}</span>
-            </h4>
+            <div
+                class="d-flex"
+                style="justify-content: space-between; align-items: center"
+            >
+                <h4 class="mb-5 mb-sm-0 fw-bold mb-5">
+                    Clients / <span>{{ clients?.length }}</span>
+                </h4>
+
+                <div class="text-right m-0">
+                    <div class="dropdown show mb-20">
+                        <button
+                            class="btn btn-primary dropdown-toggle dropdown rounded-0"
+                            href="#"
+                            role="button"
+                            id="dropdownMenuLink"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Actions
+                        </button>
+                        <div
+                            class="dropdown-menu mt-2"
+                            aria-labelledby="dropdownMenuLink"
+                        >
+                            <a
+                                target="_blank"
+                                href="/impressions-clients"
+                                class="dropdown-item"
+                            >
+                                <i
+                                    class="flaticon-file-1 lh-1 me-8 position-relative top-1"
+                                ></i>
+                                export pdf
+                            </a>
+                            <a href="/exports-clients" class="dropdown-item">
+                                <i
+                                    class="flaticon-file lh-1 me-8 position-relative top-1"
+                                ></i>
+                                export excel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div
                 class="card mb-25 border-0 rounded-0 bg-white letter-spacing mt-2"
             >
@@ -21,15 +62,6 @@
                                 class="flaticon-plus position-relative ms-5 fs-12"
                             ></i>
                         </router-link>
-                        <!-- <button
-                            class="default-outline-btn position-relative transition fw-medium text-black pt-10 pb-10 ps-25 pe-25 pt-md-11 pb-md-11 ps-md-30 pe-md-30 rounded-1 bg-transparent fs-md-15 fs-lg-16 d-inline-block mb-10 mb-lg-0"
-                            type="button"
-                        >
-                            Export
-                            <i
-                                class="flaticon-file-1 position-relative ms-5 top-2 fs-15"
-                            ></i>
-                        </button> -->
                     </div>
                     <div class="d-flex align-items-center">
                         <form
@@ -316,5 +348,8 @@ let deleteClient = async (client) => {
     background: #f5f4fa;
     padding-top: 14px;
     padding-bottom: 14px;
+}
+.dropdown-toggle::after {
+    opacity: 1;
 }
 </style>

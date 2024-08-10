@@ -1,7 +1,10 @@
 <?php
 
+use App\Exports\ClientsExport;
+use App\Http\Controllers\Client\ClientController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +18,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/impressions', function () {
-    return 'hello';
-});
+Route::get('/impressions-clients', [ClientController::class, 'exportPdf']);
+// Route::get('/exports-clients', function () {
+//     return Excel::download(new ClientsExport, 'cliets.xlsx');
+// });
+Route::get('/exports-clients', [ClientController::class, 'export']);
 
 
 Route::get('/', function () {
