@@ -1,142 +1,213 @@
 <template>
     <MainLayout>
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-9 col-xxl-8 col-xxxl-6">
+        <div v-if="loaded">
+            <h4 class="mb-5 mb-sm-0 fw-bold">
+                Les utulisateures/ <span>{{ users?.length }}</span>
+            </h4>
+            <div
+                class="card mb-25 border-0 rounded-0 bg-white letter-spacing mt-4"
+            >
                 <div
-                    class="card mb-25 border-0 rounded-0 bg-white authentication-card"
+                    class="card-head box-shadow bg-white d-lg-flex align-items-center justify-content-between p-15 p-sm-20 p-md-25"
                 >
-                    <div class="card-body letter-spacing">
-                        <h4 class="text-black fw-bold mb-0 text-center">
-                            Sign In To Your Account!
-                        </h4>
-                        <form>
-                            <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
-                                    Email Address
-                                </label>
-                                <input
-                                    type="email"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="e.g. adam127704@gmail.com"
-                                />
-                            </div>
-                            <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
-                                    Password
-                                </label>
-                                <input
-                                    type="password"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="**************"
-                                />
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between mb-15 mb-md-20"
-                            >
-                                <div
-                                    class="form-check form-check-primary mb-0 fs-md-15 fs-lg-16 text-muted lh-1"
-                                >
-                                    <input
-                                        class="form-check-input shadow-none"
-                                        type="checkbox"
-                                        id="remember-me"
-                                    />
-                                    <label
-                                        class="form-check-label"
-                                        for="remember-me"
-                                    >
-                                        Remember Me
-                                    </label>
-                                </div>
-                                <router-link
-                                    to="/forgot-password"
-                                    class="forgot-password-btn fs-md-15 fs-lg-16 text-decoration-none position-relative text-primary"
-                                >
-                                    Forgot Password?
-                                </router-link>
-                            </div>
+                    <div class="d-sm-flex align-items-center"></div>
+                    <div class="d-flex align-items-center">
+                        <form
+                            v-if="false"
+                            class="search-box position-relative me-15"
+                            @submit.prevent=""
+                        >
+                            <input
+                                type="text"
+                                v-model="search"
+                                class="form-control shadow-none text-black rounded-0 border-0"
+                                placeholder="Rechercher"
+                            />
                             <button
-                                class="default-btn transition border-0 fw-medium text-white rounded-1 fs-md-15 fs-lg-16 bg-success d-block w-100"
                                 type="submit"
+                                class="bg-transparent text-primary transition p-0 border-0"
                             >
-                                Sign In Now
+                                <i class="flaticon-search-interface-symbol"></i>
                             </button>
-                            <span
-                                class="d-block text-muted text-center mt-15 mt-md-30 mb-12 mb-md-20 fs-md-15 fs-lg-16"
-                            >
-                                Don’t have an account?
-                            </span>
-                            <router-link
-                                to="/register"
-                                class="default-btn with-border transition fw-medium rounded-1 fs-md-15 fs-lg-16 d-block w-100 text-decoration-none text-center"
-                            >
-                                Create Account
-                            </router-link>
-                            <span
-                                class="d-block or text-muted text-center mt-15 mb-15 mt-md-20 mb-md-20 fs-md-15 fs-lg-16 position-relative z-1 lh-1"
-                            >
-                                <span class="d-inline-block bg-white">Or</span>
-                            </span>
-                            <ul
-                                class="socials ps-0 mb-0 list-unstyled text-center"
-                            >
-                                <li class="d-inline-block">
-                                    <button
-                                        type="button"
-                                        class="d-block rounded-circle text-center position-relative facebook border-0 p-0"
-                                    >
-                                        <i class="ph-fill ph-facebook-logo"></i>
-                                    </button>
-                                </li>
-                                <li class="d-inline-block">
-                                    <button
-                                        type="button"
-                                        class="d-block rounded-circle text-center position-relative google border-0 p-0"
-                                    >
-                                        <i class="ph-bold ph-google-logo"></i>
-                                    </button>
-                                </li>
-                                <li class="d-inline-block">
-                                    <button
-                                        type="button"
-                                        class="d-block rounded-circle text-center position-relative twitter border-0 p-0"
-                                    >
-                                        <i class="ph-fill ph-twitter-logo"></i>
-                                    </button>
-                                </li>
-                                <li class="d-inline-block">
-                                    <button
-                                        type="button"
-                                        class="d-block rounded-circle text-center position-relative linkedin border-0 p-0"
-                                    >
-                                        <i class="ph-fill ph-linkedin-logo"></i>
-                                    </button>
-                                </li>
-                            </ul>
                         </form>
+                        <button
+                            class="default-btn position-relative transition border-0 fw-medium text-white pt-11 pb-11 ps-25 pe-25 pt-md-12 pb-md-12 ps-md-30 pe-md-30 rounded-1 bg-success fs-md-15 fs-lg-16 d-inline-block me-10 mb-10 mb-lg-0 text-decoration-none m-0"
+                            @click="initialize()"
+                            data-bs-toggle="modal"
+                            data-bs-target="#basicModal"
+                            style="
+                                background-color: #06b48a !important;
+                                margin-right: 0 !important;
+                            "
+                        >
+                            Nouvelle utulisateur
+                            <i
+                                class="flaticon-plus position-relative ms-5 fs-12"
+                            ></i>
+                        </button>
                     </div>
                 </div>
             </div>
+            <div class="row" v-if="users && users.length > 0">
+                <div
+                    class="col-sm-6 col-lg-4 col-xxxl-3"
+                    v-for="(user, index) in users"
+                    :key="index"
+                >
+                    <div
+                        class="card mb-25 border-0 rounded-0 bg-white seller-card"
+                    >
+                        <div class="card-body letter-spacing">
+                            <div
+                                class="mb-15 mb-md-20 mb-lg-25 d-flex align-items-center justify-content-between"
+                            >
+                                <div
+                                    class="icon position-relative text-center rounded-circle"
+                                    style="overflow: hidden"
+                                >
+                                    <img
+                                        :src="user.image"
+                                        class="position-absolute start-0 end-0 ms-auto me-auto user-image"
+                                        alt="seller"
+                                    />
+                                </div>
+                                <div class="dropdown">
+                                    <button
+                                        class="dropdown-toggle card-dot-btn lh-1 position-relative top-4 bg-transparent border-0 shadow-none p-0 transition"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <i class="flaticon-dots"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a
+                                                class="dropdown-item d-flex align-items-center"
+                                                href="javascript:void(0);"
+                                            >
+                                                <i
+                                                    class="flaticon-pen lh-1 me-8 position-relative top-1"
+                                                ></i>
+                                                Edit
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                class="dropdown-item d-flex align-items-center"
+                                                href="javascript:void(0);"
+                                            >
+                                                <i
+                                                    class="flaticon-delete lh-1 me-8 position-relative top-1"
+                                                ></i>
+                                                Delete
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <h5
+                                class="fs-18 fw-semibold text-black mb-5 mb-md-8"
+                            >
+                                {{ user.name }}
+                            </h5>
+                            <span class="text-paragraph d-block">
+                                Role:
+                                <span class="text-primary fw-semibold">{{
+                                    user.roleLabel
+                                }}</span>
+                            </span>
+                            <ul
+                                class="list mt-15 mt-lg-25 ps-0 mb-0 list-unstyled d-flex justify-content-between"
+                            >
+                                <li>
+                                    <span
+                                        class="d-block text-dark-emphasis text-uppercase fw-medium fs-12 mb-5 mb-md-8"
+                                    >
+                                        Tel :
+                                    </span>
+                                    <span class="d-block text-dark fw-medium">{{
+                                        user.tel
+                                    }}</span>
+                                </li>
+                                <li>
+                                    <span
+                                        class="d-block text-dark-emphasis text-uppercase fw-medium fs-12 mb-5 mb-md-8"
+                                    >
+                                        email
+                                    </span>
+                                    <span class="d-block text-dark fw-medium">{{
+                                        user.email
+                                    }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Emptybox v-else></Emptybox>
         </div>
+        <Loader v-else></Loader>
     </MainLayout>
 </template>
 <script setup lang="ts">
 import { useUsersStore } from "../../../store/users";
 import get from "../../../axios/index";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import MainLayout from "../../../layouts/MainLayout.vue";
+import { useErrorStore } from "../../../store/error";
+import axiosClient from "../../../axios/index";
 
 // lifecycle hooks
 
 onMounted(async () => {
-    let res = await get("/users/", 1, []);
+    await getUsers();
+    await getRoles();
+    imageUrl.value =
+        "https://www.eclosio.ong/wp-content/uploads/2018/08/default.png";
+    loaded.value = true;
 });
 
+// vars
+let users = ref([]);
+let roles = ref([]);
+
+let loaded = ref(false);
+let closeBtn = ref("");
+let imageUrl = ref("");
 // stores
 
 const userStore = useUsersStore();
+const errorStore = useErrorStore();
+// funcs
+let getUsers = async () => {
+    await userStore
+        .getUsers()
+        .then((res) => {
+            users.value = userStore.users;
+        })
+        .catch((err) => {
+            errorStore.errors = [];
+            errorStore.errors.push(err.response.data.msg);
+        });
+};
+let getRoles = async () => {
+    await axiosClient
+        .get("roles")
+        .then((res) => {
+            roles.value = res.data.roles;
+        })
+        .catch((err) => {
+            errorStore.errors = [];
+            errorStore.errors.push(err.response.data.msg);
+        });
+};
 </script>
+<style scoped>
+.user-image {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+</style>

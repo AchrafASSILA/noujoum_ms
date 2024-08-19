@@ -46,10 +46,10 @@ export const useClientStore = defineStore("client", {
             formData.append("email", client.email);
             formData.append("tel", client.tel);
             formData.append("cin", client.cin);
-            formData.append("region", client.region);
+            formData.append("region", client.region.region);
             formData.append("dateNaissance", client.dateNaissance);
             formData.append("province", client.province);
-            formData.append("ville", client.ville);
+            formData.append("ville", client.ville.ville);
             formData.append("arrondissement", client.arrondissement);
             formData.append("facebook", client.facebook);
             formData.append("instagram", client.instagram);
@@ -73,10 +73,10 @@ export const useClientStore = defineStore("client", {
             formData.append("email", client.email);
             formData.append("tel", client.tel);
             formData.append("cin", client.cin);
-            formData.append("region", client.region);
+            formData.append("region", client.region.region);
             formData.append("dateNaissance", client.dateNaissance);
             formData.append("province", client.province);
-            formData.append("ville", client.ville);
+            formData.append("ville", client.ville.ville);
             formData.append("arrondissement", client.arrondissement);
             formData.append("facebook", client.facebook);
             formData.append("instagram", client.instagram);

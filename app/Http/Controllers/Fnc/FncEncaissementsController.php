@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Fnc;
 
+use PDF;
 use App\Http\Controllers\Controller;
+use App\Models\Fnc\FncEncaissementInscription;
 use App\Models\Fnc\FncEncaissementLine;
 use App\Models\Fnc\FncEncaissements;
 use App\Models\Inscription\Inscription;
@@ -21,13 +23,13 @@ class FncEncaissementsController extends Controller
         try {
 
             $data = [];
-            $data['encaissemnets'] = [];
+            $data['encaissements'] = [];
 
             $encaissemnets = FncEncaissements::orderBy('created_at')->get();
             foreach ($encaissemnets as $encaissemnet) {
-                $data['encaissemnets'][] = [
+                $data['encaissements'][] = [
                     'id' => $encaissemnet->id,
-                    'amount' => $encaissemnet->Amount,
+                    'amount' => $encaissemnet->Total . ' DH',
                     'name' => $encaissemnet->inscription->client->user->getFullName(),
                     'image' => $encaissemnet->inscription->client->user->getImage(),
                     'recunumber' => $encaissemnet->RecuNumber,
@@ -58,42 +60,43 @@ class FncEncaissementsController extends Controller
         try {
             //code...
             $validation = Validator::make($request->all(), [
-                'services' => 'required',
+                'service' => 'required',
                 'inscription' => 'required',
-                'total' => 'required',
+                // 'total' => 'required',
             ]);
             if ($validation->messages()->all()) {
                 return response(['msg' => $validation->messages()->all()], 403);
             }
             $inscription = Inscription::find($request->inscription);
+            $affectation = FncEncaissementInscription::find($request->service);
 
             $encaissement = new FncEncaissements();
-            $encaissement->Total = $request->total;
+            $encaissement->Total = $affectation->Amount;
             $encaissement->Inscription = $inscription->id;
             $encaissement->Promotion = $inscription->promotion->id;
-            $encaissement->RecuNumber = FncEncaissementLine::getRecuNumber();
-            $encaissement->OperationNumber = FncEncaissementLine::getOperationNumber();
+            $encaissement->RecuNumber = FncEncaissements::getRecuNumber();
+            $encaissement->OperationNumber = FncEncaissements::getOperationNumber();
             $encaissement->save();
-            foreach ($request->services as $key => $item) {
-                [$id, $amount, $frequenc] = explode('_', $item);
+            // foreach ($request->services as $key => $item) {
+            //     [$id, $amount, $frequenc] = explode('_', $item);
 
-                $service = Service::find($id);
-                $encaissment_line = new FncEncaissementLine();
-                $encaissment_line->Amount = $amount;
-                $encaissment_line->Frequenc = $frequenc;
-                $encaissment_line->Service = $service->id;
-                $encaissment_line->Affectation = $request->affectation;
-                $encaissment_line->Encaissement = $encaissement->id;
-                $encaissment_line->Inscription = $inscription->id;
-                $encaissment_line->Promotion = $inscription->promotion->id;
-                $encaissment_line->User = Auth::user()->id;
-                $encaissment_line->save();
-            }
-
-
+            $service = Service::find($affectation->service->id);
+            $encaissment_line = new FncEncaissementLine();
+            $encaissment_line->Amount = $affectation->Amount;
+            $encaissment_line->Frequenc = $affectation->Frequenc;
+            $encaissment_line->Service = $service->id;
+            $encaissment_line->Affectation = $affectation->id;
+            $encaissment_line->Encaissement = $encaissement->id;
+            $encaissment_line->Inscription = $inscription->id;
+            $encaissment_line->Promotion = $inscription->promotion->id;
+            $encaissment_line->User = Auth::user()->id;
+            $encaissment_line->save();
+            // }
 
 
-            return response(['msg' => 'Payement save with succes',], 200);
+
+
+            return response(['msg' => 'Payement save with succes', 'encaissement' => $encaissement], 200);
         } catch (\Exception $e) {
             //throw $e;
             return response(['msg' => $e->getMessage()], 403);
@@ -111,7 +114,7 @@ class FncEncaissementsController extends Controller
             }
             $encaissement->Canceled = date('Y-m-d H:i:s');
             $encaissement->save();
-            return response(['msg' => 'canceled paiement'], 200);
+            return response(['msg' => 'canceled paiement', 'encaissement' => $encaissement], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], 403);
         }
@@ -122,8 +125,19 @@ class FncEncaissementsController extends Controller
         try {
             $encaissement = FncEncaissements::find($id);
             $encaissement_lines = FncEncaissementLine::where('Encaissement', $encaissement->id)->get();
+            $fileName = 'encaissement.pdf';
+            $html = view()->make(
+                'impressions/encaissement-recu',
+                [
+                    'encaissement' => $encaissement,
+                    'encaissement_lines' => $encaissement_lines,
+                ]
+            )->render();
 
-            return response(['msg' => 'canceled paiement'], 200);
+            PDF::SetTitle('encaissement');
+            PDF::AddPage();
+            PDF::writeHTML($html);;
+            PDF::Output($fileName);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], 403);
         }

@@ -60,7 +60,7 @@
                                 <input
                                     type="passowrd"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your address here"
+                                    placeholder="Adress"
                                     v-model="client.adress"
                                 />
                             </div>
@@ -84,12 +84,12 @@
                                 <label
                                     class="d-block text-black fw-semibold mb-10"
                                 >
-                                    Cin
+                                    CIN
                                 </label>
                                 <input
                                     type="passowrd"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your cin here"
+                                    placeholder="Cin"
                                     v-model="client.cin"
                                 />
                             </div>
@@ -101,12 +101,17 @@
                                 >
                                     region
                                 </label>
-                                <input
-                                    type="passowrd"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your cin here"
+                                <VueMultiselect
                                     v-model="client.region"
-                                />
+                                    :options="regionsList"
+                                    :multiple="false"
+                                    :close-on-select="true"
+                                    placeholder="Région"
+                                    label="region"
+                                    value="region"
+                                    track-by="region"
+                                >
+                                </VueMultiselect>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -119,7 +124,7 @@
                                 <input
                                     type="passowrd"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your cin here"
+                                    placeholder="province"
                                     v-model="client.province"
                                 />
                             </div>
@@ -131,12 +136,17 @@
                                 >
                                     ville
                                 </label>
-                                <input
-                                    type="passowrd"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your ville here"
+                                <VueMultiselect
                                     v-model="client.ville"
-                                />
+                                    :options="citiesList"
+                                    :multiple="false"
+                                    :close-on-select="true"
+                                    placeholder="Région"
+                                    label="ville"
+                                    value="ville"
+                                    track-by="ville"
+                                >
+                                </VueMultiselect>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -149,7 +159,7 @@
                                 <input
                                     type="passowrd"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your arrondissement here"
+                                    placeholder="arrondissement"
                                     v-model="client.arrondissement"
                                 />
                             </div>
@@ -160,11 +170,11 @@
                                     inset
                                     color="success"
                                     label="Handicap"
-                                    v-model="client.active"
+                                    v-model="client.handicap"
                                 ></v-switch>
                             </div>
                         </div>
-                        <div v-if="client.active" class="row">
+                        <div v-if="client.handicap" class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-15 mb-sm-20 mb-md-25">
                                     <label
@@ -175,7 +185,7 @@
                                     <input
                                         type="text"
                                         class="form-control shadow-none rounded-0 text-black"
-                                        placeholder="add users designation"
+                                        placeholder=""
                                         v-model="client.typeHandicap"
                                     />
                                 </div>
@@ -191,7 +201,7 @@
                                     <input
                                         type="text"
                                         class="form-control shadow-none rounded-0 text-black"
-                                        placeholder="http//website.com"
+                                        placeholder=""
                                         v-model="client.autonomie"
                                     />
                                 </div>
@@ -220,7 +230,7 @@
                                     <input
                                         type="text"
                                         class="form-control shadow-none rounded-0 text-black"
-                                        placeholder="http//website.com"
+                                        placeholder=""
                                         v-model="client.causeHandicap"
                                     />
                                 </div>
@@ -228,7 +238,7 @@
                         </div>
                         <div class="col-md-12">
                             <label class="d-block text-black fw-semibold mb-10">
-                                Add Social Media Link
+                                Ajouter un lien vers les réseaux sociaux
                             </label>
                             <div class="row">
                                 <div class="col-md-6">
@@ -309,7 +319,7 @@
                                             <input
                                                 type="text"
                                                 class="form-control shadow-none rounded-0 text-black"
-                                                placeholder="instagram@example.com"
+                                                placeholder="Whatsapp"
                                                 v-model="client.whatsapp"
                                             />
                                         </div>
@@ -384,12 +394,14 @@ import Errors from "../../../Components/ui/Errors.vue";
 import { useErrorStore } from "../../../store/error";
 import { useClientStore } from "../../../store/client";
 import { useRoute, useRouter } from "vue-router";
+import VueMultiselect from "vue-multiselect";
+import citiesList from "../../../data/cities";
+import regionsList from "../../../data/regions";
 
 // lifecycle
 onMounted(async () => {
     await getClient();
-    imageUrl.value =
-        "https://www.eclosio.ong/wp-content/uploads/2018/08/default.png";
+    imageUrl.value = client.value.image;
     loaded.value = true;
 });
 
@@ -424,7 +436,7 @@ let updateClient = async () => {
     await clientStore
         .update(client.value)
         .then(() => {
-            Swal.fire("Success", "client enregistré avec succès", "");
+            Swal.fire("Succès", "Client mises à jour avec succès", "");
             router.push("/clients");
         })
         .catch((err) => {

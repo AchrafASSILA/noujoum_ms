@@ -99,7 +99,14 @@
                                     <th
                                         class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0 text-center"
                                     >
-                                        <div class="text-center">
+                                        <a
+                                            :href="'/client/' + item.id"
+                                            class="link text-center"
+                                            style="
+                                                color: black;
+                                                text-decoration: none;
+                                            "
+                                        >
                                             <div
                                                 class="ms-5 fs-md-15 fs-lg-16 text-center"
                                             >
@@ -115,7 +122,7 @@
                                                 />
                                                 {{ item.name }}
                                             </div>
-                                        </div>
+                                        </a>
                                     </th>
 
                                     <td
@@ -233,20 +240,20 @@ let headers = ref([
         align: "center",
         key: "label",
         sortable: true,
-        title: "Nom et prenom",
+        title: "Nom et prénom",
     },
 
     {
         align: "center",
         key: "email",
         sortable: true,
-        title: "Email",
+        title: "émail",
     },
     {
         align: "center",
         key: "tel",
         sortable: true,
-        title: "Telephone",
+        title: "Téléphone",
     },
     {
         align: "center",
@@ -283,7 +290,7 @@ let deleteClient = async (client) => {
             clientStore
                 .delete(client)
                 .then(() => {
-                    Swal.fire("success", "client archivé avec succès");
+                    Swal.fire("Succès", "client archivé avec succès");
                     getClients();
                 })
                 .catch((err) => {
@@ -351,5 +358,8 @@ let deleteClient = async (client) => {
 }
 .dropdown-toggle::after {
     opacity: 1;
+}
+td .dropdown-toggle::after {
+    opacity: 0;
 }
 </style>

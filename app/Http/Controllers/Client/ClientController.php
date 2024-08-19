@@ -119,10 +119,10 @@ class ClientController extends Controller
                 'Instagram' => $request->instagram,
                 'Tiktok' => $request->tiktok,
                 'Handicap' => $request->handicap == 'true' ? 1 : 0,
-                'TypeHandicap' => $request->typeHandicap,
-                'DateHandicap' => $request->dateHandicap,
-                'CauseHandicap' => $request->causeHandicap,
-                'Autonomie' => $request->autonomie,
+                'TypeHandicap' => $request->typeHandicap != 'null' ? $request->typeHandicap : null,
+                'DateHandicap' => $request->dateHandicap != 'null' ? $request->dateHandicap : null,
+                'CauseHandicap' => $request->causeHandicap != 'null' ?  $request->causeHandicap : null,
+                'Autonomie' => $request->autonomie != 'null' ? $request->autonomie : null,
                 'User' => $user->id,
             ]);
             // save inscription and link with client
@@ -172,10 +172,11 @@ class ClientController extends Controller
                 'instagram' => $client->Instagram,
                 'tiktok' => $client->Tiktok,
                 'handicap' => $client->Handicap ? true : false,
-                'typeHandicap' => $client->TypeHandicap,
-                'dateHandicap' => $client->DateHandicap,
-                'causeHandicap' => $client->CauseHandicap,
-                'autonomie' => $client->Autonomie,
+                'handicapLabel' => $client->Handicap ? 'oui' : 'non',
+                'typeHandicap' => $client->TypeHandicap ?: '-',
+                'dateHandicap' => $client->DateHandicap ?: '-',
+                'causeHandicap' => $client->CauseHandicap ?: '-',
+                'autonomie' => $client->Autonomie ?: '-',
                 'image' => $client->user->getImage(),
             ];
 
@@ -243,19 +244,19 @@ class ClientController extends Controller
 
             // save client and link with user
             $client->update([
-                'Cin' => $request->cin != 'undefined' ? $request->cin : null,
-                'Region' => $request->region != 'undefined' ? $request->region : null,
-                'Province' => $request->province != 'undefined' ? $request->province : null,
-                'Ville' => $request->ville != 'undefined' ? $request->ville : null,
-                'Arrondissement' => $request->arrondissement != 'undefined' ? $request->arrondissement : null,
-                'Facebook' => $request->facebook != 'undefined' ? $request->facebook : null,
-                'Instagram' => $request->instagram != 'undefined' ? $request->instagram : null,
-                'Tiktok' => $request->tiktok != 'undefined' ? $request->tiktok : null,
+                'Cin' => $request->cin != 'null' ? $request->cin : null,
+                'Region' => $request->region != 'null' ? $request->region : null,
+                'Province' => $request->province != 'null' ? $request->province : null,
+                'Ville' => $request->ville != 'null' ? $request->ville : null,
+                'Arrondissement' => $request->arrondissement != 'null' ? $request->arrondissement : null,
+                'Facebook' => $request->facebook != 'null' ? $request->facebook : null,
+                'Instagram' => $request->instagram != 'null' ? $request->instagram : null,
+                'Tiktok' => $request->tiktok != 'null' ? $request->tiktok : null,
                 'Handicap' => $request->handicap == 'true' ? 1 : 0,
-                'TypeHandicap' => $request->typeHandicap != 'undefined' ? $request->typeHandicap : null,
-                'DateHandicap' =>  $request->dateHandicap != 'undefined' ? $request->dateHandicap : null,
-                'CauseHandicap' => $request->causeHandicap != 'undefined' ? $request->causeHandicap : null,
-                'Autonomie' => $request->autonomie != 'undefined' ? $request->autonomie : null,
+                'TypeHandicap' => $request->typeHandicap != 'null' ? $request->typeHandicap : null,
+                'DateHandicap' =>  $request->dateHandicap != 'null' ? $request->dateHandicap : null,
+                'CauseHandicap' => $request->causeHandicap != 'null' ? $request->causeHandicap : null,
+                'Autonomie' => $request->autonomie != 'null' ? $request->autonomie : null,
             ]);
             // update user 
             $user =  User::find($client->user->id);
@@ -352,5 +353,39 @@ class ClientController extends Controller
         PDF::Output('clients.pdf');
         // return $pdf::Output(public_path($fileName), 'F');
         // return response()->download(public_path($fileName));
+    }
+    public function badge(int $id)
+    {
+        $fileName = 'client-badge.pdf';
+        $client = Client::find($id);
+        $urlImage = $client->user->getImage();
+        $html = view()->make('impressions/client-badge', ['client' => $client, 'urlImage' => $urlImage])->render();
+        // $pdf = new TCPDF;
+        // $pdf::SetTitle('clients');
+        // $pdf::AddPage();
+        // $pdf::writeHTML($html);
+        set_time_limit(-1);
+        PDF::SetAuthor('');
+        PDF::SetSubject('');
+        PDF::SetKeywords('');
+        // remove default header/footer
+        PDF::setPrintHeader(false);
+        // $pdf->setPrintFooter(false);
+        // set header and footer fonts
+        PDF::setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        // set margins
+        PDF::SetMargins(0, 0, 0, 0);
+        // set auto page breaks
+        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        // set image scale factor
+        PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
+        // set JPEG quality
+        PDF::setJPEGQuality(75);
+
+        PDF::SetTitle('client');
+        PDF::AddPage('L', 'A6');;
+
+        PDF::writeHTML($html);
+        PDF::Output('client.pdf');
     }
 }

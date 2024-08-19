@@ -27,6 +27,7 @@ class SaleController extends Controller
                     'id' => $sale->id,
                     'label' => $sale->Label,
                     'active' => $sale->Active ? true : false,
+                    'activeLabel' => $sale->Active ? 'oui' : 'non',
                     'open' => $sale->Open,
                 ];
             }
@@ -62,7 +63,7 @@ class SaleController extends Controller
 
             $sale = Sale::create([
                 'Label' => $request->label,
-                'Active' => $request->active == true ? 1 : 0,
+                'Active' => $request->active == 'true' ? 1 : 0,
             ]);
             return response(['msg' => 'Sale save with succes', 'sale' => $sale], 200);
         } catch (\Exception $e) {
@@ -104,7 +105,7 @@ class SaleController extends Controller
             //code...
             $sale->update([
                 'Label' => $request->label,
-                'Active' => $request->active == true ? 1 : 0,
+                'Active' => $request->active == 'true' ? 1 : 0,
             ]);
 
             return response(['msg' => 'sale update with succes.', 'sale' =>  $sale], 200);

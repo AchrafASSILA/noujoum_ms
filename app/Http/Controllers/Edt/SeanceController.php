@@ -28,7 +28,7 @@ class SeanceController extends Controller
             foreach ($list as $item) {
                 $seances[] = [
                     'id' => $item->get('ID'),
-                    'title' => $item->Label . ' ' . $item->module->Label,
+                    'title' => $item->Label,
                     'start' =>  date('Y-m-'  .  str_pad($item->Day, 2, 0, STR_PAD_LEFT)) . ' ' . date('H:i:s', strtotime($item->Start)),
                     'end' => date('Y-m-'  . str_pad($item->Day, 2, 0, STR_PAD_LEFT))  . ' ' . date('H:i:s', strtotime($item->End)),
                     'color' => '',

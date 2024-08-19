@@ -29,6 +29,7 @@ class SectionController extends Controller
                     'label' => $section->Label,
                     'alias' => $section->Alias,
                     'active' => $section->Active ? true : false,
+                    'activeLabel' => $section->Active ? 'oui' : 'non',
                     'image' => $section->getImage(),
                 ];
             }
@@ -65,7 +66,7 @@ class SectionController extends Controller
             $section = Section::create([
                 'Label' => $request->label,
                 'Alias' => Str::slug($request->label),
-                'Active' => $request->active == true ? 1 : 0,
+                'Active' => $request->active == 'true' ? 1 : 0,
             ]);
             if ($request->hasFile('file')) {
                 // move image
@@ -117,7 +118,7 @@ class SectionController extends Controller
             $section->update([
                 'Label' => $request->label,
                 'Alias' => Str::slug($request->label),
-                'Active' => $request->active == true ? 1 : 0,
+                'Active' => $request->active == 'true' ? 1 : 0,
             ]);
             if ($request->hasFile('file')) {
                 // move image

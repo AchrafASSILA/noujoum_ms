@@ -34,16 +34,17 @@ class FncEncaissements extends Model
     public  static function getRecuNumber()
     {
         $recu_number = 1;
-        $fncEncaissementLine =     FncEncaissementLine::orderBy('created_at', 'DESC')->first();
-        if ($fncEncaissementLine) {
-            $recu_number +=  (int)$fncEncaissementLine;
+        $fncEncaissement =     self::orderBy('created_at', 'DESC')->first();
+
+        if ($fncEncaissement) {
+            $recu_number +=  (int)$fncEncaissement->RecuNumber;
         }
         return $recu_number;
     }
     public  static function getOperationNumber()
     {
         $operation = 1;
-        $fncEncaissement =     FncEncaissementLine::orderBy('created_at', 'DESC')->first();
+        $fncEncaissement =     self::orderBy('created_at', 'DESC')->first();
         if ($fncEncaissement && $fncEncaissement->OperationNumber) {
             $operation +=  (int)$fncEncaissement->OperationNumber;
         }

@@ -23,11 +23,11 @@ const App = createApp(app);
 // App.component("Emptybox", EmptyBox);
 // App.component("Errors", Errors);
 // App.component("Loader", Loader);
+App.use(router);
 App.use(pinia);
 
 App.use(createBootstrap());
 
-App.use(router);
 App.use(vuetify);
 App.mount("#app");
 // router.isReady().then(() => {

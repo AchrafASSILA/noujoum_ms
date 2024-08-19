@@ -15,7 +15,20 @@ class Client extends Model
 
 
     protected $fillable = [
-        'Cin', 'Region', 'Province', 'Ville', 'Arrondissement', 'Facebook', 'Instagram', 'Tiktok', 'Handicap', 'TypeHandicap', 'DateHandicap', 'CauseHandicap', 'Autonomie', 'User'
+        'Cin',
+        'Region',
+        'Province',
+        'Ville',
+        'Arrondissement',
+        'Facebook',
+        'Instagram',
+        'Tiktok',
+        'Handicap',
+        'TypeHandicap',
+        'DateHandicap',
+        'CauseHandicap',
+        'Autonomie',
+        'User'
     ];
 
 
@@ -27,6 +40,12 @@ class Client extends Model
     public function inscriptions()
     {
         return $this->hasMany(Inscription::class, 'Client');
+    }
+    public function inscription()
+    {
+
+        $inscription = Inscription::where('Client', $this->id)->orderBy('id', 'DESC')->first();
+        return $inscription;
     }
     // functions 
 

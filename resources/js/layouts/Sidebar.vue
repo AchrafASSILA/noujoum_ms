@@ -67,7 +67,7 @@
                                         to="/clients"
                                         class="sidebar-sub-menu-link"
                                     >
-                                        Clients List
+                                        Liste des clients
                                     </router-link>
                                 </li>
                                 <li class="sidebar-sub-menu-item">
@@ -75,7 +75,7 @@
                                         to="/archived-clients"
                                         class="sidebar-sub-menu-link"
                                     >
-                                        Archived Clients
+                                        Les clients archivees
                                     </router-link>
                                 </li>
                                 <li class="sidebar-sub-menu-item">
@@ -83,7 +83,7 @@
                                         to="/new-client"
                                         class="sidebar-sub-menu-link"
                                     >
-                                        Add Client
+                                        Nouveau client
                                     </router-link>
                                 </li>
                             </ul>
@@ -120,7 +120,7 @@
                             >
                                 <li class="sidebar-sub-menu-item">
                                     <router-link
-                                        to="/users"
+                                        to="/encaissements"
                                         class="sidebar-sub-menu-link"
                                     >
                                         Encaissements
@@ -128,7 +128,7 @@
                                 </li>
                                 <li class="sidebar-sub-menu-item">
                                     <router-link
-                                        to="/add-user"
+                                        to="/new-encaissement"
                                         class="sidebar-sub-menu-link"
                                     >
                                         Nouveau paiement
@@ -205,49 +205,13 @@
                 <li class="sub-title sidebar-nav-item">
                     <span class="d-block text-uppercase fw-medium">Apps</span>
                 </li>
-                <li
-                    class="sidebar-nav-item accordion-item bg-transparent border-0 rounded-0"
-                >
-                    <a
-                        href="#"
-                        class="accordion-button collapsed rounded-0 shadow-none bg-transparent d-block"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#sidebarCollapseEleven"
-                        aria-expanded="false"
-                        aria-controls="sidebarCollapseEleven"
-                    >
-                        <i class="flaticon-user-3"></i>
-                        <span class="title">Users</span>
-                    </a>
-                    <div
-                        id="sidebarCollapseEleven"
-                        class="accordion-collapse collapse"
-                        data-bs-parent="#sidebarNavAccordion"
-                    >
-                        <div class="accordion-body">
-                            <ul
-                                class="sidebar-sub-menu ps-0 mb-0 list-unstyled"
-                            >
-                                <li class="sidebar-sub-menu-item">
-                                    <router-link
-                                        to="/users"
-                                        class="sidebar-sub-menu-link"
-                                    >
-                                        Users List
-                                    </router-link>
-                                </li>
-                                <li class="sidebar-sub-menu-item">
-                                    <router-link
-                                        to="/add-user"
-                                        class="sidebar-sub-menu-link"
-                                    >
-                                        Add User
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                <li class="sidebar-nav-item">
+                    <router-link to="/users" class="sidebar-nav-link d-block">
+                        <i class="flaticon-people"></i>
+                        <span class="title">Utulisateures</span>
+                    </router-link>
                 </li>
+
                 <li
                     class="sidebar-nav-item accordion-item bg-transparent border-0 rounded-0"
                 >
@@ -292,7 +256,7 @@
                                         to="/sales"
                                         class="sidebar-sub-menu-link"
                                     >
-                                        Sales
+                                        Salles
                                     </router-link>
                                 </li>
                             </ul>
@@ -305,6 +269,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useAuthStore } from "../store/auth";
 import { useLayoutStore } from "../store/layout";
 
 const layoutStore = useLayoutStore();

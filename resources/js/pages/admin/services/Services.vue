@@ -2,7 +2,7 @@
     <MainLayout>
         <div v-if="loaded">
             <h4 class="mb-5 mb-sm-0 fw-bold">
-                Services / <span>{{ services?.length }}</span>
+                Les services / <span>{{ services?.length }}</span>
             </h4>
             <div
                 class="card mb-25 border-0 rounded-0 bg-white letter-spacing mt-2"
@@ -96,10 +96,10 @@
                     <template v-slot:item="{ item }">
                         <tr>
                             <th
-                                class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0"
+                                class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0 text-center"
                             >
                                 <div
-                                    class="form-check d-flex align-items-center mb-0"
+                                    class="form-check d-flex align-items-center justify-content-center mb-0 text-center"
                                 >
                                     {{ item.label }}
                                 </div>
@@ -119,7 +119,7 @@
                                 <span
                                     class="text-center"
                                     style="color: #33a570c9"
-                                    >{{ item.price }}</span
+                                    >{{ item.priceLabel }}</span
                                 >
                             </th>
                             <th
@@ -245,13 +245,13 @@
                                         <label
                                             for="inputTitle"
                                             class="form-label fw-medium"
-                                            >Frequence</label
+                                            >Fréquence</label
                                         >
                                         <VueMultiselect
                                             v-model="service.frequenc"
                                             :options="[
                                                 'Mensuel',
-                                                'Trimestriele',
+                                                'Trimestriel',
                                                 'Annuel',
                                             ]"
                                             :multiple="false"
@@ -374,7 +374,7 @@
                                 @click="updateService()"
                                 class="btn btn-primary"
                             >
-                                Modifier le service
+                                Modifier
                             </button>
                             <button
                                 v-else
@@ -382,7 +382,7 @@
                                 @click="saveService()"
                                 class="btn btn-primary"
                             >
-                                Enregistrer le service
+                                Enregistrer
                             </button>
                         </div>
                     </div>
@@ -515,7 +515,7 @@ let updateService = async () => {
         .update(service.value)
         .then(() => {
             initialize();
-            Swal.fire("Success", "service mises à jour avec succès", "");
+            Swal.fire("Succès", "service mises à jour avec succès", "");
             closeBtn.value.click();
             getServices();
         })
@@ -529,7 +529,7 @@ let saveService = async () => {
         .save(service.value)
         .then(() => {
             initialize();
-            Swal.fire("Success", "service enregistré avec succès", "");
+            Swal.fire("Succès", "service enregistré avec succès", "");
             closeBtn.value.click();
             getServices();
         })

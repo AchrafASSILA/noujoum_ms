@@ -13,6 +13,8 @@ import EditClient from "../pages/admin/clients/EditClient.vue";
 import ArchivedClients from "../pages/admin/clients/ArchivedClients.vue";
 import Modules from "../pages/admin/modules/Modules.vue";
 import Calendar from "../pages/admin/edt/Calendar.vue";
+import Encaissements from "../pages/admin/encaissements/Encaissements.vue";
+import NewEncaissement from "../pages/admin/encaissements/NewEncaissement.vue";
 
 const routes = [
     {
@@ -88,12 +90,30 @@ const routes = [
         },
     },
     {
+        path: "/encaissements",
+        name: "Encaissements",
+        component: Encaissements,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/new-encaissement",
+        name: "NewEncaissement",
+        component: NewEncaissement,
+        meta: {
+            requiresAuth: true,
+            // roles: ["pinia", "founder"],
+        },
+    },
+    {
         path: "/archived-clients",
         name: "ArchivedClients",
         component: ArchivedClients,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            // roles: ["pinia", "founder"],
         },
     },
     {
@@ -102,7 +122,7 @@ const routes = [
         component: Client,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            // roles: ["pinia", "founder"],
         },
     },
     {
@@ -111,7 +131,7 @@ const routes = [
         component: AddClient,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            // roles: ["pinia", "founder"],
         },
     },
     {
@@ -120,7 +140,7 @@ const routes = [
         component: EditClient,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            // roles: ["pinia", "founder"],
         },
     },
     // auth
@@ -141,24 +161,33 @@ const router = createRouter({
     routes,
 });
 
+// router.beforeEach((to, from, next) => {
+//     // if (to.meta.requiresAuth && !useAuthStore().token) {
+//     if (to.meta.requiresAuth && !localStorage.getItem("TOKEN")) {
+//         next({ name: "Login" });
+//     } else if (localStorage.getItem("TOKEN") && to.name == "Login") {
+//         next({ name: "Home" });
+//     } else {
+//         // if (
+//         //     to.meta.roles &&
+//         //     to.meta.roles.includes(localStorage.getItem("ROLE"))
+//         // ) {
+//         //     next();
+//         //     console.log(to);
+//         // } else {
+//         //     console.log(to);
+
+//         next({ name: "Home" });
+//         // }
+//     }
+// });
 router.beforeEach((to, from, next) => {
-    // if (to.meta.requiresAuth && !useAuthStore().token) {
     if (to.meta.requiresAuth && !localStorage.getItem("TOKEN")) {
         next({ name: "Login" });
     } else if (localStorage.getItem("TOKEN") && to.name == "Login") {
         next({ name: "Home" });
     } else {
-        if (
-            to.meta.roles &&
-            to.meta.roles.includes(localStorage.getItem("ROLE"))
-        ) {
-            next();
-            console.log(to);
-        } else {
-            console.log(to);
-
-            next({ name: "Home" });
-        }
+        next();
     }
 });
 

@@ -6,6 +6,7 @@ use App\Models\Client\Client;
 use App\Models\Fnc\FncEncaissementInscription;
 use App\Models\Fnc\FncEncaissementLine;
 use App\Models\Fnc\FncEncaissements;
+use App\Models\Promotion\Promotion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,6 +20,10 @@ class Inscription extends Model
     public function client()
     {
         return $this->belongsTo(Client::class, 'Client');
+    }
+    public function promotion()
+    {
+        return $this->belongsTo(Promotion::class, 'Promotion');
     }
 
     public function encaissements_affectations()
@@ -40,22 +45,27 @@ class Inscription extends Model
         $list = [];
         $affectations = $this->encaissements_affectations;
         foreach ($affectations as  $affectation) {
-            $list[$affectation->service->id][] = [
-                'service' => [
-                    'id' => $affectation->service->id,
-                    'label' => $affectation->service->Label,
-                    'frequenc' => $affectation->service->Frequenc,
-                ],
+            $payed = FncEncaissementLine::where('Affectation', $affectation->id)->sum('Amount');
+
+            // $list[$affectation->service->id][] = [
+            $list[] = [
+                'id' => $affectation->id,
+                'service_id' => $affectation->service->id,
+                'service_label' => $affectation->service->Label,
+                'service_frequenc' => $affectation->service->Frequenc,
                 'service_periode' => $affectation->Frequenc,
-                'amount' => $affectation->Amount,
-                'lines' => $affectation->getLinesAmount(),
+                'amount' => $affectation->Amount . ' DH',
+                'payed' => $payed . ' DH',
+                'payedAmount' => $payed,
+                'reste' => ($affectation->Amount -  $payed) . ' DH',
+                // 'lines' => $affectation->getLinesAmount(),
             ];
         }
         return $list;
     }
     public function getTotalPayed()
     {
-        $amount = FncEncaissements::where('Inscription', $this->id)->whereNull('Canceled')->sum('Amount');
+        $amount = FncEncaissements::where('Inscription', $this->id)->whereNull('Canceled')->sum('Total');
         return $amount;
     }
     public function getTotalAffected()
@@ -74,7 +84,8 @@ class Inscription extends Model
                 'mode' => $item->Mode,
                 'operationNumber' => $item->OperationNumber,
                 'canceled' => $item->Canceled,
-                'total' => $item->Total,
+                'total' => $item->Total . ' DH',
+                'date' => date('Y-m-d', strtotime($item->created_at)),
             ];
         }
         return $encaissements;

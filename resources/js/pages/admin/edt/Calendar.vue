@@ -1,7 +1,7 @@
 <template>
     <MainLayout>
         <div class="row">
-            <div class="col-xxxl-9">
+            <div class="col-xxxl-12">
                 <div
                     class="card mb-25 border-0 rounded-0 bg-white calendar-card"
                 >

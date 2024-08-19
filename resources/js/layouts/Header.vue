@@ -20,7 +20,7 @@
                     >
                         <i class="flaticon-menu-3"></i>
                     </button>
-                    <form class="search-box">
+                    <form class="search-box" v-if="false">
                         <div class="input-group">
                             <input
                                 type="text"
@@ -31,7 +31,7 @@
                                 class="default-btn position-relative transition border-0 fw-medium text-white pt-8 pb-8 ps-15 pe-15 pt-md-12 pb-md-12 ps-md-20 pe-md-20"
                                 type="button"
                             >
-                                Search
+                                Rechercher
                                 <i
                                     class="flaticon-search-interface-symbol position-relative ms-5 top-1"
                                 ></i>

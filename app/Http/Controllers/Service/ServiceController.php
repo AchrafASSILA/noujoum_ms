@@ -27,6 +27,7 @@ class ServiceController extends Controller
                     'label' => $service->Label,
                     'alias' => $service->Alias,
                     'price' => $service->Price,
+                    'priceLabel' => $service->Price . ' DH',
                     'frequenc' => $service->Frequenc,
                     'section' => [
                         'id' => $service->section->id,

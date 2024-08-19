@@ -2,7 +2,8 @@
     <MainLayout>
         <div v-if="loaded">
             <h4 class="mb-5 mb-sm-0 fw-bold mb-5">
-                Clients archive / <span>{{ clients?.length }}</span>
+                Les clients archivee /
+                <span>{{ clients?.length }}</span>
             </h4>
             <div
                 class="card mb-25 border-0 rounded-0 bg-white letter-spacing mt-2"
@@ -179,20 +180,20 @@ let headers = ref([
         align: "center",
         key: "label",
         sortable: true,
-        title: "Nom et prenom",
+        title: "Nom et prénom",
     },
 
     {
         align: "center",
         key: "email",
         sortable: true,
-        title: "Email",
+        title: "émail",
     },
     {
         align: "center",
         key: "tel",
         sortable: true,
-        title: "Telephone",
+        title: "Téléphone",
     },
     {
         align: "center",
@@ -229,7 +230,7 @@ let deleteClient = async (client) => {
             clientStore
                 .deleteTrached(client)
                 .then(() => {
-                    Swal.fire("success", "client supprimer avec succès");
+                    Swal.fire("Succès", "client supprimer avec succès");
                     getClients();
                 })
                 .catch((err) => {
@@ -249,7 +250,7 @@ let unarchivedClient = async (client) => {
             clientStore
                 .unarchived(client)
                 .then(() => {
-                    Swal.fire("success", "client disarchiver avec succès");
+                    Swal.fire("Succès", "client disarchiver avec succès");
                     getClients();
                 })
                 .catch((err) => {

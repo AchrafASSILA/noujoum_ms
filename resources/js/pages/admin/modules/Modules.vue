@@ -2,35 +2,49 @@
     <MainLayout>
         <div v-if="loaded">
             <h4 class="mb-5 mb-sm-0 fw-bold">
-                Modules/ <span>{{ modules?.length }}</span>
+                Les modules/ <span>{{ modules?.length }}</span>
             </h4>
-
-            <div class="card p-4 mt-3">
-                <div class="d-flex text-right justify-content-end">
-                    <div
-                        class="input-group search-box"
-                        style="margin-right: 10px"
-                    >
-                        <input
-                            type="text"
-                            class="form-control shadow-none rounded-0 border-0 mr-1"
-                            style="background-color: #f5f4fa"
-                            placeholder="Search here"
-                            v-model="search"
-                        />
+            <div
+                class="card mb-25 border-0 rounded-0 bg-white letter-spacing mt-4"
+            >
+                <div
+                    class="card-head box-shadow bg-white d-lg-flex align-items-center justify-content-between p-15 p-sm-20 p-md-25"
+                >
+                    <div class="d-sm-flex align-items-center"></div>
+                    <div class="d-flex align-items-center">
+                        <form
+                            class="search-box position-relative me-15"
+                            @submit.prevent=""
+                        >
+                            <input
+                                type="text"
+                                v-model="search"
+                                class="form-control shadow-none text-black rounded-0 border-0"
+                                placeholder="Rechercher"
+                            />
+                            <button
+                                type="submit"
+                                class="bg-transparent text-primary transition p-0 border-0"
+                            >
+                                <i class="flaticon-search-interface-symbol"></i>
+                            </button>
+                        </form>
+                        <button
+                            class="default-btn position-relative transition border-0 fw-medium text-white pt-11 pb-11 ps-25 pe-25 pt-md-12 pb-md-12 ps-md-30 pe-md-30 rounded-1 bg-success fs-md-15 fs-lg-16 d-inline-block me-10 mb-10 mb-lg-0 text-decoration-none m-0"
+                            @click="initialize()"
+                            data-bs-toggle="modal"
+                            data-bs-target="#basicModal"
+                            style="
+                                background-color: #06b48a !important;
+                                margin-right: 0 !important;
+                            "
+                        >
+                            Nouveau module
+                            <i
+                                class="flaticon-plus position-relative ms-5 fs-12"
+                            ></i>
+                        </button>
                     </div>
-
-                    <button
-                        type="button"
-                        class="btn btn-primary rounded-0"
-                        @click="initialize()"
-                        data-bs-toggle="modal"
-                        data-bs-target="#basicModal"
-                    >
-                        <i
-                            class="flaticon flaticon-plus fs-30 lh-1 position-relative top-2"
-                        ></i>
-                    </button>
                 </div>
             </div>
             <!-- Button trigger modal -->
@@ -89,7 +103,7 @@
                                                 <i
                                                     class="flaticon-pen lh-1 me-8 position-relative top-1"
                                                 ></i>
-                                                Edit
+                                                modifier
                                             </button>
                                         </li>
                                         <li>
@@ -102,7 +116,7 @@
                                                 <i
                                                     class="flaticon-delete lh-1 me-8 position-relative top-1"
                                                 ></i>
-                                                Delete
+                                                supprimer
                                             </button>
                                         </li>
                                     </ul>
@@ -126,14 +140,14 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 v-if="isEdit" class="modal-title fs-5">
-                                Edit Module
+                                Éditer {{ module.label }}
                             </h1>
                             <h1
                                 v-else
                                 class="modal-title fs-5"
                                 id="addNiveauLabel"
                             >
-                                Add Module
+                                Nouveau module
                             </h1>
                             <button
                                 type="button"
@@ -148,7 +162,7 @@
                                 <label
                                     for="inputTitle"
                                     class="form-label fw-medium"
-                                    >Title</label
+                                    >Titre</label
                                 >
                                 <input
                                     v-model="module.label"
@@ -191,7 +205,7 @@
                                 data-bs-dismiss="modal"
                                 ref="closeBtn"
                             >
-                                Close
+                                Fremer
                             </button>
                             <button
                                 v-if="isEdit"
@@ -199,7 +213,7 @@
                                 @click="updateModule()"
                                 class="btn btn-primary"
                             >
-                                Update module
+                                Modifier
                             </button>
                             <button
                                 v-else
@@ -207,7 +221,7 @@
                                 @click="saveModule()"
                                 class="btn btn-primary"
                             >
-                                Save module
+                                Enregistrer
                             </button>
                         </div>
                     </div>
@@ -261,7 +275,7 @@ let headers = ref([
         align: "center",
         key: "label",
         sortable: true,
-        title: "Title",
+        title: "Titre",
     },
     {
         align: "center",
@@ -303,7 +317,7 @@ let updateModule = async () => {
         .update(module.value)
         .then(() => {
             initialize();
-            Swal.fire("Success", "module updates with success", "");
+            Swal.fire("Succès", "Module mises à jour avec succès.", "");
             closeBtn.value.click();
             getModules();
         })
@@ -317,7 +331,7 @@ let saveModule = async () => {
         .save(module.value)
         .then(() => {
             initialize();
-            Swal.fire("Success", "module save with success", "");
+            Swal.fire("Succès", "Module sauvegardée avec succès", "");
             closeBtn.value.click();
             getModules();
         })
@@ -328,7 +342,7 @@ let saveModule = async () => {
 };
 let deleteModule = async (sec) => {
     await Swal.fire({
-        title: "Do you want to delete this module?",
+        title: "Voulez-vous supprimer ce module?",
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: "Yes",
@@ -337,7 +351,7 @@ let deleteModule = async (sec) => {
             moduleStore
                 .delete(sec)
                 .then(() => {
-                    Swal.fire("success", "module delete with succes");
+                    Swal.fire("Succès", "module supprimée avec succès");
                     getModules();
                 })
                 .catch((err) => {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Fnc;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client\Client;
 use App\Models\Fnc\FncEncaissementInscription;
 use App\Models\Inscription\Inscription;
 use App\Models\Service\Service;
@@ -42,6 +43,36 @@ class FncEncaissementInscriptionController extends Controller
             return response(['msg' => $e->getMessage()], 400);
         }
     }
+    public function getEncaissements(int $id)
+    {
+        try {
+            $inscription = null;
+            $data = [];
+            $data['inscription'] = [];
+
+            $client = Client::find($id);
+            $data['inscription'] = [
+                'id' => $client->inscription()->id,
+                'client' => [
+                    'name' => $client->user->getFullName(),
+                    'image' => $client->user->getImage(),
+                    'tel' => $client->user->tel,
+                    'email' => $client->user->email,
+                ],
+                'affectations' => $client->inscription()->getServices(),
+                'payed' => $client->inscription()->getTotalPayed() . ' DH',
+                'affected' => $client->inscription()->getTotalAffected() . ' DH',
+                'encaissements' => $client->inscription()->getEncaissements(),
+            ];
+
+
+
+            return response($data, 200);
+        } catch (\Exception $e) {
+            //throw $th;
+            return response(['msg' => $e->getMessage()], 400);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -69,13 +100,16 @@ class FncEncaissementInscriptionController extends Controller
             }
             $service = Service::find($request->service);
             $inscription = Inscription::find($request->inscription);
+
+            // return $inscription->promotion;
             if ($service->isMensuel()) {
                 foreach (Service::months() as $key => $item) {
                     $affectation = new FncEncaissementInscription();
                     $affectation->Amount = $request->price;
                     $affectation->Frequenc = $item;
                     $affectation->Service = $service->id;
-                    $affectation->Inscription = $inscription->promotion->id;
+                    $affectation->Inscription = $inscription->id;
+                    $affectation->Promotion = $inscription->promotion->id;
                     $affectation->User = Auth::user()->id;
                     $affectation->save();
                 }
@@ -85,7 +119,8 @@ class FncEncaissementInscriptionController extends Controller
                     $affectation->Amount = $request->price;
                     $affectation->Frequenc = $item;
                     $affectation->Service = $service->id;
-                    $affectation->Inscription = $inscription->promotion->id;
+                    $affectation->Inscription = $inscription->id;
+                    $affectation->Promotion = $inscription->promotion->id;
                     $affectation->User = Auth::user()->id;
                     $affectation->save();
                 }
@@ -93,12 +128,13 @@ class FncEncaissementInscriptionController extends Controller
                 $affectation = new FncEncaissementInscription();
                 $affectation->Amount = $request->price;
                 if ($service->isAnnuell()) {
-                    $affectation->Frequenc = 'Yearly';
+                    $affectation->Frequenc = 'Annuel';
                 } else {
                     $affectation->Frequenc = 'OneTime';
                 }
                 $affectation->Service = $service->id;
-                $affectation->Inscription = $inscription->promotion->id;
+                $affectation->Inscription = $inscription->id;
+                $affectation->Promotion = $inscription->promotion->id;
                 $affectation->User = Auth::user()->id;
                 $affectation->save();
             }
@@ -108,7 +144,7 @@ class FncEncaissementInscriptionController extends Controller
             return response(['msg' => 'Affectation save with succes',], 200);
         } catch (\Exception $e) {
             //throw $e;
-            return response(['msg' => $e->getMessage()], 403);
+            return response(['msg' => [$e->getMessage()]], 403);
         }
     }
 
@@ -147,9 +183,9 @@ class FncEncaissementInscriptionController extends Controller
             $data = array();
             $data['msg'] = 'deleted succesfully';
             $affectation = FncEncaissementInscription::find($id);
-            if ($affectation->lines) {
-                return response(['msg' => 'services deja paye canceler le paiement first'], 404);
-            }
+            // if ($affectation->lines) {
+            //     return response(['msg' => 'services deja paye canceler le paiement first'], 404);
+            // }
             $affectation->delete();
             return response($data, 200);
         } catch (\Exception $e) {

@@ -2,6 +2,7 @@
 
 use App\Exports\ClientsExport;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Fnc\FncEncaissementsController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,6 +20,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 
 Route::get('/impressions-clients', [ClientController::class, 'exportPdf']);
+Route::get('/impressions-encaissement-recu/{id}', [FncEncaissementsController::class, 'recu']);
+Route::get('/impressions-client-badge/{id}', [ClientController::class, 'badge']);
 // Route::get('/exports-clients', function () {
 //     return Excel::download(new ClientsExport, 'cliets.xlsx');
 // });
@@ -26,6 +29,7 @@ Route::get('/exports-clients', [ClientController::class, 'export']);
 
 
 Route::get('/', function () {
+
     return view('welcome');
 })->name('application');
 

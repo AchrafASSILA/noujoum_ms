@@ -9,12 +9,12 @@
                                 <label
                                     class="d-block text-black fw-semibold mb-10"
                                 >
-                                    Nom et prenom
+                                    Nom et prénom
                                 </label>
                                 <input
                                     type="text"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="e.g. Adam"
+                                    placeholder="Nom et prénom"
                                     v-model="client.name"
                                 />
                             </div>
@@ -30,7 +30,7 @@
                                 <input
                                     type="email"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="e.g. adam127704@gmail.com"
+                                    placeholder="Email Address"
                                     v-model="client.email"
                                 />
                             </div>
@@ -40,12 +40,12 @@
                                 <label
                                     class="d-block text-black fw-semibold mb-10"
                                 >
-                                    Telephone
+                                    Téléphone
                                 </label>
                                 <input
                                     type="text"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="e.g. +212 43567289"
+                                    placeholder="Téléphone"
                                     v-model="client.tel"
                                 />
                             </div>
@@ -60,7 +60,7 @@
                                 <input
                                     type="passowrd"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your address here"
+                                    placeholder="Address"
                                     v-model="client.adress"
                                 />
                             </div>
@@ -84,12 +84,12 @@
                                 <label
                                     class="d-block text-black fw-semibold mb-10"
                                 >
-                                    Cin
+                                    CIN
                                 </label>
                                 <input
                                     type="passowrd"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your cin here"
+                                    placeholder="CIN"
                                     v-model="client.cin"
                                 />
                             </div>
@@ -99,14 +99,19 @@
                                 <label
                                     class="d-block text-black fw-semibold mb-10"
                                 >
-                                    region
+                                    Région
                                 </label>
-                                <input
-                                    type="passowrd"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your cin here"
+                                <VueMultiselect
                                     v-model="client.region"
-                                />
+                                    :options="regionsList"
+                                    :multiple="false"
+                                    :close-on-select="true"
+                                    placeholder="Région"
+                                    label="region"
+                                    value="region"
+                                    track-by="region"
+                                >
+                                </VueMultiselect>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -114,12 +119,12 @@
                                 <label
                                     class="d-block text-black fw-semibold mb-10"
                                 >
-                                    province
+                                    Province
                                 </label>
                                 <input
                                     type="passowrd"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your cin here"
+                                    placeholder="Province"
                                     v-model="client.province"
                                 />
                             </div>
@@ -129,14 +134,20 @@
                                 <label
                                     class="d-block text-black fw-semibold mb-10"
                                 >
-                                    ville
+                                    Ville
                                 </label>
-                                <input
-                                    type="passowrd"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your ville here"
+
+                                <VueMultiselect
                                     v-model="client.ville"
-                                />
+                                    :options="citiesList"
+                                    :multiple="false"
+                                    :close-on-select="true"
+                                    placeholder="Région"
+                                    label="ville"
+                                    value="ville"
+                                    track-by="ville"
+                                >
+                                </VueMultiselect>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -144,12 +155,12 @@
                                 <label
                                     class="d-block text-black fw-semibold mb-10"
                                 >
-                                    arrondissement
+                                    Arrondissement
                                 </label>
                                 <input
                                     type="passowrd"
                                     class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="add your arrondissement here"
+                                    placeholder="Arrondissement"
                                     v-model="client.arrondissement"
                                 />
                             </div>
@@ -160,11 +171,11 @@
                                     inset
                                     color="success"
                                     label="Handicap"
-                                    v-model="client.active"
+                                    v-model="client.handicap"
                                 ></v-switch>
                             </div>
                         </div>
-                        <div v-if="client.active" class="row">
+                        <div v-if="client.handicap" class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-15 mb-sm-20 mb-md-25">
                                     <label
@@ -175,7 +186,7 @@
                                     <input
                                         type="text"
                                         class="form-control shadow-none rounded-0 text-black"
-                                        placeholder="add users designation"
+                                        placeholder=""
                                         v-model="client.typeHandicap"
                                     />
                                 </div>
@@ -191,7 +202,7 @@
                                     <input
                                         type="text"
                                         class="form-control shadow-none rounded-0 text-black"
-                                        placeholder="http//website.com"
+                                        placeholder=""
                                         v-model="client.causeHandicap"
                                     />
                                 </div>
@@ -220,7 +231,7 @@
                                     <input
                                         type="text"
                                         class="form-control shadow-none rounded-0 text-black"
-                                        placeholder="http//website.com"
+                                        placeholder=""
                                         v-model="client.autonomie"
                                     />
                                 </div>
@@ -228,7 +239,7 @@
                         </div>
                         <div class="col-md-12">
                             <label class="d-block text-black fw-semibold mb-10">
-                                Add Social Media Link
+                                Ajouter un lien vers les réseaux sociaux
                             </label>
                             <div class="row">
                                 <div class="col-md-6">
@@ -309,7 +320,7 @@
                                             <input
                                                 type="text"
                                                 class="form-control shadow-none rounded-0 text-black"
-                                                placeholder="instagram@example.com"
+                                                placeholder="Whatsapp"
                                                 v-model="client.whatsapp"
                                             />
                                         </div>
@@ -355,14 +366,15 @@
                                 >
                                     Enregistrer
                                 </button>
-                                <button
+                                <router-link
                                     type="button"
+                                    to="/clients"
                                     class="bg-transparent p-0 border-0 text-danger lh-1 fw-medium"
                                 >
                                     <span class="position-relative"
                                         >Cancel</span
                                     >
-                                </button>
+                                </router-link>
                             </div>
                         </div>
                         <Errors></Errors>
@@ -383,7 +395,9 @@ import Errors from "../../../Components/ui/Errors.vue";
 import { useErrorStore } from "../../../store/error";
 import { useClientStore } from "../../../store/client";
 import { useRouter } from "vue-router";
-
+import VueMultiselect from "vue-multiselect";
+import citiesList from "../../../data/cities";
+import regionsList from "../../../data/regions";
 // lifecycle
 onMounted(async () => {
     imageUrl.value =
@@ -411,7 +425,7 @@ let client = ref({
     instagram: "",
     tiktok: "",
     whatsapp: "",
-    handicap: true,
+    handicap: false,
     typeHandicap: "",
     dateHandicap: "",
     causeHandicap: "",
@@ -433,7 +447,7 @@ let saveClient = async () => {
     await clientStore
         .save(client.value)
         .then(() => {
-            Swal.fire("Success", "client enregistré avec succès", "");
+            Swal.fire("Succès", "Client sauvegardée avec succès", "");
             router.push("/clients");
         })
         .catch((err) => {

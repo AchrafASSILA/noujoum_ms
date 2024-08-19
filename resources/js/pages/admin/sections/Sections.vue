@@ -2,35 +2,50 @@
     <MainLayout>
         <div v-if="loaded">
             <h4 class="mb-5 mb-sm-0 fw-bold">
-                Sections / <span>{{ sections?.length }}</span>
+                Les sections / <span>{{ sections?.length }}</span>
             </h4>
 
-            <div class="card p-4 mt-3">
-                <div class="d-flex text-right justify-content-end">
-                    <div
-                        class="input-group search-box"
-                        style="margin-right: 10px"
-                    >
-                        <input
-                            type="text"
-                            class="form-control shadow-none rounded-0 border-0 mr-1"
-                            style="background-color: #f5f4fa"
-                            placeholder="Search here"
-                            v-model="search"
-                        />
+            <div
+                class="card mb-25 border-0 rounded-0 bg-white letter-spacing mt-4"
+            >
+                <div
+                    class="card-head box-shadow bg-white d-lg-flex align-items-center justify-content-between p-15 p-sm-20 p-md-25"
+                >
+                    <div class="d-sm-flex align-items-center"></div>
+                    <div class="d-flex align-items-center">
+                        <form
+                            class="search-box position-relative me-15"
+                            @submit.prevent=""
+                        >
+                            <input
+                                type="text"
+                                v-model="search"
+                                class="form-control shadow-none text-black rounded-0 border-0"
+                                placeholder="Rechercher"
+                            />
+                            <button
+                                type="submit"
+                                class="bg-transparent text-primary transition p-0 border-0"
+                            >
+                                <i class="flaticon-search-interface-symbol"></i>
+                            </button>
+                        </form>
+                        <button
+                            class="default-btn position-relative transition border-0 fw-medium text-white pt-11 pb-11 ps-25 pe-25 pt-md-12 pb-md-12 ps-md-30 pe-md-30 rounded-1 bg-success fs-md-15 fs-lg-16 d-inline-block me-10 mb-10 mb-lg-0 text-decoration-none m-0"
+                            @click="initialize()"
+                            data-bs-toggle="modal"
+                            data-bs-target="#basicModal"
+                            style="
+                                background-color: #06b48a !important;
+                                margin-right: 0 !important;
+                            "
+                        >
+                            Nouvelle section
+                            <i
+                                class="flaticon-plus position-relative ms-5 fs-12"
+                            ></i>
+                        </button>
                     </div>
-
-                    <button
-                        type="button"
-                        class="btn btn-primary rounded-0"
-                        @click="initialize()"
-                        data-bs-toggle="modal"
-                        data-bs-target="#basicModal"
-                    >
-                        <i
-                            class="flaticon flaticon-plus fs-30 lh-1 position-relative top-2"
-                        ></i>
-                    </button>
                 </div>
             </div>
             <!-- Button trigger modal -->
@@ -54,6 +69,15 @@
                                     class="form-check d-flex align-items-center mb-0"
                                 >
                                     {{ item.label }}
+                                </div>
+                            </th>
+                            <th
+                                class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0"
+                            >
+                                <div
+                                    class="form-check d-flex align-items-center mb-0"
+                                >
+                                    {{ item.activeLabel }}
                                 </div>
                             </th>
                             <th
@@ -93,7 +117,7 @@
                                                 <i
                                                     class="flaticon-pen lh-1 me-8 position-relative top-1"
                                                 ></i>
-                                                Edit
+                                                modifier
                                             </button>
                                         </li>
                                         <li>
@@ -106,7 +130,7 @@
                                                 <i
                                                     class="flaticon-delete lh-1 me-8 position-relative top-1"
                                                 ></i>
-                                                Delete
+                                                supprimer
                                             </button>
                                         </li>
                                     </ul>
@@ -130,14 +154,14 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 v-if="isEdit" class="modal-title fs-5">
-                                Edit Section
+                                Éditer {{ section.label }}
                             </h1>
                             <h1
                                 v-else
                                 class="modal-title fs-5"
                                 id="addNiveauLabel"
                             >
-                                Add Section
+                                Nouvelle section
                             </h1>
                             <button
                                 type="button"
@@ -152,7 +176,7 @@
                                 <label
                                     for="inputTitle"
                                     class="form-label fw-medium"
-                                    >Title</label
+                                    >Titre</label
                                 >
                                 <input
                                     v-model="section.label"
@@ -160,14 +184,14 @@
                                     class="form-control shadow-none text-black fs-md-15 fs-lg-16"
                                     id="inputTitle"
                                     aria-describedby="TitleHelp"
-                                    placeholder="Enter title"
+                                    placeholder="Entrer titre"
                                 />
                             </div>
                             <div class="mb-mb-15 mb-md-20">
                                 <label
                                     for="inputTitle"
                                     class="form-label fw-medium"
-                                    >Enabled</label
+                                    >Active</label
                                 >
                                 <v-switch
                                     inset
@@ -187,11 +211,11 @@
                                         class="preview-image"
                                     />
                                     <span class="d-block text-muted">
-                                        Drop Files Here Or
+                                        Déposez les fichiers ici ou
                                         <span
                                             class="text-black fw-medium position-relative"
                                         >
-                                            Click To Upload
+                                            Cliquez pour télécharger
                                         </span>
                                     </span>
                                     <input
@@ -212,7 +236,7 @@
                                 data-bs-dismiss="modal"
                                 ref="closeBtn"
                             >
-                                Close
+                                Fermer
                             </button>
                             <button
                                 v-if="isEdit"
@@ -220,7 +244,7 @@
                                 @click="updateSection()"
                                 class="btn btn-primary"
                             >
-                                Update section
+                                Modifier
                             </button>
                             <button
                                 v-else
@@ -228,7 +252,7 @@
                                 @click="saveSection()"
                                 class="btn btn-primary"
                             >
-                                Save section
+                                Enregistrer
                             </button>
                         </div>
                     </div>
@@ -279,7 +303,13 @@ let headers = ref([
         align: "start",
         key: "label",
         sortable: true,
-        title: "Title",
+        title: "Titre",
+    },
+    {
+        align: "start",
+        key: "active",
+        sortable: true,
+        title: "Active",
     },
     {
         align: "center",
@@ -310,7 +340,7 @@ let updateSection = async () => {
         .update(section.value)
         .then(() => {
             initialize();
-            Swal.fire("Success", "section updates with success", "");
+            Swal.fire("Success", "Section mises à jour avec succès", "");
             closeBtn.value.click();
             getSections();
         })
@@ -324,7 +354,7 @@ let saveSection = async () => {
         .save(section.value)
         .then(() => {
             initialize();
-            Swal.fire("Success", "section save with success", "");
+            Swal.fire("Success", "Section sauvegardée avec succès", "");
             closeBtn.value.click();
             getSections();
         })
@@ -335,7 +365,7 @@ let saveSection = async () => {
 };
 let deleteSection = async (sec) => {
     await Swal.fire({
-        title: "Do you want to delete this section?",
+        title: "Voulez-vous supprimer cette section ?",
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: "Yes",
@@ -344,7 +374,7 @@ let deleteSection = async (sec) => {
             sectionStore
                 .delete(sec)
                 .then(() => {
-                    Swal.fire("success", "sections delete with succes");
+                    Swal.fire("success", "section supprimée avec succès");
                     getSections();
                 })
                 .catch((err) => {
