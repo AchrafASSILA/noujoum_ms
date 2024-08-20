@@ -22,6 +22,7 @@ class SectionController extends Controller
             //code...
             $list = Section::all();
             $data = [];
+            $data['sections'] = [];
             foreach ($list as $section) {
                 # code...
                 $data['sections'][] = [

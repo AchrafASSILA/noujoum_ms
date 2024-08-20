@@ -17,5 +17,14 @@
     <!-- Custom styles for all pages-->
     <link href="{{asset('assets/css/powerfull.css')}}" rel="stylesheet">
 </body>
+<style>
+    .fc-timegrid-slot {
+        height: 50px !important
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>
 
 </html>

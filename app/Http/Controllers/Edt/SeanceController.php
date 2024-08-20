@@ -7,6 +7,7 @@ use App\Models\Edt\Seance;
 use App\Models\Module\Module;
 use App\Models\Sale\Sale;
 use App\Models\Section\Section;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -22,19 +23,39 @@ class SeanceController extends Controller
         try {
             $days = Seance::days();
             $seances = [];
-            // foreach ($days as $key => $item) {
-            // where("Day", $key)
+
             $list = Seance::get();
             foreach ($list as $item) {
+                $day  = $item->Day;
+                $days = array(0 => 'Monday', 1 => 'Tuesday', 2 => 'Wednesday', 3 => 'Thursday', 4 => 'Friday', 5 => 'Saturday', 6 => 'Sunday');
+                $date =  date('Y-m-d', strtotime($days[$day], strtotime('last Monday')));
                 $seances[] = [
-                    'id' => $item->get('ID'),
+                    'id' => $item->id,
+                    'seanceId' => $item->id,
                     'title' => $item->Label,
-                    'start' =>  date('Y-m-'  .  str_pad($item->Day, 2, 0, STR_PAD_LEFT)) . ' ' . date('H:i:s', strtotime($item->Start)),
-                    'end' => date('Y-m-'  . str_pad($item->Day, 2, 0, STR_PAD_LEFT))  . ' ' . date('H:i:s', strtotime($item->End)),
-                    'color' => '',
-                    'borderColor' => '',
+                    'start' => $date . ' ' . date('H:i:s', strtotime($item->Start)),
+                    'end' => $date . ' ' . date('H:i:s', strtotime($item->End)),
+                    'startReal' => date('H:i', strtotime($item->Start)),
+                    'endReal' => date('H:i', strtotime($item->End)),
+                    'day' => $item->getDay(),
+                    'coach' => [
+                        'id' => Auth::user()->id,
+                        'name' => Auth::user()->getFullname(),
+                        'image' => Auth::user()->getImage(),
+                    ],
+                    // 'start' =>  date('Y-m-'  .  str_pad($item->Day, 2, 0, STR_PAD_LEFT)) . ' ' . date('H:i:s', strtotime($item->Start)),
+                    // 'end' => date('Y-m-'  . str_pad($item->Day, 2, 0, STR_PAD_LEFT))  . ' ' . date('H:i:s', strtotime($item->End)),
+                    'color' => '#fff',
+                    'sale' => [
+                        'id' => $item->sale->id,
+                        'label' => $item->sale->Label,
+                    ],
+                    'module' => [
+                        'id' => $item->module->id,
+                        'label' => $item->module->Label,
+                    ],
+                    'borderColor' => '#fff',
                     'textColor' =>  "#fff",
-                    'imagerul' => '',
                 ];
             }
             // }
@@ -57,27 +78,35 @@ class SeanceController extends Controller
                 'sections' => [],
                 'sales' => [],
                 'modules' => [],
+                'coachs' => [],
             ];
             $days = Seance::days();
             $sections = Section::all();
             $modules = Module::all();
             $sales = Sale::all();
+            $coachs = User::where('role', 5)->get();
             foreach ($sections as   $item) {
                 $data['sections'][] = [
-                    'id' => $item->get('ID'),
+                    'id' => $item->id,
                     'label' => $item->Label,
                 ];
             }
             foreach ($sales as   $item) {
                 $data['sales'][] = [
-                    'id' => $item->get('ID'),
+                    'id' => $item->id,
                     'label' => $item->Label,
                 ];
             }
             foreach ($modules as   $item) {
                 $data['modules'][] = [
-                    'id' => $item->get('ID'),
+                    'id' => $item->id,
                     'label' => $item->Label,
+                ];
+            }
+            foreach ($coachs as   $item) {
+                $data['coachs'][] = [
+                    'id' => $item->id,
+                    'name' => $item->getFullName(),
                 ];
             }
             $data['days'] = $days;
@@ -97,23 +126,24 @@ class SeanceController extends Controller
             //code...
             $validation = Validator::make($request->all(), [
                 'day' => 'required|integer',
-                'start' => 'required|time',
-                'end' => 'required|time',
-                'section' => 'required',
+                'start' => 'required',
+                'end' => 'required',
+                // 'section' => 'required',
                 'module' => 'required',
+                'coach' => 'required',
             ]);
             if ($validation->messages()->all()) {
-                return response(['msg' => $validation->messages()->all()], 403);
+                return response(['msg' => [$validation->messages()->all()]], 403);
             }
-
+            $module = Module::find($request->module);
             $seance = Seance::create([
-                'Label' => $request->label,
+                'Label' => $module->Label,
                 'Date' => date("Y-m-d H:i:s"),
                 'Day' => $request->day,
                 'Start' => $request->start,
                 'End' => $request->end,
                 'Sale' => $request->sale,
-                'Section' => $request->section,
+                'Section' => $module->section->id,
                 'Module' => $request->module,
                 'UserBy' => Auth::user()->id,
             ]);
@@ -149,23 +179,24 @@ class SeanceController extends Controller
             $seance =  Seance::find($id);
             $validation = Validator::make($request->all(), [
                 'day' => 'required|integer',
-                'start' => 'required|time',
-                'end' => 'required|time',
-                'section' => 'required',
+                'start' => 'required',
+                'end' => 'required',
+                // 'section' => 'required',
                 'module' => 'required',
+                'coach' => 'required',
             ]);
             if ($validation->messages()->all()) {
-                return response(['msg' => $validation->messages()->all()], 403);
+                return response(['msg' => [$validation->messages()->all()]], 403);
             }
-
+            $module = Module::find($request->module);
             $seance->update([
-                'Label' => $request->label,
+                'Label' =>                 $module->Label,
                 'Date' => date("Y-m-d H:i:s"),
                 'Day' => $request->day,
                 'Start' => $request->start,
                 'End' => $request->end,
                 'Sale' => $request->sale,
-                'Section' => $request->section,
+                'Section' => $module->section->id,
                 'Module' => $request->module,
                 'UserBy' => Auth::user()->id,
             ]);

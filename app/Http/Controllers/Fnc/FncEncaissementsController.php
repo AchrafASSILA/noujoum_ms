@@ -76,6 +76,7 @@ class FncEncaissementsController extends Controller
             $encaissement->Promotion = $inscription->promotion->id;
             $encaissement->RecuNumber = FncEncaissements::getRecuNumber();
             $encaissement->OperationNumber = FncEncaissements::getOperationNumber();
+            $encaissement->Mode ='espece';
             $encaissement->save();
             // foreach ($request->services as $key => $item) {
             //     [$id, $amount, $frequenc] = explode('_', $item);

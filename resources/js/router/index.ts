@@ -15,6 +15,7 @@ import Modules from "../pages/admin/modules/Modules.vue";
 import Calendar from "../pages/admin/edt/Calendar.vue";
 import Encaissements from "../pages/admin/encaissements/Encaissements.vue";
 import NewEncaissement from "../pages/admin/encaissements/NewEncaissement.vue";
+import EcronCalendar from "../pages/admin/edt/EcronCalendar.vue";
 
 const routes = [
     {
@@ -75,6 +76,15 @@ const routes = [
         path: "/edt",
         name: "Edt",
         component: Calendar,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/edt-full",
+        name: "EdtFull",
+        component: EcronCalendar,
         meta: {
             requiresAuth: true,
             roles: ["pinia", "founder"],

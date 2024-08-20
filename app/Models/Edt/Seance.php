@@ -35,7 +35,73 @@ class Seance extends Model
     // functions
     public static function days()
     {
-        $days = [1 => 'lundi', 2 => 'Mardi', 3 => 'Mercredi', 4 => 'Jeudi', 5 => 'Vendredi', 6 => 'Samedi', 7 => 'Dimanche'];
+        $days = [
+            [
+                'id' => 0,
+                'label' => 'Lundi',
+            ],
+            [
+                'id' => 1,
+                'label' => 'Mardi',
+            ],
+            [
+                'id' => 2,
+                'label' => 'Mercredi',
+            ],
+            [
+                'id' => 3,
+                'label' => 'Jeudi',
+            ],
+            [
+                'id' => 4,
+                'label' => 'Vendredi',
+            ],
+            [
+                'id' => 5,
+                'label' => 'Samedi',
+            ],
+            [
+                'id' => 6,
+                'label' => 'Dimanche',
+            ],
+
+
+        ];
         return $days;
+    }
+    public function getDay()
+    {
+        $days = [
+
+            0 => [
+                'id' => 0,
+                'label' => 'Lundi',
+            ],
+            1 => [
+                'id' => 1,
+                'label' => 'Mardi',
+            ],
+            2 => [
+                'id' => 2,
+                'label' => 'Mercredi',
+            ],
+            3 => [
+                'id' => 3,
+                'label' => 'Jeudi',
+            ],
+            4 => [
+                'id' => 4,
+                'label' => 'Vendredi',
+            ],
+            5 => [
+                'id' => 5,
+                'label' => 'Samedi',
+            ],
+            6 => [
+                'id' => 6,
+                'label' => 'Dimanche',
+            ],
+        ];
+        return $days[$this->Day];
     }
 }

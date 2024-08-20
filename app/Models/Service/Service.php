@@ -20,11 +20,11 @@ class Service extends Model
     // functions 
     public function getIcon()
     {
-        $path =   'http://127.0.0.1:8000/storage/services/'  . $this->Icon;
+        $path =   '/storage/services/'  . $this->Icon;
         if ($this->Icon) {
             return $path;
         }
-        return 'http://127.0.0.1:8000/storage/services/saving.png';
+        return '/storage/services/saving.png';
     }
     public function isTrimestriel()
     {

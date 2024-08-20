@@ -17,6 +17,7 @@ class UserController extends Controller
             //code...
             $list = User::where('role', '<>', 1)->where('role', '<>', 2)->orderBy('created_at', 'DESC')->get();
             $data = [];
+            $data['users'] = [];
             foreach ($list as $user) {
                 # code...
                 $data['users'][] = [
@@ -24,11 +25,14 @@ class UserController extends Controller
                     'name' => $user->getFullName(),
                     'email' => $user->email,
                     'tel' => $user->tel,
-                    'roleId' => $user->roles->id,
+                    'role' => [
+                        'id'=>$user->roles->id,
+                        'Label'=>$user->roles->Label
+                    ],
+                    'active' => $user->active ?true:false,
                     'roleLabel' => $user->roles->Label,
                     'adress' => $user->adress,
-                    'age' => $user->age,
-                    'active' => $user->Active ? true : false,
+                    'age' => $user->age, 
                     'image' => $user->getImage(),
                 ];
             }
@@ -59,8 +63,9 @@ class UserController extends Controller
             $user->role = $request->role;
             $user->age = $request->age;
             $user->tel = $request->tel;
-            $user->active = $request->active;
+            $user->active = $request->active == 'true' ? 1 :0;
             $user->email = $request->email;
+            $user->password = Hash::make($request->password);
             $user->save();
 
             if ($request->hasFile('file')) {
@@ -96,8 +101,9 @@ class UserController extends Controller
             $user->name = $request->name ?: null;
             $user->adress = $request->adress ?: null;
             $user->age = $request->age ?: null;
+            $user->role = $request->role;
             $user->tel = $request->tel ?: null;
-            $user->active = $request->active ?: null;
+            $user->active = $request->active == 'true' ? 1 :0;
             $user->email = $request->email ?: null;
             $user->save();
             if ($request->hasFile('file')) {

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Illuminate\Support\Facades\Hash;
 class ClientController extends Controller
 {
     /**
@@ -107,6 +108,7 @@ class ClientController extends Controller
             $user->tel = $request->tel;
             $user->active = $request->active;
             $user->email = $request->email;
+            $user->password = Hash::make( $request->email);
             $user->save();
             // save client and link with user
             $client = Client::create([
@@ -168,9 +170,9 @@ class ClientController extends Controller
                 'province' => $client->Province,
                 'ville' => $client->Ville,
                 'arrondissement' => $client->Arrondissement,
-                'facebook' => $client->Facebook,
-                'instagram' => $client->Instagram,
-                'tiktok' => $client->Tiktok,
+                'facebook' => $client->Facebook ?: '-',
+                'instagram' => $client->Instagram ?: '-',
+                'tiktok' => $client->Tiktok ?: '-',
                 'handicap' => $client->Handicap ? true : false,
                 'handicapLabel' => $client->Handicap ? 'oui' : 'non',
                 'typeHandicap' => $client->TypeHandicap ?: '-',
@@ -254,7 +256,7 @@ class ClientController extends Controller
                 'Tiktok' => $request->tiktok != 'null' ? $request->tiktok : null,
                 'Handicap' => $request->handicap == 'true' ? 1 : 0,
                 'TypeHandicap' => $request->typeHandicap != 'null' ? $request->typeHandicap : null,
-                'DateHandicap' =>  $request->dateHandicap != 'null' ? $request->dateHandicap : null,
+                'DateHandicap' =>  $request->dateHandicap != 'null' &&  $request->dateHandicap != '-' ? $request->dateHandicap : null,
                 'CauseHandicap' => $request->causeHandicap != 'null' ? $request->causeHandicap : null,
                 'Autonomie' => $request->autonomie != 'null' ? $request->autonomie : null,
             ]);

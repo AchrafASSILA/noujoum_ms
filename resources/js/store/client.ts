@@ -28,6 +28,16 @@ export const useClientStore = defineStore("client", {
                     console.log(err);
                 });
         },
+        async editClient(id: number) {
+            await axiosClient
+                .get("/clients/" + id + '/edit')
+                .then((res: any) => {
+                    this.client = res.data?.client;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
         async getArchivedClients() {
             await axiosClient
                 .get("/archived-clients")

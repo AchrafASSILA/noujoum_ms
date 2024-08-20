@@ -45,7 +45,7 @@ class Inscription extends Model
         $list = [];
         $affectations = $this->encaissements_affectations;
         foreach ($affectations as  $affectation) {
-            $payed = FncEncaissementLine::where('Affectation', $affectation->id)->sum('Amount');
+            $payed = FncEncaissementLine::whereNull('Canceled')->where('Affectation', $affectation->id)->sum('Amount');
 
             // $list[$affectation->service->id][] = [
             $list[] = [
@@ -53,7 +53,7 @@ class Inscription extends Model
                 'service_id' => $affectation->service->id,
                 'service_label' => $affectation->service->Label,
                 'service_frequenc' => $affectation->service->Frequenc,
-                'service_periode' => $affectation->Frequenc,
+                'service_periode' => $affectation->getFrequencTitle(),
                 'amount' => $affectation->Amount . ' DH',
                 'payed' => $payed . ' DH',
                 'payedAmount' => $payed,
@@ -76,7 +76,8 @@ class Inscription extends Model
     public function getEncaissements()
     {
         $encaissements = [];
-        $list = $this->encaissements;
+        $list =       $this->encaissements;
+        
         foreach ($list as $item) {
             $encaissements[] = [
                 'id' => $item->id,

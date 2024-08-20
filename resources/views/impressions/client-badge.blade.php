@@ -31,16 +31,21 @@
         <tr align="center">
             <td width="40%">
 
-                <img src="<?php  echo  'https://cdn-icons-png.freepik.com/512/3177/3177440.png';
+                    <img src="<?php  echo  $client->user->getImage();
                             ?>" style="border-radius: 50%; height: 90px; width: 90px;">
+                            
                 <br>
                 
                 <span style="font-size: 12px!important; text-align: center;"><span class="val"><?php echo strtoupper($client->inscription() ? $client->inscription()->promotion->Label : '-') ?></span></span>
             </td>
             <td width="60%" align="left">
-                <span class="information-title" style="height:20%">Nom : <span class="val" style="text-align: left;"><?php echo strtoupper($client->user->getFullName()) ?></span></span>
+                <span class="information-title" style="height:20%">Nom et prénom: <span class="val" style="text-align: left;"><?php echo strtoupper($client->user->getFullName()) ?></span></span>
                 <br>
-                  <span class="information-title" style="height:20%">Téléphone : <span class="val" style="text-align: left;"><?php echo $client->user->tel?></span></span>
+                <br>
+                <span class="information-title" style="height:20%">Téléphone : <span class="val" style="text-align: left;"><?php echo $client->user->tel?></span></span>
+                <br>
+                <br>
+                  <span class="information-title" style="height:20%">Promotion : <span class="val" style="text-align: left;"><?php echo $client->inscription()->promotion->Year?></span></span>
             </td>
         </tr>
     </tbody>

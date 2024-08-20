@@ -6,233 +6,140 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
+                                <label class="d-block text-black fw-semibold mb-10">
                                     Nom et prenom
                                 </label>
-                                <input
-                                    type="text"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="e.g. Adam"
-                                    v-model="client.name"
-                                />
+                                <input type="text" class="form-control shadow-none rounded-0 text-black"
+                                    placeholder="e.g. Adam" v-model="client.name" />
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
+                                <label class="d-block text-black fw-semibold mb-10">
                                     Email Address
                                 </label>
-                                <input
-                                    type="email"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="e.g. adam127704@gmail.com"
-                                    v-model="client.email"
-                                />
+                                <input type="email" class="form-control shadow-none rounded-0 text-black"
+                                    placeholder="e.g. adam127704@gmail.com" v-model="client.email" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
+                                <label class="d-block text-black fw-semibold mb-10">
                                     Telephone
                                 </label>
-                                <input
-                                    type="text"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="e.g. +212 43567289"
-                                    v-model="client.tel"
-                                />
+                                <input type="text" class="form-control shadow-none rounded-0 text-black"
+                                    placeholder="e.g. +212 43567289" v-model="client.tel" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
+                                <label class="d-block text-black fw-semibold mb-10">
                                     Address
                                 </label>
-                                <input
-                                    type="passowrd"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="Adress"
-                                    v-model="client.adress"
-                                />
+                                <input type="passowrd" class="form-control shadow-none rounded-0 text-black"
+                                    placeholder="Adress" v-model="client.adress" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
+                                <label class="d-block text-black fw-semibold mb-10">
                                     Date de naissance
                                 </label>
-                                <input
-                                    class="form-select shadow-none fw-semibold rounded-0"
-                                    type="date"
-                                    v-model="client.dateNaissance"
-                                />
+                                <input class="form-select shadow-none fw-semibold rounded-0" type="date"
+                                    v-model="client.dateNaissance" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
+                                <label class="d-block text-black fw-semibold mb-10">
                                     CIN
                                 </label>
-                                <input
-                                    type="passowrd"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="Cin"
-                                    v-model="client.cin"
-                                />
+                                <input type="passowrd" class="form-control shadow-none rounded-0 text-black"
+                                    placeholder="Cin" v-model="client.cin" />
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
+                                <label class="d-block text-black fw-semibold mb-10">
                                     region
                                 </label>
-                                <VueMultiselect
-                                    v-model="client.region"
-                                    :options="regionsList"
-                                    :multiple="false"
-                                    :close-on-select="true"
-                                    placeholder="Région"
-                                    label="region"
-                                    value="region"
-                                    track-by="region"
-                                >
+                                <VueMultiselect v-model="client.region" :options="regionsList" :multiple="false"
+                                    :close-on-select="true" placeholder="Région" label="region" value="region"
+                                    track-by="region">
                                 </VueMultiselect>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
+                                <label class="d-block text-black fw-semibold mb-10">
                                     province
                                 </label>
-                                <input
-                                    type="passowrd"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="province"
-                                    v-model="client.province"
-                                />
+                                <input type="passowrd" class="form-control shadow-none rounded-0 text-black"
+                                    placeholder="province" v-model="client.province" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
+                                <label class="d-block text-black fw-semibold mb-10">
                                     ville
                                 </label>
-                                <VueMultiselect
-                                    v-model="client.ville"
-                                    :options="citiesList"
-                                    :multiple="false"
-                                    :close-on-select="true"
-                                    placeholder="Région"
-                                    label="ville"
-                                    value="ville"
-                                    track-by="ville"
-                                >
+                                <VueMultiselect v-model="client.ville" :options="citiesList" :multiple="false"
+                                    :close-on-select="true" placeholder="Région" label="ville" value="ville"
+                                    track-by="ville">
                                 </VueMultiselect>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <label
-                                    class="d-block text-black fw-semibold mb-10"
-                                >
+                                <label class="d-block text-black fw-semibold mb-10">
                                     arrondissement
                                 </label>
-                                <input
-                                    type="passowrd"
-                                    class="form-control shadow-none rounded-0 text-black"
-                                    placeholder="arrondissement"
-                                    v-model="client.arrondissement"
-                                />
+                                <input type="passowrd" class="form-control shadow-none rounded-0 text-black"
+                                    placeholder="arrondissement" v-model="client.arrondissement" />
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                <v-switch
-                                    inset
-                                    color="success"
-                                    label="Handicap"
-                                    v-model="client.handicap"
-                                ></v-switch>
+                                <v-switch inset color="success" label="Handicap" v-model="client.handicap"></v-switch>
                             </div>
                         </div>
                         <div v-if="client.handicap" class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                    <label
-                                        class="d-block text-black fw-semibold mb-10"
-                                    >
+                                    <label class="d-block text-black fw-semibold mb-10">
                                         Type Handicap
                                     </label>
-                                    <input
-                                        type="text"
-                                        class="form-control shadow-none rounded-0 text-black"
-                                        placeholder=""
-                                        v-model="client.typeHandicap"
-                                    />
+                                    <input type="text" class="form-control shadow-none rounded-0 text-black"
+                                        placeholder="" v-model="client.typeHandicap" />
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                    <label
-                                        class="d-block text-black fw-semibold mb-10"
-                                    >
+                                    <label class="d-block text-black fw-semibold mb-10">
                                         autonomie
                                     </label>
-                                    <input
-                                        type="text"
-                                        class="form-control shadow-none rounded-0 text-black"
-                                        placeholder=""
-                                        v-model="client.autonomie"
-                                    />
+                                    <input type="text" class="form-control shadow-none rounded-0 text-black"
+                                        placeholder="" v-model="client.autonomie" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                    <label
-                                        class="d-block text-black fw-semibold mb-10"
-                                    >
+                                    <label class="d-block text-black fw-semibold mb-10">
                                         Date d'handicap
                                     </label>
-                                    <input
-                                        class="form-select shadow-none fw-semibold rounded-0"
-                                        type="date"
-                                        v-model="client.dateHandicap"
-                                    />
+                                    <input class="form-select shadow-none fw-semibold rounded-0" type="date"
+                                        v-model="client.dateHandicap" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-15 mb-sm-20 mb-md-25">
-                                    <label
-                                        class="d-block text-black fw-semibold mb-10"
-                                    >
+                                    <label class="d-block text-black fw-semibold mb-10">
                                         cause handicap
                                     </label>
-                                    <input
-                                        type="text"
-                                        class="form-control shadow-none rounded-0 text-black"
-                                        placeholder=""
-                                        v-model="client.causeHandicap"
-                                    />
+                                    <input type="text" class="form-control shadow-none rounded-0 text-black"
+                                        placeholder="" v-model="client.causeHandicap" />
                                 </div>
                             </div>
                         </div>
@@ -242,137 +149,76 @@
                             </label>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div
-                                        class="form-group mb-15 mb-sm-20 mb-md-25"
-                                    >
+                                    <div class="form-group mb-15 mb-sm-20 mb-md-25">
                                         <div class="input-group">
-                                            <span
-                                                class="input-group-text rounded-0 fs-14 fw-bold text-primary"
-                                            >
-                                                <i
-                                                    class="ph-bold ph-facebook-logo lh-1 fs-md-18"
-                                                ></i>
+                                            <span class="input-group-text rounded-0 fs-14 fw-bold text-primary">
+                                                <i class="ph-bold ph-facebook-logo lh-1 fs-md-18"></i>
                                             </span>
-                                            <input
-                                                type="text"
-                                                class="form-control shadow-none rounded-0 text-black"
-                                                placeholder="facebook@example.com"
-                                                v-model="client.facebook"
-                                            />
+                                            <input type="text" class="form-control shadow-none rounded-0 text-black"
+                                                placeholder="facebook@example.com" v-model="client.facebook" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div
-                                        class="form-group mb-15 mb-sm-20 mb-md-25"
-                                    >
+                                    <div class="form-group mb-15 mb-sm-20 mb-md-25">
                                         <div class="input-group">
-                                            <span
-                                                class="input-group-text rounded-0 fs-14 fw-bold text-primary"
-                                            >
-                                                <i
-                                                    class="ph-fill ph-tiktok-logo lh-1 fs-md-18"
-                                                ></i>
+                                            <span class="input-group-text rounded-0 fs-14 fw-bold text-primary">
+                                                <i class="ph-fill ph-tiktok-logo lh-1 fs-md-18"></i>
                                             </span>
-                                            <input
-                                                type="text"
-                                                class="form-control shadow-none rounded-0 text-black"
-                                                placeholder="tiktok@example.com"
-                                                v-model="client.tiktok"
-                                            />
+                                            <input type="text" class="form-control shadow-none rounded-0 text-black"
+                                                placeholder="tiktok@example.com" v-model="client.tiktok" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div
-                                        class="form-group mb-15 mb-sm-20 mb-md-25"
-                                    >
+                                    <div class="form-group mb-15 mb-sm-20 mb-md-25">
                                         <div class="input-group">
-                                            <span
-                                                class="input-group-text rounded-0 fs-14 fw-bold text-primary"
-                                            >
-                                                <i
-                                                    class="ph-bold ph-instagram-logo lh-1 fs-md-18"
-                                                ></i>
+                                            <span class="input-group-text rounded-0 fs-14 fw-bold text-primary">
+                                                <i class="ph-bold ph-instagram-logo lh-1 fs-md-18"></i>
                                             </span>
-                                            <input
-                                                type="text"
-                                                class="form-control shadow-none rounded-0 text-black"
-                                                placeholder="instagram@example.com"
-                                                v-model="client.instagram"
-                                            />
+                                            <input type="text" class="form-control shadow-none rounded-0 text-black"
+                                                placeholder="instagram@example.com" v-model="client.instagram" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div
-                                        class="form-group mb-15 mb-sm-20 mb-md-25"
-                                    >
+                                    <div class="form-group mb-15 mb-sm-20 mb-md-25">
                                         <div class="input-group">
-                                            <span
-                                                class="input-group-text rounded-0 fs-14 fw-bold text-primary"
-                                            >
-                                                <i
-                                                    class="ph-bold ph-whatsapp-logo lh-1 fs-md-18"
-                                                ></i>
+                                            <span class="input-group-text rounded-0 fs-14 fw-bold text-primary">
+                                                <i class="ph-bold ph-whatsapp-logo lh-1 fs-md-18"></i>
                                             </span>
-                                            <input
-                                                type="text"
-                                                class="form-control shadow-none rounded-0 text-black"
-                                                placeholder="Whatsapp"
-                                                v-model="client.whatsapp"
-                                            />
+                                            <input type="text" class="form-control shadow-none rounded-0 text-black"
+                                                placeholder="Whatsapp" v-model="client.whatsapp" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div
-                                class="file-upload text-center position-relative"
-                            >
-                                <img
-                                    :src="imageUrl"
-                                    width="150px"
-                                    alt="Uploaded Image"
-                                    class="preview-image"
-                                />
+                            <div class="file-upload text-center position-relative">
+                                <img :src="imageUrl" width="150px" alt="Uploaded Image" class="preview-image" />
                                 <span class="d-block text-muted">
                                     Déposez les fichiers ici ou
-                                    <span
-                                        class="text-black fw-medium position-relative"
-                                    >
+                                    <span class="text-black fw-medium position-relative">
                                         Cliquez pour télécharger
                                     </span>
                                 </span>
-                                <input
-                                    type="file"
+                                <input type="file"
                                     class="d-block shadow-none border-0 position-absolute start-0 end-0 top-0 bottom-0 z-1 opacity-0"
-                                    ref="fileInput"
-                                    @change="handleFileChange"
-                                />
+                                    ref="fileInput" @change="handleFileChange" />
                             </div>
                         </div>
                         <div class="col-md-12 mt-3">
-                            <div
-                                class="d-flex align-items-center justify-content-between"
-                            >
+                            <div class="d-flex align-items-center justify-content-between">
                                 <button
                                     class="default-btn transition border-0 fw-medium text-white pt-10 pb-10 ps-25 pe-25 pt-md-11 pb-md-11 ps-md-35 pe-md-35 rounded-1 fs-md-15 fs-lg-16 bg-success"
-                                    type="submit"
-                                    style="background-color: #06b48a !important"
-                                    @click.prevent="updateClient()"
-                                >
+                                    type="submit" style="background-color: #06b48a !important"
+                                    @click.prevent="updateClient()">
                                     Modifier
                                 </button>
-                                <router-link
-                                    :to="'/clients'"
-                                    type="button"
-                                    class="bg-transparent p-0 border-0 text-danger lh-1 fw-medium"
-                                >
-                                    <span class="position-relative"
-                                        >Cancel</span
-                                    >
+                                <router-link :to="'/clients'" type="button"
+                                    class="bg-transparent p-0 border-0 text-danger lh-1 fw-medium">
+                                    <span class="position-relative">Cancel</span>
                                 </router-link>
                             </div>
                         </div>
@@ -469,6 +315,7 @@ let previewImage = () => {
     padding: 2px;
     font-size: 13px;
 }
+
 .section-img {
     display: flex;
     justify-content: center;
@@ -481,11 +328,13 @@ let previewImage = () => {
     overflow: hidden;
     border-radius: 50%;
 }
+
 .section-img img {
     width: 100%;
     height: 100%;
     /* object-fit: contain; */
 }
+
 #style1 {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -496,18 +345,22 @@ let previewImage = () => {
     border: none;
     cursor: pointer;
 }
+
 #style1::-webkit-color-swatch {
     border-radius: 15px;
     border: none;
 }
+
 #style1::-moz-color-swatch {
     border-radius: 15px;
     border: none;
 }
+
 .card {
     border-radius: 0;
     border: 0;
 }
+
 .quizz-search {
     line-height: 1;
     font-size: 14px;

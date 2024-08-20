@@ -100,7 +100,7 @@
 $total += $item->Amount ;
 							?>
 								<span style="font-size:14px;" class="bold">
-									<?php echo $item->Frequenc ?> :
+									<?php echo $item->affectation->getFrequencTitle() ?> :
 								</span>
 								<br>
 								 
@@ -234,7 +234,7 @@ $total += $item->Amount ;
 $total += $item->Amount ;
 							?>
 								<span style="font-size:14px;" class="bold">
-									<?php echo $item->Frequenc ?> :
+								<?php echo $item->affectation->getFrequencTitle() ?>  :
 								</span>
 								<br>
 								 

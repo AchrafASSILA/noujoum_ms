@@ -25,7 +25,13 @@ class ModuleController extends Controller
                     'id' => $module->id,
                     'label' => $module->Label,
                     'alias' => $module->Alias,
-                    'section' => $module->section->id,
+                    'section' =>
+                    [
+
+                       'id'=> $module->section->id,
+                       'label'=> $module->section->Label,
+                        ]
+                     ,
                     'sectionLabel' => $module->section->Label,
                 ];
             }

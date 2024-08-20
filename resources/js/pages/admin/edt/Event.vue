@@ -10,12 +10,12 @@
 </template>
 <script>
 export default {
-    name: 'Event',
-    props: ['event']
+    name: "Event",
+    props: ["event"],
     methods: {
         clickHandler(type) {
-            this.$emit(type, this.event)
-        }
-    }
-}
+            this.$emit(type, this.event);
+        },
+    },
+};
 </script>

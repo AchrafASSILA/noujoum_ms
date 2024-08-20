@@ -8,6 +8,7 @@ export const useEncaissementStore = defineStore("encaissement", {
     state: () => ({
         encaissements: [],
         inscription: null,
+        lastEncaissement: null,
     }),
     getters: {},
     actions: {
@@ -45,14 +46,12 @@ export const useEncaissementStore = defineStore("encaissement", {
         async makePayement(service: any, inscription: any) {
             const formData = new FormData();
 
-            // for (let i = 0; i < services.length; i++) {
-            //     formData.append("services[]", services[i].id);
-            //     amount += services[i].amount;
-            // }
-            // formData.append("total", amount);
             formData.append("service", service.id);
             formData.append("inscription", inscription);
-            await axiosClient.post("/encaissements", formData);
+            await axiosClient.post("/encaissements", formData).then((res: any) => {
+
+                this.lastEncaissement = res.data.encaissement.id
+            });
         },
         async saveAffectation(affecation: any) {
             const formData = new FormData();
