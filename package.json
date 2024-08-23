@@ -17,6 +17,7 @@
         "@fullcalendar/timegrid": "^6.1.15",
         "@fullcalendar/vue3": "^6.1.15",
         "@vitejs/plugin-vue": "^5.1.0",
+        "apexcharts": "^3.52.0",
         "bootstrap": "^5.3.3",
         "bootstrap-vue-next": "^0.24.2",
         "pinia": "^2.1.7",
@@ -27,6 +28,7 @@
         "vue": "^3.4.34",
         "vue-multiselect": "^3.0.0-beta.3",
         "vue-router": "^4.4.0",
+        "vue3-apexcharts": "^1.5.3",
         "vuetify": "^3.6.13"
     }
 }

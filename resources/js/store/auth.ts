@@ -11,6 +11,8 @@ export const useAuthStore = defineStore("auth", {
         image: localStorage.getItem("IMAGE"),
         token: localStorage.getItem("TOKEN"),
         name: localStorage.getItem("NAME"),
+        logo: localStorage.getItem("LOGO"),
+        appname: localStorage.getItem("APPNAME"),
         // router: useRouter(),
     }),
     getters: {},
@@ -29,6 +31,8 @@ export const useAuthStore = defineStore("auth", {
                     localStorage.setItem("NAME", res.data.user.name);
                     localStorage.setItem("IMAGE", res.data.user.image);
                     localStorage.setItem("USER", res.data.user);
+                    localStorage.setItem("LOGO", res.data.logo);
+                    localStorage.setItem("APPNAME", res.data.app_name);
                     errorStore.errors = [];
                     // this.router.push({ path: "/" });
                     // console.log("hello");
@@ -47,6 +51,8 @@ export const useAuthStore = defineStore("auth", {
                     localStorage.removeItem("ROLE");
                     localStorage.removeItem("IMAGE");
                     localStorage.removeItem("USER");
+                    localStorage.removeItem("LOGO");
+                    localStorage.removeItem("APPNAME");
                     // this.router.push({ path: "/auth/login" });
                     // console.log("lgoout");
                 })

@@ -7,6 +7,8 @@ import { useRouter } from "vue-router";
 export const useEncaissementStore = defineStore("encaissement", {
     state: () => ({
         encaissements: [],
+        total: [],
+        services: [],
         inscription: null,
         lastEncaissement: null,
     }),
@@ -17,6 +19,17 @@ export const useEncaissementStore = defineStore("encaissement", {
                 .get("/encaissements")
                 .then((res: any) => {
                     this.encaissements = res.data.encaissements;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        async getEtats() {
+            await axiosClient
+                .get("/fnc/etat-financier-global-per-services")
+                .then((res: any) => {
+                    this.services = res.data.services;
+                    this.total = res.data.total;
                 })
                 .catch((err) => {
                     console.log(err);

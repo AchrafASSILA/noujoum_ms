@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Config\Config;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -30,6 +31,7 @@ class AuthController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response(['msg' => ['Mot de passe incorrect']], 401);
         }
+        $config = Config::first();
         $token =  $user->createToken('token')->plainTextToken;
         $user = [
             'name' => strtoupper($user->name),
@@ -37,6 +39,8 @@ class AuthController extends Controller
             'image' => $user->getImage()
         ];
         return response([
+            'logo' => $config->getLogo(),
+            'app_name' => $config->Title,
             'user' => $user,
             'token' => $token,
         ], 201);

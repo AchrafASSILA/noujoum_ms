@@ -2,6 +2,9 @@
 
 namespace App\Models\Service;
 
+use App\Models\Fnc\FncEncaissementInscription;
+use App\Models\Fnc\FncEncaissementLine;
+use App\Models\Fnc\FncEncaissements;
 use App\Models\Section\Section;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -50,18 +53,38 @@ class Service extends Model
     {
 
         return [
-            1 => 'M1',
-            2 => 'M2',
-            3 => 'M3',
-            4 => 'M4',
-            5 => 'M5',
-            6 => 'M6',
-            7 => 'M7',
-            9 => 'M9',
-            10 => 'M10',
-            11 => 'M11',
-            12 => 'M12',
+            '01' => 'M1',
+            '02' => 'M2',
+            '03' => 'M3',
+            '04' => 'M4',
+            '05' => 'M5',
+            '06' => 'M6',
+            '07' => 'M7',
+            '09' => 'M9',
+            '10' => 'M10',
+            '11' => 'M11',
+            '12' => 'M12',
         ];
+    }
+    public static  function getMonthsWithName()
+    {
+
+        $list = [
+            '01' => 'Janvier',
+            '02' => 'Février',
+            '03' => 'Mars',
+            '04' => 'April',
+            '05' => 'Mai',
+            '06' => 'Juin',
+            '07' => 'Juillet',
+            '08' => 'Aout',
+            '09' => 'Séptembre',
+            '10' => 'Octobre',
+            '11' => 'Novembre',
+            '12' => 'décembre',
+
+        ];
+        return $list;
     }
     public static function trimsetrial()
     {
@@ -72,5 +95,30 @@ class Service extends Model
             3 => 'T3',
             4 => 'T4',
         ];
+    }
+    public function getCA()
+    {
+        $amount = FncEncaissementInscription::where('Service', $this->id)->sum('Amount');
+        $total = $amount ?: 0;
+        return $total;
+    }
+    public function getME()
+    {
+        $payed = FncEncaissementLine::where('Service', $this->id)->whereNull('Canceled')->sum('Amount');
+        $total = $payed ?: 0;
+        return $total;
+    }
+
+    public static function getTotalCA()
+    {
+        $amount = FncEncaissementInscription::sum('Amount');
+        $total = $amount ?: 0;
+        return $total;
+    }
+    public static function getTotalME()
+    {
+        $payed = FncEncaissementLine::whereNull('Canceled')->sum('Amount');
+        $total = $payed ?: 0;
+        return $total;
     }
 }

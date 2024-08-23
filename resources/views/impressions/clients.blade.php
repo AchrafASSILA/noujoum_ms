@@ -1,11 +1,12 @@
-<table border="1"> 
+<table border="1">
+
     <thead>
         <tr>
 
             <th>Name</th>
-        <th>Age</th>
-    <th>Tel</th>
-    </tr>
+            <th>Age</th>
+            <th>Tel</th>
+        </tr>
     </thead>
     <tbody>
         @foreach ($clients as $client)
@@ -14,7 +15,7 @@
             <td>{{$client->user->age}}</td>
             <td>{{$client->user->tel}}</td>
         </tr>
-            
-        @endforeach 
+
+        @endforeach
     </tbody>
 </table>

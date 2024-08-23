@@ -5,33 +5,45 @@
                 Nouveau paiement <span>{{ clientSearch?.name }}</span>
             </h4>
 
-            <div class="card mb-25 border-0 rounded-0 bg-white letter-spacing mt-4">
+            <div
+                class="card mb-25 border-0 rounded-0 bg-white letter-spacing mt-4"
+            >
                 <div
-                    class="col-12 card-head box-shadow bg-white d-lg-flex align-items-center justify-content-between p-15 p-sm-20 p-md-25">
+                    class="col-12 card-head box-shadow bg-white d-lg-flex align-items-center justify-content-between p-15 p-sm-20 p-md-25"
+                >
                     <div class="col-9"></div>
                     <div class="col-3">
-
-                        <VueMultiselect v-model="clientSearch" :options="clients" :multiple="false"
-                            :close-on-select="true" placeholder="Choisissez un client" label="name" value="id"
-                            track-by="id" @select="getClientEncaissements()">
+                        <VueMultiselect
+                            v-model="clientSearch"
+                            :options="clients"
+                            :multiple="false"
+                            :close-on-select="true"
+                            placeholder="Choisissez un client"
+                            label="name"
+                            value="id"
+                            track-by="id"
+                            @select="getClientEncaissements()"
+                        >
                         </VueMultiselect>
                     </div>
-
-
-
-
-
-
                 </div>
             </div>
 
             <div class="row" v-if="clientLoaded">
                 <div v-if="inscription && inscription.client" class="row">
                     <div class="col-lg-5 col-xl-4">
-                        <div class="card mb-25 border-0 rounded-0 bg-white letter-spacing lead-info-box">
+                        <div
+                            class="card mb-25 border-0 rounded-0 bg-white letter-spacing lead-info-box"
+                        >
                             <div class="card-body p-15 p-sm-20 p-md-25 p-lg-30">
-                                <div class="profile-info d-sm-flex align-items-center">
-                                    <img :src="inscription.client.image" class="rounded" alt="user" />
+                                <div
+                                    class="profile-info d-sm-flex align-items-center"
+                                >
+                                    <img
+                                        :src="inscription.client.image"
+                                        class="rounded"
+                                        alt="user"
+                                    />
                                     <div class="title mt-12 mt-sm-0">
                                         <h5 class="text-black fw-medium mb-8">
                                             {{ inscription.client.name }}
@@ -39,43 +51,71 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="border-top mt-15 mb-15 mt-sm-20 mb-sm-20 mt-md-25 mb-md-25 mt-lg-30 mb-lg-30">
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h5 class="fw-medium text-black-emphasis mb-0">
+                                    class="border-top mt-15 mb-15 mt-sm-20 mb-sm-20 mt-md-25 mb-md-25 mt-lg-30 mb-lg-30"
+                                ></div>
+                                <div
+                                    class="d-flex align-items-center justify-content-between"
+                                >
+                                    <h5
+                                        class="fw-medium text-black-emphasis mb-0"
+                                    >
                                         Information global
                                     </h5>
                                 </div>
                                 <ul class="info mt-25 ps-0 mb-0 list-unstyled">
                                     <li class="position-relative">
-                                        <div class="icon text-success rounded-circle text-center">
-                                            <i class="flaticon-mail-inbox-app"></i>
+                                        <div
+                                            class="icon text-success rounded-circle text-center"
+                                        >
+                                            <i
+                                                class="flaticon-mail-inbox-app"
+                                            ></i>
                                         </div>
-                                        <span class="d-block text-black mb-5 fw-semibold">Email</span>
-                                        <a href="mailto:johnathon23@gmail.com"
-                                            class="d-inline-block fs-md-15 fs-lg-16 text-primary text-decoration-none">
+                                        <span
+                                            class="d-block text-black mb-5 fw-semibold"
+                                            >Email</span
+                                        >
+                                        <a
+                                            href="mailto:johnathon23@gmail.com"
+                                            class="d-inline-block fs-md-15 fs-lg-16 text-primary text-decoration-none"
+                                        >
                                             {{ inscription.client.email }}
                                         </a>
                                     </li>
                                     <li class="position-relative">
-                                        <div class="icon text-info rounded-circle text-center">
-                                            <i class="flaticon-telephone-call"></i>
+                                        <div
+                                            class="icon text-info rounded-circle text-center"
+                                        >
+                                            <i
+                                                class="flaticon-telephone-call"
+                                            ></i>
                                         </div>
-                                        <span class="d-block text-black mb-5 fw-semibold">Phone No</span>
-                                        <a href="tel:+1-321-456-8756"
-                                            class="d-inline-block fs-md-15 fs-lg-16 text-muted text-decoration-none">
+                                        <span
+                                            class="d-block text-black mb-5 fw-semibold"
+                                            >Phone No</span
+                                        >
+                                        <a
+                                            href="tel:+1-321-456-8756"
+                                            class="d-inline-block fs-md-15 fs-lg-16 text-muted text-decoration-none"
+                                        >
                                             {{ inscription.client.tel }}
                                         </a>
                                     </li>
 
                                     <li class="position-relative">
-                                        <div class="icon text-success rounded-circle text-center">
+                                        <div
+                                            class="icon text-success rounded-circle text-center"
+                                        >
                                             <i class="flaticon-money"></i>
                                         </div>
-                                        <span class="d-block text-black mb-5 fw-semibold">
+                                        <span
+                                            class="d-block text-black mb-5 fw-semibold"
+                                        >
                                             Total payement
                                         </span>
-                                        <span class="d-inline-block fs-md-15 fs-lg-16 text-muted">
+                                        <span
+                                            class="d-inline-block fs-md-15 fs-lg-16 text-muted"
+                                        >
                                             {{ inscription.payed }}
                                         </span>
                                     </li>
@@ -85,62 +125,116 @@
                     </div>
                     <div class="col-lg-7 col-xl-8">
                         <div class="leads-details-tabs">
-                            <ul class="nav nav-tabs border-0 mb-25" id="myTab" role="tablist">
+                            <ul
+                                class="nav nav-tabs border-0 mb-25"
+                                id="myTab"
+                                role="tablist"
+                            >
                                 <li class="nav-item" role="presentation">
                                     <button
                                         class="nav-link fs-md-15 fs-lg-16 fw-medium border-0 rounded-0 d-block text-center w-100 active"
-                                        id="deals-tab" data-bs-toggle="tab" data-bs-target="#deals-tab-pane"
-                                        type="button" role="tab" aria-controls="deals-tab-pane" aria-selected="false">
+                                        id="deals-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#deals-tab-pane"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="deals-tab-pane"
+                                        aria-selected="false"
+                                    >
                                         Tarifs
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button
                                         class="nav-link fs-md-15 fs-lg-16 fw-medium border-0 rounded-0 d-block text-center w-100"
-                                        id="emails-tab" data-bs-toggle="tab" data-bs-target="#emails-tab-pane"
-                                        type="button" role="tab" aria-controls="emails-tab-pane" aria-selected="false">
+                                        id="emails-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#emails-tab-pane"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="emails-tab-pane"
+                                        aria-selected="false"
+                                    >
                                         Encaissements historique
                                     </button>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="deals-tab-pane" role="tabpanel" tabindex="0">
-                                    <div class="card mb-25 border-0 rounded-0 bg-white letter-spacing">
+                                <div
+                                    class="tab-pane fade show active"
+                                    id="deals-tab-pane"
+                                    role="tabpanel"
+                                    tabindex="0"
+                                >
+                                    <div
+                                        class="card mb-25 border-0 rounded-0 bg-white letter-spacing"
+                                    >
                                         <div
-                                            class="card-head bg-white d-md-flex align-items-center justify-content-between pt-15 pb-15 ps-15 pe-15 ps-sm-20 pe-sm-20 ps-md-25 pe-md-25 ps-lg-30 pe-lg-30">
-                                            <div class="d-sm-flex align-items-center">
+                                            class="card-head bg-white d-md-flex align-items-center justify-content-between pt-15 pb-15 ps-15 pe-15 ps-sm-20 pe-sm-20 ps-md-25 pe-md-25 ps-lg-30 pe-lg-30"
+                                        >
+                                            <div
+                                                class="d-sm-flex align-items-center"
+                                            >
                                                 <button
                                                     class="default-btn position-relative transition border-0 fw-medium text-white pt-11 pb-11 ps-25 pe-25 pt-md-12 pb-md-12 ps-md-30 pe-md-30 rounded-1 bg-success fs-md-15 fs-lg-16 d-inline-block me-10 mb-10 mb-lg-0 text-decoration-none"
                                                     style="
                                                         background-color: #06b48a !important;
-                                                    " data-bs-toggle="modal" data-bs-target="#basicModal">
+                                                    "
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#basicModal"
+                                                >
                                                     Nouveau service
-                                                    <i class="flaticon-plus position-relative ms-5 fs-12"></i>
+                                                    <i
+                                                        class="flaticon-plus position-relative ms-5 fs-12"
+                                                    ></i>
                                                 </button>
                                             </div>
-                                            <div class="d-flex align-items-center">
-                                                <form class="search-box position-relative me-15" @submit.prevent="">
-                                                    <input type="text" v-model="search"
+                                            <div
+                                                class="d-flex align-items-center"
+                                            >
+                                                <form
+                                                    class="search-box position-relative me-15"
+                                                    @submit.prevent=""
+                                                >
+                                                    <input
+                                                        type="text"
+                                                        v-model="search"
                                                         class="form-control shadow-none text-black rounded-0 border-0"
-                                                        placeholder="Rechercher" />
-                                                    <button type="submit"
-                                                        class="bg-transparent text-primary transition p-0 border-0">
-                                                        <i class="flaticon-search-interface-symbol"></i>
+                                                        placeholder="Rechercher"
+                                                    />
+                                                    <button
+                                                        type="submit"
+                                                        class="bg-transparent text-primary transition p-0 border-0"
+                                                    >
+                                                        <i
+                                                            class="flaticon-search-interface-symbol"
+                                                        ></i>
                                                     </button>
                                                 </form>
                                             </div>
                                         </div>
                                         <div
-                                            class="card-body pt-0 pb-15 pb-sm-20 pb-md-25 pb-lg-30 ps-15 pe-15 ps-sm-20 pe-sm-20 ps-md-25 pe-md-25 ps-lg-30 pe-lg-30">
+                                            class="card-body pt-0 pb-15 pb-sm-20 pb-md-25 pb-lg-30 ps-15 pe-15 ps-sm-20 pe-sm-20 ps-md-25 pe-md-25 ps-lg-30 pe-lg-30"
+                                        >
                                             <div class="table-responsive">
-                                                <v-data-table :headers="headers" :items="inscription.affectations
-                                                    " item-value="name" :search="search">
-                                                    <template v-slot:item="{ item }">
+                                                <v-data-table
+                                                    :headers="headers"
+                                                    :items="
+                                                        inscription.affectations
+                                                    "
+                                                    item-value="name"
+                                                    :search="search"
+                                                >
+                                                    <template
+                                                        v-slot:item="{ item }"
+                                                    >
                                                         <tr>
                                                             <th
-                                                                class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0">
+                                                                class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0"
+                                                            >
                                                                 <div
-                                                                    class="form-check d-flex align-items-center mb-0 justify-content-center p-0">
+                                                                    class="form-check d-flex align-items-center mb-0 justify-content-center p-0"
+                                                                >
                                                                     <!-- <input
                                                                         class="form-check-input shadow-none me-8 mt-0"
                                                                         type="checkbox"
@@ -151,45 +245,55 @@
                                                                 </div>
                                                             </th>
                                                             <th
-                                                                class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0">
+                                                                class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0"
+                                                            >
                                                                 <div
-                                                                    class="form-check d-flex align-items-center mb-0 justify-content-center p-0">
+                                                                    class="form-check d-flex align-items-center mb-0 justify-content-center p-0"
+                                                                >
                                                                     {{
                                                                         item.service_frequenc
                                                                     }}
                                                                 </div>
                                                             </th>
                                                             <th
-                                                                class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0">
+                                                                class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0"
+                                                            >
                                                                 <div
-                                                                    class="form-check d-flex align-items-center mb-0 text-center justify-content-center p-0">
+                                                                    class="form-check d-flex align-items-center mb-0 text-center justify-content-center p-0"
+                                                                >
                                                                     {{
                                                                         item.service_periode
                                                                     }}
                                                                 </div>
                                                             </th>
                                                             <td
-                                                                class="shadow-none lh-1 fw-medium text-black-emphasis justify-content-center p-0">
+                                                                class="shadow-none lh-1 fw-medium text-black-emphasis justify-content-center p-0"
+                                                            >
                                                                 <div
-                                                                    class="form-check d-flex align-items-center mb-0 text-center justify-content-center p-0">
+                                                                    class="form-check d-flex align-items-center mb-0 text-center justify-content-center p-0"
+                                                                >
                                                                     {{
                                                                         item.amount
                                                                     }}
                                                                 </div>
                                                             </td>
                                                             <td
-                                                                class="shadow-none lh-1 fw-medium text-black-emphasis justify-content-center p-0">
+                                                                class="shadow-none lh-1 fw-medium text-black-emphasis justify-content-center p-0"
+                                                            >
                                                                 <div
-                                                                    class="form-check d-flex align-items-center mb-0 text-center justify-content-center p-0">
+                                                                    class="form-check d-flex align-items-center mb-0 text-center justify-content-center p-0"
+                                                                >
                                                                     {{
                                                                         item.payed
                                                                     }}
                                                                 </div>
                                                             </td>
                                                             <td
-                                                                class="shadow-none lh-1 fw-medium text-black-emphasis justify-content-center p-0">
+                                                                class="shadow-none lh-1 fw-medium text-black-emphasis justify-content-center p-0"
+                                                            >
                                                                 <div
-                                                                    class="form-check d-flex align-items-center mb-0 text-center justify-content-center p-0">
+                                                                    class="form-check d-flex align-items-center mb-0 text-center justify-content-center p-0"
+                                                                >
                                                                     {{
                                                                         item.reste
                                                                     }}
@@ -197,28 +301,41 @@
                                                             </td>
 
                                                             <td
-                                                                class="shadow-none lh-1 fw-medium text-body-tertiary text-end pe-0">
-                                                                <div class="dropdown">
+                                                                class="shadow-none lh-1 fw-medium text-body-tertiary text-end pe-0"
+                                                            >
+                                                                <div
+                                                                    class="dropdown"
+                                                                >
                                                                     <button
                                                                         class="dropdown-toggle lh-1 bg-transparent border-0 shadow-none p-0 transition"
-                                                                        type="button" data-bs-toggle="dropdown"
-                                                                        aria-expanded="false">
-                                                                        <i class="flaticon-dots"></i>
+                                                                        type="button"
+                                                                        data-bs-toggle="dropdown"
+                                                                        aria-expanded="false"
+                                                                    >
+                                                                        <i
+                                                                            class="flaticon-dots"
+                                                                        ></i>
                                                                     </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li v-if="
-                                                                            item.payedAmount ==
-                                                                            0
-                                                                        ">
+                                                                    <ul
+                                                                        class="dropdown-menu"
+                                                                    >
+                                                                        <li
+                                                                            v-if="
+                                                                                item.payedAmount ==
+                                                                                0
+                                                                            "
+                                                                        >
                                                                             <button
                                                                                 class="dropdown-item d-flex align-items-center"
                                                                                 @click="
                                                                                     makePayement(
                                                                                         item
                                                                                     )
-                                                                                    ">
+                                                                                "
+                                                                            >
                                                                                 <i
-                                                                                    class="flaticon-view lh-1 me-8 position-relative top-1"></i>
+                                                                                    class="flaticon-view lh-1 me-8 position-relative top-1"
+                                                                                ></i>
                                                                                 Paye
                                                                             </button>
                                                                         </li>
@@ -232,19 +349,23 @@
                                                                                 Edit</a
                                                                             >
                                                                         </li> -->
-                                                                        <li v-if="
-                                                                            item.payedAmount ==
-                                                                            0
-                                                                        ">
+                                                                        <li
+                                                                            v-if="
+                                                                                item.payedAmount ==
+                                                                                0
+                                                                            "
+                                                                        >
                                                                             <button
                                                                                 class="dropdown-item d-flex align-items-center"
                                                                                 @click.prevent="
                                                                                     deleteAffectation(
                                                                                         item
                                                                                     )
-                                                                                    ">
+                                                                                "
+                                                                            >
                                                                                 <i
-                                                                                    class="flaticon-delete lh-1 me-8 position-relative top-1"></i>
+                                                                                    class="flaticon-delete lh-1 me-8 position-relative top-1"
+                                                                                ></i>
                                                                                 disafectée
                                                                             </button>
                                                                         </li>
@@ -252,65 +373,95 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                    </template></v-data-table>
+                                                    </template></v-data-table
+                                                >
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="emails-tab-pane" role="tabpanel" tabindex="0">
-                                    <div class="card mb-25 border-0 rounded-0 bg-white letter-spacing">
+                                <div
+                                    class="tab-pane fade"
+                                    id="emails-tab-pane"
+                                    role="tabpanel"
+                                    tabindex="0"
+                                >
+                                    <div
+                                        class="card mb-25 border-0 rounded-0 bg-white letter-spacing"
+                                    >
                                         <div
-                                            class="card-head bg-white d-md-flex align-items-center justify-content-between pt-15 pb-15 ps-15 pe-15 ps-sm-20 pe-sm-20 ps-md-25 pe-md-25 ps-lg-30 pe-lg-30">
+                                            class="card-head bg-white d-md-flex align-items-center justify-content-between pt-15 pb-15 ps-15 pe-15 ps-sm-20 pe-sm-20 ps-md-25 pe-md-25 ps-lg-30 pe-lg-30"
+                                        >
                                             <h5 class="card-title fw-bold mb-0">
                                                 Encaissements
                                             </h5>
                                         </div>
                                         <div
-                                            class="card-body pt-0 pb-15 pb-sm-20 pb-md-25 pb-lg-30 ps-15 pe-15 ps-sm-20 pe-sm-20 ps-md-25 pe-md-25 ps-lg-30 pe-lg-30">
+                                            class="card-body pt-0 pb-15 pb-sm-20 pb-md-25 pb-lg-30 ps-15 pe-15 ps-sm-20 pe-sm-20 ps-md-25 pe-md-25 ps-lg-30 pe-lg-30"
+                                        >
                                             <div class="table-responsive">
-                                                <table class="table text-nowrap align-middle mb-0">
+                                                <table
+                                                    class="table text-nowrap align-middle mb-0"
+                                                >
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col"
-                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0 ps-0">
+                                                            <th
+                                                                scope="col"
+                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0 ps-0"
+                                                            >
                                                                 Montant
                                                             </th>
-                                                            <th scope="col"
-                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0">
+                                                            <th
+                                                                scope="col"
+                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0"
+                                                            >
                                                                 Numero du recu
                                                             </th>
-                                                            <th scope="col"
-                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0">
+                                                            <th
+                                                                scope="col"
+                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0"
+                                                            >
                                                                 Mode de paiement
                                                             </th>
-                                                            <th scope="col"
-                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0">
+                                                            <th
+                                                                scope="col"
+                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0"
+                                                            >
                                                                 Date de paiement
                                                             </th>
-                                                            <th scope="col"
-                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0">
+                                                            <th
+                                                                scope="col"
+                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0"
+                                                            >
                                                                 Canceled
                                                             </th>
-                                                            <th scope="col"
-                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0 text-end pe-0">
-                                                            </th>
+                                                            <th
+                                                                scope="col"
+                                                                class="text-uppercase fw-medium shadow-none text-body-tertiary fs-13 pt-0 text-end pe-0"
+                                                            ></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for="(
+                                                        <tr
+                                                            v-for="(
                                                                 item, index
-                                                            ) in inscription.encaissements" :key="index">
+                                                            ) in inscription.encaissements"
+                                                            :key="index"
+                                                        >
                                                             <th
-                                                                class="shadow-none lh-1 fw-medium text-black-emphasis title fs-md-15 fs-lg-16 ps-0">
+                                                                class="shadow-none lh-1 fw-medium text-black-emphasis title fs-md-15 fs-lg-16 ps-0"
+                                                            >
                                                                 {{ item.total }}
                                                             </th>
                                                             <td
-                                                                class="shadow-none lh-1 fw-medium text-black-emphasis text-center">
+                                                                class="shadow-none lh-1 fw-medium text-black-emphasis text-center"
+                                                            >
                                                                 {{
                                                                     item.recuNumber
                                                                 }}
                                                             </td>
-                                                            <td class="shadow-none lh-1 fw-medium text-center">
+                                                            <td
+                                                                class="shadow-none lh-1 fw-medium text-center"
+                                                            >
                                                                 <!-- <span
                                                                     class="badge text-outline-success"
                                                                     ></span
@@ -318,11 +469,13 @@
                                                                 {{ item.mode }}
                                                             </td>
                                                             <td
-                                                                class="shadow-none lh-1 fw-medium text-black-emphasis text-center">
+                                                                class="shadow-none lh-1 fw-medium text-black-emphasis text-center"
+                                                            >
                                                                 {{ item.date }}
                                                             </td>
                                                             <td
-                                                                class="shadow-none lh-1 fw-medium text-black-emphasis text-center">
+                                                                class="shadow-none lh-1 fw-medium text-black-emphasis text-center"
+                                                            >
                                                                 {{
                                                                     item.canceled
                                                                         ? item.canceled
@@ -330,15 +483,24 @@
                                                                 }}
                                                             </td>
                                                             <td
-                                                                class="shadow-none lh-1 fw-medium text-body-tertiary text-end pe-0">
-                                                                <div class="dropdown">
+                                                                class="shadow-none lh-1 fw-medium text-body-tertiary text-end pe-0"
+                                                            >
+                                                                <div
+                                                                    class="dropdown"
+                                                                >
                                                                     <button
                                                                         class="dropdown-toggle lh-1 bg-transparent border-0 shadow-none p-0 transition"
-                                                                        type="button" data-bs-toggle="dropdown"
-                                                                        aria-expanded="false">
-                                                                        <i class="flaticon-dots"></i>
+                                                                        type="button"
+                                                                        data-bs-toggle="dropdown"
+                                                                        aria-expanded="false"
+                                                                    >
+                                                                        <i
+                                                                            class="flaticon-dots"
+                                                                        ></i>
                                                                     </button>
-                                                                    <ul class="dropdown-menu">
+                                                                    <ul
+                                                                        class="dropdown-menu"
+                                                                    >
                                                                         <!-- <li>
                                                                             <a
                                                                                 class="dropdown-item d-flex align-items-center"
@@ -350,25 +512,35 @@
                                                                             >
                                                                         </li> -->
                                                                         <li>
-                                                                            <button v-if="
-                                                                                !item.canceled
-                                                                            " target="_blank" @click="
-                                                                                cancelPaiement(
-                                                                                    item
-                                                                                )
+                                                                            <button
+                                                                                v-if="
+                                                                                    !item.canceled
                                                                                 "
-                                                                                class="dropdown-item d-flex align-items-center">
+                                                                                target="_blank"
+                                                                                @click="
+                                                                                    cancelPaiement(
+                                                                                        item
+                                                                                    )
+                                                                                "
+                                                                                class="dropdown-item d-flex align-items-center"
+                                                                            >
                                                                                 <i
-                                                                                    class="flaticon-close lh-1 me-8 position-relative top-1"></i>
+                                                                                    class="flaticon-close lh-1 me-8 position-relative top-1"
+                                                                                ></i>
                                                                                 cancel
                                                                                 paiement
                                                                             </button>
-                                                                            <a target="_blank" :href="'/impressions-encaissement-recu/' +
-                                                                                item.id
+                                                                            <a
+                                                                                target="_blank"
+                                                                                :href="
+                                                                                    '/impressions-encaissement-recu/' +
+                                                                                    item.id
                                                                                 "
-                                                                                class="dropdown-item d-flex align-items-center">
+                                                                                class="dropdown-item d-flex align-items-center"
+                                                                            >
                                                                                 <i
-                                                                                    class="flaticon-printing lh-1 me-8 position-relative top-1"></i>
+                                                                                    class="flaticon-printing lh-1 me-8 position-relative top-1"
+                                                                                ></i>
                                                                                 imprimer
                                                                             </a>
                                                                         </li>
@@ -387,55 +559,102 @@
                     </div>
                     <!-- Modal -->
 
-                    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+                    <div
+                        class="modal fade"
+                        id="basicModal"
+                        tabindex="-1"
+                        aria-hidden="true"
+                    >
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="addNiveauLabel">
+                                    <h1
+                                        class="modal-title fs-5"
+                                        id="addNiveauLabel"
+                                    >
                                         Ajouter un tarif
                                     </h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                    ></button>
                                 </div>
 
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col">
                                             <div class="mb-mb-15 mb-md-20">
-                                                <label for="inputTitle" class="form-label fw-medium">Service</label>
-                                                <VueMultiselect v-model="affectation.service
-                                                    " :options="services" :multiple="false" :close-on-select="true"
-                                                    placeholder="Choisissez une service" label="label" value="id"
-                                                    track-by="id" @select="setPrice()">
+                                                <label
+                                                    for="inputTitle"
+                                                    class="form-label fw-medium"
+                                                    >Service</label
+                                                >
+                                                <VueMultiselect
+                                                    v-model="
+                                                        affectation.service
+                                                    "
+                                                    :options="services"
+                                                    :multiple="false"
+                                                    :close-on-select="true"
+                                                    placeholder="Choisissez une service"
+                                                    label="label"
+                                                    value="id"
+                                                    track-by="id"
+                                                    @select="setPrice()"
+                                                >
                                                 </VueMultiselect>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="mb-mb-15 mb-md-20 d-flex flex-column">
-                                                <label for="inputTitle" class="form-label fw-medium">Service
-                                                    prix</label>
-                                                <span class="form-label fw-medium">{{
-                                                    affectation.price
-                                                }}
-                                                    DH</span>
+                                            <div
+                                                class="mb-mb-15 mb-md-20 d-flex flex-column"
+                                            >
+                                                <label
+                                                    for="inputTitle"
+                                                    class="form-label fw-medium"
+                                                    >Service prix</label
+                                                >
+                                                <span
+                                                    class="form-label fw-medium"
+                                                    >{{
+                                                        affectation.price
+                                                    }}
+                                                    DH</span
+                                                >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col" v-if="false">
                                         <div class="mb-mb-15 mb-md-20">
-                                            <label for="inputTitle" class="form-label fw-medium">Periode</label>
-                                            <VueMultiselect v-if="
-                                                affectation.service
-                                                    .frequenc == 'Mensuel'
-                                            " v-model="affectation.periodes" :options="months" :close-on-select="true"
-                                                placeholder="Choisissez periodes">
+                                            <label
+                                                for="inputTitle"
+                                                class="form-label fw-medium"
+                                                >Periode</label
+                                            >
+                                            <VueMultiselect
+                                                v-if="
+                                                    affectation.service
+                                                        .frequenc == 'Mensuel'
+                                                "
+                                                v-model="affectation.periodes"
+                                                :options="months"
+                                                :close-on-select="true"
+                                                placeholder="Choisissez periodes"
+                                            >
                                             </VueMultiselect>
-                                            <VueMultiselect v-if="
-                                                affectation.service
-                                                    .frequenc ==
-                                                'trimestriel'
-                                            " v-model="affectation.periodes" :options="trimestres"
-                                                :close-on-select="true" placeholder="Choisissez periodes">
+                                            <VueMultiselect
+                                                v-if="
+                                                    affectation.service
+                                                        .frequenc ==
+                                                    'trimestriel'
+                                                "
+                                                v-model="affectation.periodes"
+                                                :options="trimestres"
+                                                :close-on-select="true"
+                                                placeholder="Choisissez periodes"
+                                            >
                                             </VueMultiselect>
                                         </div>
                                     </div>
@@ -444,12 +663,20 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                        ref="closeBtn">
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                        ref="closeBtn"
+                                    >
                                         Fermer
                                     </button>
 
-                                    <button type="button" @click="saveAffectation()" class="btn btn-primary">
+                                    <button
+                                        type="button"
+                                        @click="saveAffectation()"
+                                        class="btn btn-primary"
+                                    >
                                         Enregistrer
                                     </button>
                                 </div>
@@ -460,7 +687,10 @@
                 <div v-else>
                     <div class="card">
                         <Emptybox> </Emptybox>
-                        <p class="text-center font-bold">
+                        <p
+                            class="text-center font-bold"
+                            style="font-weight: bold; font-family: monospace"
+                        >
                             Merci de sélectionner un client
                         </p>
                     </div>
@@ -704,7 +934,6 @@ let cancelPaiement = async (item: any) => {
 };
 
 let makePayement = async (pay: any) => {
-
     await Swal.fire({
         title: "Voulez-vous payé ce tarif ?",
         showDenyButton: true,
@@ -716,11 +945,11 @@ let makePayement = async (pay: any) => {
             encaissementStore
                 .makePayement(pay, inscription.value.id)
                 .then((res) => {
-
                     Swal.fire("Succès", "payement avec succès");
                     getClientEncaissements();
                     window.open(
-                        "/impressions-encaissement-recu/" + encaissementStore.lastEncaissement
+                        "/impressions-encaissement-recu/" +
+                            encaissementStore.lastEncaissement
                     );
                 })
                 .catch((err) => {

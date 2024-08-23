@@ -16,6 +16,8 @@ import Calendar from "../pages/admin/edt/Calendar.vue";
 import Encaissements from "../pages/admin/encaissements/Encaissements.vue";
 import NewEncaissement from "../pages/admin/encaissements/NewEncaissement.vue";
 import EcronCalendar from "../pages/admin/edt/EcronCalendar.vue";
+import EtatFinancierPerServices from "../pages/admin/encaissements/EtatFinancierPerServices.vue";
+import Config from "../pages/admin/config/Config.vue";
 
 const routes = [
     {
@@ -109,6 +111,15 @@ const routes = [
         },
     },
     {
+        path: "/etat-financier-per-services",
+        name: "EtatFinancierPerServices",
+        component: EtatFinancierPerServices,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "founder"],
+        },
+    },
+    {
         path: "/new-encaissement",
         name: "NewEncaissement",
         component: NewEncaissement,
@@ -148,6 +159,15 @@ const routes = [
         path: "/edit-client/:id",
         name: "EditClient",
         component: EditClient,
+        meta: {
+            requiresAuth: true,
+            // roles: ["pinia", "founder"],
+        },
+    },
+    {
+        path: "/config",
+        name: "Config",
+        component: Config,
         meta: {
             requiresAuth: true,
             // roles: ["pinia", "founder"],

@@ -2,16 +2,20 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Config\ConfigController;
 use App\Http\Controllers\Edt\SeanceController;
+use App\Http\Controllers\Fnc\FncController;
 use App\Http\Controllers\Fnc\FncEncaissementInscriptionController;
 use App\Http\Controllers\Fnc\FncEncaissementsController;
 use App\Http\Controllers\Modules\ModuleController;
+use App\Http\Controllers\Region\RegionController;
 use App\Http\Controllers\Role\RoleRoleController;
 use App\Http\Controllers\Sale\SaleController;
 use App\Http\Controllers\Section\SectionController;
 use App\Http\Controllers\Service\ServiceController;
+use App\Http\Controllers\Statistic\StatisticController;
 use App\Http\Controllers\User\UserController;
-use App\Models\Fnc\FncEncaissements;
+use App\Http\Controllers\Ville\VilleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +57,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('modules', ModuleController::class);
     Route::resource('encaissements', FncEncaissementsController::class);
     Route::resource('encaissement-inscription', FncEncaissementInscriptionController::class);
+    Route::resource('regions', RegionController::class);
+    Route::resource('villes', VilleController::class);
     Route::get('encaissements-inscription/{id}', [FncEncaissementInscriptionController::class, 'getEncaissements']);
     Route::get('archived-clients', [ClientController::class, 'archivedClients']);
     Route::post('/unarchived-client/{id}', [ClientController::class, 'unarchived']);
@@ -64,4 +70,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('users/{id}', [UserController::class, 'update']);
     Route::put('update-password/{id}', [UserController::class, 'updatePassword']);
     Route::delete('users/{id}', [UserController::class, 'delete']);
+    Route::get('/fnc/etat-financier-global-per-services', [FncController::class, 'etat_financier_global_per_services']);
+    Route::get('/statistics/etats', [StatisticController::class, 'etats']);
 });
+Route::resource('config', ConfigController::class);

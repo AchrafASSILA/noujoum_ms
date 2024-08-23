@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Fnc;
 
 use PDF;
 use App\Http\Controllers\Controller;
+use App\Models\Config\Config;
 use App\Models\Fnc\FncEncaissementInscription;
 use App\Models\Fnc\FncEncaissementLine;
 use App\Models\Fnc\FncEncaissements;
@@ -76,7 +77,7 @@ class FncEncaissementsController extends Controller
             $encaissement->Promotion = $inscription->promotion->id;
             $encaissement->RecuNumber = FncEncaissements::getRecuNumber();
             $encaissement->OperationNumber = FncEncaissements::getOperationNumber();
-            $encaissement->Mode ='espece';
+            $encaissement->Mode = 'espece';
             $encaissement->save();
             // foreach ($request->services as $key => $item) {
             //     [$id, $amount, $frequenc] = explode('_', $item);
@@ -131,6 +132,7 @@ class FncEncaissementsController extends Controller
                 'impressions/encaissement-recu',
                 [
                     'encaissement' => $encaissement,
+                    'config' => Config::first(),
                     'encaissement_lines' => $encaissement_lines,
                 ]
             )->render();

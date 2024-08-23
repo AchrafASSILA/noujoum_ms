@@ -1,5 +1,9 @@
 <template>
-    <section class="h-100 gradient-form" style="background-color: #eee">
+    <section
+        class="h-100 gradient-form"
+        style="background-color: #eee"
+        v-if="loaded"
+    >
         <div class="container py-5 h-100">
             <div
                 class="row d-flex justify-content-center align-items-center h-100"
@@ -13,27 +17,35 @@
                                     class="card-body p-md-5 mx-md-4"
                                     style="padding: 40px !important"
                                 >
-                                    <div class="text-center">
+                                    <div
+                                        class="text-center d-flex align-items-center"
+                                    >
                                         <img
-                                            src="../../assets/images/logo.svg"
-                                            style="width: 185px"
+                                            :src="config.image"
+                                            style="width: 100px"
                                             alt="logo"
                                         />
-                                        <h4 class="mt-1 mb-5 pb-1"></h4>
+                                        <h4
+                                            class="mt-1 mb-5 pb-1 ml-1 me-1"
+                                            style="margin-left: 10px"
+                                        >
+                                            {{ config.title }}
+                                        </h4>
                                     </div>
 
                                     <form>
                                         <div class="form-outline mb-4">
                                             <label
                                                 class="form-label"
+                                                style="font-weight: bold"
                                                 for="form2Example11"
-                                                >Username</label
+                                                >Email</label
                                             >
                                             <input
                                                 type="email"
                                                 id="form2Example11"
                                                 class="form-control"
-                                                placeholder="Phone number or email address"
+                                                placeholder="Email"
                                                 v-model="user.email"
                                             />
                                         </div>
@@ -41,14 +53,15 @@
                                         <div class="form-outline mb-4">
                                             <label
                                                 class="form-label"
+                                                style="font-weight: bold"
                                                 for="form2Example22"
-                                                >Password</label
+                                                >Mot de passe</label
                                             >
                                             <input
                                                 type="password"
                                                 id="form2Example22"
                                                 class="form-control"
-                                                placeholder="Your password"
+                                                placeholder="Mot de passe"
                                                 v-model="user.password"
                                             />
                                         </div>
@@ -63,7 +76,10 @@
                                             >
                                                 Log in
                                             </button>
-                                            <a class="text-muted" href="#!"
+                                            <a
+                                                class="text-muted"
+                                                href="#!"
+                                                v-if="false"
                                                 >Forgot password?</a
                                             >
                                         </div>
@@ -95,15 +111,24 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useAuthStore } from "../../store/auth";
 import Errors from "../../Components/ui/Errors.vue";
+import { useConfigStore } from "../../store/config";
+
+onMounted(async () => {
+    await getConfig();
+    loaded.value = true;
+});
 
 // stores
 const authStore = useAuthStore();
+const configStore = useConfigStore();
 // consts
 
 let router = useRouter();
+let config = ref(null);
+let loaded = ref(false);
 
 const user = {
     email: "",
@@ -113,7 +138,16 @@ async function login() {
     await authStore
         .login(user.email, user.password)
         .then((res) => {
-            router.push({ name: "Home" });
+            location.reload();
+        })
+        .catch((err) => {});
+    // router.push({ name: "Home" });
+}
+async function getConfig() {
+    await configStore
+        .getConfig()
+        .then((res) => {
+            config.value = configStore.config;
         })
         .catch((err) => {});
 }
@@ -134,7 +168,9 @@ async function login() {
     );
 
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, #242eee, #365ed8, #4436dd, #9345b4);
+    /* background: linear-gradient(to right, #242eee, #365ed8, #4436dd, #9345b4) */
+    background: linear-gradient(to right, #0d6efd, #2d5185);
+    /* background: linear-gradient(to right, #242eee, #365ed8, #4436dd, #9345b4); */
 }
 
 @media (min-width: 768px) {
