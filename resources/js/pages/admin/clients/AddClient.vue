@@ -75,7 +75,7 @@
                                 <input
                                     class="form-select shadow-none fw-semibold rounded-0"
                                     type="date"
-                                    v-model="client.dateNaissance"
+                                    v-model="client.birthday"
                                 />
                             </div>
                         </div>

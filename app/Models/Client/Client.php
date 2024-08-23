@@ -26,6 +26,8 @@ class Client extends Model
         'Handicap',
         'TypeHandicap',
         'DateHandicap',
+        'Birthday',
+        'Whatsapp',
         'CauseHandicap',
         'Autonomie',
         'User'

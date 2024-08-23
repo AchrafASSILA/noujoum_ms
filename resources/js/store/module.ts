@@ -23,6 +23,8 @@ export const useModuleStore = defineStore("module", {
         async save(module: any) {
             const formData = new FormData();
             formData.append("label", module.label);
+
+            formData.append("color", module.color);
             formData.append("section", module.section.id);
             await axiosClient.post("/modules", formData);
         },
@@ -30,6 +32,7 @@ export const useModuleStore = defineStore("module", {
             const formData = new FormData();
             formData.append("_method", "put");
             formData.append("label", module.label);
+            formData.append("color", module.color);
             formData.append("section", module.section.id);
             await axiosClient.post("/modules/" + module.id, formData);
         },

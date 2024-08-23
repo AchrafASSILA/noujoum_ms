@@ -79,6 +79,14 @@
                                     {{ item.sectionLabel }}
                                 </div>
                             </th>
+                            <th
+                                class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0 justify-content-center"
+                            >
+                                <div
+                                    class="color-block-span"
+                                    :style="'background-color:' + item.color"
+                                ></div>
+                            </th>
 
                             <td
                                 class="shadow-none lh-1 fw-medium text-body-tertiary text-end pe-0"
@@ -195,6 +203,19 @@
                                     </template>
                                 </VueMultiselect>
                             </div>
+                            <div class="mb-mb-15 mb-md-20">
+                                <label
+                                    for="inputTitle"
+                                    class="form-label fw-medium"
+                                    >Coleur</label
+                                >
+                                <div class="d-flex justify-content-center">
+                                    <v-color-picker
+                                        v-model="module.color"
+                                        hide-inputs
+                                    ></v-color-picker>
+                                </div>
+                            </div>
                             <Errors></Errors>
                         </div>
 
@@ -261,6 +282,7 @@ let errors = ref([]);
 let module = ref({
     id: "",
     label: "",
+    color: "",
     section: 0,
 });
 let isEdit = ref(false);
@@ -282,6 +304,12 @@ let headers = ref([
         key: "sectionLabel",
         sortable: true,
         title: "Section",
+    },
+    {
+        align: "center",
+        key: "color",
+        sortable: true,
+        title: "Color",
     },
     { align: "end", key: "actions", title: "Actions" },
 ]);
@@ -365,6 +393,7 @@ let initialize = () => {
     module.value = {
         id: "",
         label: "",
+        color: "",
         section: "",
     };
     isEdit.value = false;
@@ -422,5 +451,11 @@ let setModule = (mod) => {
 .card {
     border-radius: 0;
     border: 0;
+}
+.color-block-span {
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    border-radius: 5px;
 }
 </style>

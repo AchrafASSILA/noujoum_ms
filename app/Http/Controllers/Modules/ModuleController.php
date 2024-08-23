@@ -24,14 +24,14 @@ class ModuleController extends Controller
                 $data['modules'][] = [
                     'id' => $module->id,
                     'label' => $module->Label,
+                    'color' => $module->Color,
                     'alias' => $module->Alias,
                     'section' =>
                     [
 
-                       'id'=> $module->section->id,
-                       'label'=> $module->section->Label,
-                        ]
-                     ,
+                        'id' => $module->section->id,
+                        'label' => $module->section->Label,
+                    ],
                     'sectionLabel' => $module->section->Label,
                 ];
             }
@@ -69,6 +69,7 @@ class ModuleController extends Controller
             $module = Module::create([
                 'Label' => $request->label,
                 'Alias' => Str::slug($request->label),
+                'Color' => $request->color,
                 'Section' => $request->section,
             ]);
 
@@ -113,6 +114,7 @@ class ModuleController extends Controller
             //code...
             $module->update([
                 'Label' => $request->label,
+                'Color' => $request->color,
                 'Alias' => Str::slug($request->label),
                 'Section' => $request->section,
 

@@ -30,7 +30,7 @@ export const useClientStore = defineStore("client", {
         },
         async editClient(id: number) {
             await axiosClient
-                .get("/clients/" + id + '/edit')
+                .get("/clients/" + id + "/edit")
                 .then((res: any) => {
                     this.client = res.data?.client;
                 })
@@ -56,10 +56,10 @@ export const useClientStore = defineStore("client", {
             formData.append("email", client.email);
             formData.append("tel", client.tel);
             formData.append("cin", client.cin);
-            formData.append("region", client.region.region);
-            formData.append("dateNaissance", client.dateNaissance);
+            formData.append("region", client.region);
+            formData.append("birthday", client.birthday);
             formData.append("province", client.province);
-            formData.append("ville", client.ville.ville);
+            formData.append("ville", client.ville);
             formData.append("arrondissement", client.arrondissement);
             formData.append("facebook", client.facebook);
             formData.append("instagram", client.instagram);
@@ -83,10 +83,11 @@ export const useClientStore = defineStore("client", {
             formData.append("email", client.email);
             formData.append("tel", client.tel);
             formData.append("cin", client.cin);
-            formData.append("region", client.region.region);
+            formData.append("region", client.region);
             formData.append("dateNaissance", client.dateNaissance);
             formData.append("province", client.province);
-            formData.append("ville", client.ville.ville);
+            formData.append("ville", client.ville);
+            formData.append("birthday", client.birthday);
             formData.append("arrondissement", client.arrondissement);
             formData.append("facebook", client.facebook);
             formData.append("instagram", client.instagram);

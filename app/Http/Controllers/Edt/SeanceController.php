@@ -45,7 +45,7 @@ class SeanceController extends Controller
                     ],
                     // 'start' =>  date('Y-m-'  .  str_pad($item->Day, 2, 0, STR_PAD_LEFT)) . ' ' . date('H:i:s', strtotime($item->Start)),
                     // 'end' => date('Y-m-'  . str_pad($item->Day, 2, 0, STR_PAD_LEFT))  . ' ' . date('H:i:s', strtotime($item->End)),
-                    'color' => '#fff',
+                    'color' => $item->module->Color,
                     'sale' => [
                         'id' => $item->sale->id,
                         'label' => $item->sale->Label,
@@ -54,7 +54,7 @@ class SeanceController extends Controller
                         'id' => $item->module->id,
                         'label' => $item->module->Label,
                     ],
-                    'borderColor' => '#fff',
+                    'borderColor' => $item->module->Color,
                     'textColor' =>  "#fff",
                 ];
             }

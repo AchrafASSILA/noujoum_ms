@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Facades\Hash;
+
 class ClientController extends Controller
 {
     /**
@@ -108,7 +109,7 @@ class ClientController extends Controller
             $user->tel = $request->tel;
             $user->active = $request->active;
             $user->email = $request->email;
-            $user->password = Hash::make( $request->email);
+            $user->password = Hash::make($request->email);
             $user->save();
             // save client and link with user
             $client = Client::create([
@@ -119,6 +120,8 @@ class ClientController extends Controller
                 'Arrondissement' => $request->arrondissement,
                 'Facebook' => $request->facebook,
                 'Instagram' => $request->instagram,
+                'Whatsapp' => $request->whatsapp != 'null' ? $request->whatsapp : null,
+                'Birthday' => $request->birthday != 'null' ? $request->birthday : null,
                 'Tiktok' => $request->tiktok,
                 'Handicap' => $request->handicap == 'true' ? 1 : 0,
                 'TypeHandicap' => $request->typeHandicap != 'null' ? $request->typeHandicap : null,
@@ -170,6 +173,8 @@ class ClientController extends Controller
                 'province' => $client->Province,
                 'ville' => $client->Ville,
                 'arrondissement' => $client->Arrondissement,
+                'birthday' => $client->Birthday,
+                'whatsapp' => $client->Whatsapp,
                 'facebook' => $client->Facebook ?: '-',
                 'instagram' => $client->Instagram ?: '-',
                 'tiktok' => $client->Tiktok ?: '-',
@@ -208,6 +213,8 @@ class ClientController extends Controller
                 'Cin' => $client->cin,
                 'Region' => $client->region,
                 'Province' => $client->province,
+                'Birthday' => $client->Birthday,
+                'Watsapp' => $client->Whatsapp,
                 'Ville' => $client->ville,
                 'Arrondissement' => $client->arrondissement,
                 'Facebook' => $client->facebook,
@@ -252,6 +259,9 @@ class ClientController extends Controller
                 'Ville' => $request->ville != 'null' ? $request->ville : null,
                 'Arrondissement' => $request->arrondissement != 'null' ? $request->arrondissement : null,
                 'Facebook' => $request->facebook != 'null' ? $request->facebook : null,
+                'Whatsapp' => $request->whatsapp != 'null' ? $request->whatsapp : null,
+                'Birthday' => $request->birthday != 'null' ? $request->birthday : null,
+
                 'Instagram' => $request->instagram != 'null' ? $request->instagram : null,
                 'Tiktok' => $request->tiktok != 'null' ? $request->tiktok : null,
                 'Handicap' => $request->handicap == 'true' ? 1 : 0,

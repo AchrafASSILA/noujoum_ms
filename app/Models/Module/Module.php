@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Module extends Model
 {
     use HasFactory;
-    protected $fillable = ['Label', 'Alias', 'Section'];
+    protected $fillable = ['Label', 'Alias', 'Color', 'Section'];
 
 
     // relations
