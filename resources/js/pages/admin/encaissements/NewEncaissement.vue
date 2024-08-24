@@ -307,6 +307,10 @@
                                                                     class="dropdown"
                                                                 >
                                                                     <button
+                                                                        v-if="
+                                                                            item.payedAmount ==
+                                                                            0
+                                                                        "
                                                                         class="dropdown-toggle lh-1 bg-transparent border-0 shadow-none p-0 transition"
                                                                         type="button"
                                                                         data-bs-toggle="dropdown"
@@ -608,8 +612,34 @@
                                             </div>
                                         </div>
                                         <div class="col">
+                                            <div class="mb-mb-15 mb-md-20">
+                                                <label
+                                                    for="inputTitle"
+                                                    class="form-label fw-medium"
+                                                    >Reduction</label
+                                                >
+                                                <VueMultiselect
+                                                    v-model="
+                                                        affectation.reduction
+                                                    "
+                                                    :options="reductions"
+                                                    :multiple="false"
+                                                    :close-on-select="true"
+                                                    placeholder="Choisissez une service"
+                                                    label="label"
+                                                    value="id"
+                                                    track-by="id"
+                                                    @select="setPrice()"
+                                                    @remove="removeReduction()"
+                                                >
+                                                </VueMultiselect>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
                                             <div
-                                                class="mb-mb-15 mb-md-20 d-flex flex-column"
+                                                class="mb-mb-15 mb-md-20 d-flex flex-column justify-centent-end align-items-end"
                                             >
                                                 <label
                                                     for="inputTitle"
@@ -626,6 +656,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col" v-if="false">
                                         <div class="mb-mb-15 mb-md-20">
                                             <label
@@ -720,6 +751,7 @@ import { useServiceStore } from "../../../store/service";
 onMounted(async () => {
     await getClients();
     await getServices();
+    await getReductions();
     loaded.value = true;
 });
 
@@ -767,68 +799,19 @@ let headers = ref([
 ]);
 let closeBtn = ref("");
 let clients = ref([]);
+let reductions = ref([]);
 let inscription = ref(null);
 let clientSearch = ref(null);
 let errors = ref([]);
 let affectation = ref({
     service: null,
     price: "00.00",
+    reduction: null,
     inscription: null,
 });
 
 let loaded = ref(false);
 let clientLoaded = ref(true);
-// let months = [
-//     {
-//         key: 9,
-//         value: "septembre",
-//     },
-//     {
-//         key :10,
-//         value: "octobre",
-//     },
-//     {
-//         key :11,
-//         value: "novembre",
-//     },
-//     {
-//         key :12,
-//         value: "decembre",
-//     },
-//     {
-//         key :1,
-//         value: "janvier",
-//     },
-//     {
-//         2: "fevrier",
-//     },
-//     {
-//         3: "mars",
-//     },
-//     {
-//         4: "april",
-//     },
-//     {
-//         5: "mai",
-//     },
-//     {
-//         7: "juin",
-//     },
-//     {
-//         8: "juinllet",
-//     },
-// ];
-// let trimestres = [
-//     {
-//         t1: "T1",
-//     },
-//     {
-//         t2: "T2",
-//     },
-//     {
-//         t2: "T3",
-//     },
-// ];
 
 // stores
 const encaissementStore = useEncaissementStore();
@@ -849,6 +832,26 @@ let getClients = async () => {
         });
 };
 let setPrice = () => {
+    if (!affectation.value.service) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "merci de choisir une service",
+        });
+
+        return;
+    }
+    if (affectation.value.reduction) {
+        affectation.value.price =
+            affectation.value.service.price -
+            (affectation.value.reduction.value *
+                affectation.value.service.price) /
+                100;
+    } else {
+        affectation.value.price = affectation.value.service.price;
+    }
+};
+let removeReduction = () => {
     affectation.value.price = affectation.value.service.price;
 };
 let getServices = async () => {
@@ -860,6 +863,17 @@ let getServices = async () => {
         .catch((err) => {
             errorStore.errors = [];
             errorStore.errors.push(err.response.data.msg);
+        });
+};
+let getReductions = async () => {
+    await serviceStore
+        .getReductions()
+        .then((res) => {
+            reductions.value = serviceStore.reductions;
+        })
+        .catch((err) => {
+            errorStore.errors = [];
+            errorStore.errors.push(err.response?.data?.msg);
         });
 };
 let getClientEncaissements = async () => {
@@ -885,6 +899,7 @@ let saveAffectation = async () => {
             Swal.fire("Succès", "Succès");
             closeBtn.value.click();
             getClientEncaissements();
+            inisialize();
         })
         .catch((err) => {
             errorStore.errors = [];
@@ -957,5 +972,13 @@ let makePayement = async (pay: any) => {
                 });
         }
     });
+};
+let inisialize = () => {
+    affectation.value = {
+        service: null,
+        price: "00.00",
+        reduction: null,
+        inscription: null,
+    };
 };
 </script>

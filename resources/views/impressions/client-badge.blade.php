@@ -3,8 +3,7 @@
         <tr align="center">
             <td width="30%">
                 <div>
-                    <?php $logo  ='http://[::1]:5173/resources/js/assets/images/favicon.png'; ?>
-                    <img src="<?php echo $logo ?>" />
+                    <img src="<?php echo $config->getLogo() ?>" width="100px"/>
                 </div>
             </td>
             <td width="40%">
@@ -12,13 +11,12 @@
                 <br>
                 <span class="padge-title" style="color: rgb(1, 123, 176);">BADGE D'ACCÈS</span>
                 <br>
-                <span class="school-name-header"> <?php echo 'Noujoum'?></span>
+                <span class="school-name-header"> <?php echo $config->Title?></span>
 
             </td>
             <td width="30%">
-                <div>
-                    <?php $logo = 'http://[::1]:5173/resources/js/assets/images/favicon.png'; ?>
-                    <img src="<?php echo $logo ?>"   />
+                <div> 
+                    <img src="<?php echo $config->getLogo() ?>"  width="100px"  />
                 </div>
             </td>
         </tr>

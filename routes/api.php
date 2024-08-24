@@ -72,5 +72,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('users/{id}', [UserController::class, 'delete']);
     Route::get('/fnc/etat-financier-global-per-services', [FncController::class, 'etat_financier_global_per_services']);
     Route::get('/statistics/etats', [StatisticController::class, 'etats']);
+    Route::get('/reductions', [ServiceController::class, 'reductions']);
 });
 Route::resource('config', ConfigController::class);

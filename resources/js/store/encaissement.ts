@@ -61,15 +61,17 @@ export const useEncaissementStore = defineStore("encaissement", {
 
             formData.append("service", service.id);
             formData.append("inscription", inscription);
-            await axiosClient.post("/encaissements", formData).then((res: any) => {
-
-                this.lastEncaissement = res.data.encaissement.id
-            });
+            await axiosClient
+                .post("/encaissements", formData)
+                .then((res: any) => {
+                    this.lastEncaissement = res.data.encaissement.id;
+                });
         },
         async saveAffectation(affecation: any) {
             const formData = new FormData();
             formData.append("inscription", affecation.inscription);
             formData.append("price", affecation.price);
+            formData.append("reduction", affecation.reduction.id);
             formData.append("service", affecation.service.id);
             await axiosClient.post("/encaissement-inscription", formData);
         },

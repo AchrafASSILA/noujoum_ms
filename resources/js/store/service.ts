@@ -7,6 +7,7 @@ import { useRouter } from "vue-router";
 export const useServiceStore = defineStore("service", {
     state: () => ({
         services: [],
+        reductions: [],
     }),
     getters: {},
     actions: {
@@ -15,6 +16,16 @@ export const useServiceStore = defineStore("service", {
                 .get("/services")
                 .then((res: any) => {
                     this.services = res.data.services;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        async getReductions() {
+            await axiosClient
+                .get("/reductions")
+                .then((res: any) => {
+                    this.reductions = res.data.reductions;
                 })
                 .catch((err) => {
                     console.log(err);

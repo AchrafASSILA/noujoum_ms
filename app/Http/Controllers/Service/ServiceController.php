@@ -49,6 +49,50 @@ class ServiceController extends Controller
             return response(['msg' => $e->getMessage()], 400);
         }
     }
+    public function reductions()
+    {
+        try {
+            $data = [];
+            $data['reductions'] = [
+                [
+                    'id' => 1,
+                    'label' => '10%',
+                    'value' => '10',
+                ],
+                [
+                    'id' => 2,
+                    'label' => '25%',
+                    'value' => '25',
+                ],
+                [
+                    'id' => 3,
+                    'label' => '30%',
+                    'value' => '30',
+                ],
+                [
+                    'id' => 4,
+                    'label' => '50%',
+                    'value' => '50',
+                ],
+                [
+                    'id' => 5,
+                    'label' => '75%',
+                    'value' => '75',
+                ],
+                [
+                    'id' => 6,
+                    'label' => '100%',
+                    'value' => '100',
+                ],
+            ];
+
+
+            return response($data, 200);
+        } catch (\Exception $e) {
+            //throw $th;
+            return response(['msg' => $e->getMessage()], 400);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.

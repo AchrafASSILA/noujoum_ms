@@ -6,6 +6,7 @@ use PDF;
 use App\Exports\ClientsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Client\Client;
+use App\Models\Config\Config;
 use App\Models\Inscription\Inscription;
 use App\Models\Promotion\Promotion;
 use App\Models\User;
@@ -371,7 +372,7 @@ class ClientController extends Controller
         $fileName = 'client-badge.pdf';
         $client = Client::find($id);
         $urlImage = $client->user->getImage();
-        $html = view()->make('impressions/client-badge', ['client' => $client, 'urlImage' => $urlImage])->render();
+        $html = view()->make('impressions/client-badge', ['client' => $client,  'config' => Config::first(), 'urlImage' => $urlImage])->render();
         // $pdf = new TCPDF;
         // $pdf::SetTitle('clients');
         // $pdf::AddPage();

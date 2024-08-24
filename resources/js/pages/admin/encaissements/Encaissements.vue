@@ -109,6 +109,7 @@
                                         <li>
                                             <!-- @click.prevent="setModule(item)" -->
                                             <button
+                                                v-if="false"
                                                 class="dropdown-item d-flex align-items-center"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#basicModal"

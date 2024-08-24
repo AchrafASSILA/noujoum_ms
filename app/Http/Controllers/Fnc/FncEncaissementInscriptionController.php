@@ -105,6 +105,9 @@ class FncEncaissementInscriptionController extends Controller
             if ($service->isMensuel()) {
                 foreach (Service::months() as $key => $item) {
                     $affectation = new FncEncaissementInscription();
+                    $exists = FncEncaissementInscription::where('Service', $service->id)->where('Inscription', $inscription->id)->where('Frequenc', $item)->count();
+                    if ($exists)
+                        continue;
                     $affectation->Amount = $request->price;
                     $affectation->Frequenc = $item;
                     $affectation->Service = $service->id;
@@ -115,6 +118,9 @@ class FncEncaissementInscriptionController extends Controller
                 }
             } elseif ($service->isTrimestriel()) {
                 foreach (Service::trimsetrial() as $key => $item) {
+                    $exists = FncEncaissementInscription::where('Service', $service->id)->where('Inscription', $inscription->id)->where('Frequenc', $item)->count();
+                    if ($exists)
+                        continue;
                     $affectation = new FncEncaissementInscription();
                     $affectation->Amount = $request->price;
                     $affectation->Frequenc = $item;
@@ -125,18 +131,22 @@ class FncEncaissementInscriptionController extends Controller
                     $affectation->save();
                 }
             } else {
-                $affectation = new FncEncaissementInscription();
-                $affectation->Amount = $request->price;
-                if ($service->isAnnuell()) {
-                    $affectation->Frequenc = 'Annuel';
-                } else {
-                    $affectation->Frequenc = 'OneTime';
+                $exists = FncEncaissementInscription::where('Service', $service->id)->where('Inscription', $inscription->id)->where('Frequenc', $service->Frequenc)->count();
+                if (!$exists) {
+                    $affectation = new FncEncaissementInscription();
+                    $affectation->Amount = $request->price;
+                    if ($service->isAnnuell()) {
+                        $affectation->Frequenc = 'Annuel';
+                    } else {
+                        $affectation->Frequenc = 'OneTime';
+                    }
+
+                    $affectation->Service = $service->id;
+                    $affectation->Inscription = $inscription->id;
+                    $affectation->Promotion = $inscription->promotion->id;
+                    $affectation->User = Auth::user()->id;
+                    $affectation->save();
                 }
-                $affectation->Service = $service->id;
-                $affectation->Inscription = $inscription->id;
-                $affectation->Promotion = $inscription->promotion->id;
-                $affectation->User = Auth::user()->id;
-                $affectation->save();
             }
 
 

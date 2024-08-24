@@ -93,7 +93,6 @@ class Service extends Model
             1 => 'T1',
             2 => 'T2',
             3 => 'T3',
-            4 => 'T4',
         ];
     }
     public function getCA()
