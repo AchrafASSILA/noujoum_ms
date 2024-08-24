@@ -185,7 +185,7 @@
                         to="/sections"
                         class="sidebar-nav-link d-block pb-0 pt-0"
                     >
-                        <i class="flaticon-shapes"></i>
+                        <i class="ph ph-buildings"></i>
                         <span class="title">Sections</span>
                     </router-link>
                 </li>
@@ -203,7 +203,7 @@
                         to="/sales"
                         class="sidebar-nav-link d-block pb-0 pt-0"
                     >
-                        <i class="flaticon-layer-2"></i>
+                        <i class="ph ph-chalkboard"></i>
                         <span class="title">Salles</span>
                     </router-link>
                 </li>

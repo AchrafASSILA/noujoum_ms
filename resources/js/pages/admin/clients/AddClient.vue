@@ -229,11 +229,20 @@
                                         autonomie
                                     </label>
                                     <input
+                                        v-if="false"
                                         type="text"
                                         class="form-control shadow-none rounded-0 text-black"
                                         placeholder=""
                                         v-model="client.autonomie"
                                     />
+                                    <VueMultiselect
+                                        v-model="client.autonomie"
+                                        :options="['Oui', 'Non']"
+                                        :multiple="false"
+                                        :close-on-select="true"
+                                        placeholder="Région"
+                                    >
+                                    </VueMultiselect>
                                 </div>
                             </div>
                         </div>
