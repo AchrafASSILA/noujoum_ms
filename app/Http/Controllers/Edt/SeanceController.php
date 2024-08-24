@@ -21,10 +21,14 @@ class SeanceController extends Controller
     {
         //
         try {
+            $user = Auth::user();
             $days = Seance::days();
             $seances = [];
-
-            $list = Seance::get();
+            $where = [];
+            if ($user->roles->Alias == 'coach') {
+                $where['User'] = $user->id;
+            }
+            $list = Seance::where($where)->get();
             foreach ($list as $item) {
                 $day  = $item->Day;
                 $days = array(0 => 'Monday', 1 => 'Tuesday', 2 => 'Wednesday', 3 => 'Thursday', 4 => 'Friday', 5 => 'Saturday', 6 => 'Sunday');
@@ -39,9 +43,9 @@ class SeanceController extends Controller
                     'endReal' => date('H:i', strtotime($item->End)),
                     'day' => $item->getDay(),
                     'coach' => [
-                        'id' => Auth::user()->id,
-                        'name' => Auth::user()->getFullname(),
-                        'image' => Auth::user()->getImage(),
+                        'id' => $item->user ?  $item->user->id : null,
+                        'name' =>  $item->user ?  $item->user->getFullname() : null,
+                        'image' => $item->user ?  $item->user->getImage() : null,
                     ],
                     // 'start' =>  date('Y-m-'  .  str_pad($item->Day, 2, 0, STR_PAD_LEFT)) . ' ' . date('H:i:s', strtotime($item->Start)),
                     // 'end' => date('Y-m-'  . str_pad($item->Day, 2, 0, STR_PAD_LEFT))  . ' ' . date('H:i:s', strtotime($item->End)),
@@ -146,6 +150,7 @@ class SeanceController extends Controller
                 'Section' => $module->section->id,
                 'Module' => $request->module,
                 'UserBy' => Auth::user()->id,
+                'User' => $request->coach,
             ]);
             return response(['msg' => 'seance save with succes', 'seance' => $seance], 200);
         } catch (\Exception $e) {
@@ -199,6 +204,7 @@ class SeanceController extends Controller
                 'Section' => $module->section->id,
                 'Module' => $request->module,
                 'UserBy' => Auth::user()->id,
+                'User' => $request->coach,
             ]);
             return response(['msg' => 'seance save with succes', 'seance' => $seance], 200);
         } catch (\Exception $e) {

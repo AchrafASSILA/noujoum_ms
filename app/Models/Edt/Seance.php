@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class Seance extends Model
 {
     use HasFactory;
-    protected $fillable = ['Label', 'Date', 'Day', 'Start', 'End', 'Sale', 'Section', 'Module', 'UserBy'];
+    protected $fillable = ['Label', 'Date', 'Day', 'Start', 'End', 'Sale', 'Section', 'User',  'Module', 'UserBy'];
     // relations
     public function sale()
     {
@@ -25,6 +25,10 @@ class Seance extends Model
     public function userBy()
     {
         return $this->belongsTo(User::class, 'UserBy');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'User');
     }
     public function module()
     {

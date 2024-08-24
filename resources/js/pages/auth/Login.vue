@@ -138,7 +138,9 @@ async function login() {
     await authStore
         .login(user.email, user.password)
         .then((res) => {
-            location.reload();
+            if (localStorage.getItem("TOKEN")) {
+                location.reload();
+            }
         })
         .catch((err) => {});
     // router.push({ name: "Home" });

@@ -38,12 +38,20 @@
                     </router-link>
                 </li>
 
-                <li class="sub-title sidebar-nav-item">
+                <li
+                    class="sub-title sidebar-nav-item"
+                    v-if="
+                        authStore.role && clientRoles.includes(authStore.role)
+                    "
+                >
                     <span class="d-block text-uppercase fw-medium"
                         >Gestion des clients</span
                     >
                 </li>
                 <li
+                    v-if="
+                        authStore.role && clientRoles.includes(authStore.role)
+                    "
                     class="sidebar-nav-item accordion-item bg-transparent border-0 rounded-0"
                 >
                     <a
@@ -94,12 +102,16 @@
                         </div>
                     </div>
                 </li>
-                <li class="sub-title sidebar-nav-item">
+                <li
+                    class="sub-title sidebar-nav-item"
+                    v-if="authStore.role && fncRoles.includes(authStore.role)"
+                >
                     <span class="d-block text-uppercase fw-medium"
                         >Gestion financiere</span
                     >
                 </li>
                 <li
+                    v-if="authStore.role && fncRoles.includes(authStore.role)"
                     class="sidebar-nav-item accordion-item bg-transparent border-0 rounded-0"
                 >
                     <a
@@ -158,10 +170,20 @@
                         </div>
                     </div>
                 </li>
-                <li class="sub-title sidebar-nav-item">
+                <li
+                    class="sub-title sidebar-nav-item"
+                    v-if="
+                        authStore.role && planingRoles.includes(authStore.role)
+                    "
+                >
                     <span class="d-block text-uppercase fw-medium">Apps</span>
                 </li>
-                <li class="sidebar-nav-item">
+                <li
+                    class="sidebar-nav-item"
+                    v-if="
+                        authStore.role && planingRoles.includes(authStore.role)
+                    "
+                >
                     <router-link
                         to="/edt"
                         class="sidebar-nav-link d-block pb-0 pt-0"
@@ -171,7 +193,10 @@
                     </router-link>
                 </li>
 
-                <li class="sidebar-nav-item">
+                <li
+                    class="sidebar-nav-item"
+                    v-if="authStore.role && otherRoles.includes(authStore.role)"
+                >
                     <router-link
                         to="/users"
                         class="sidebar-nav-link d-block pb-0 pt-0"
@@ -180,7 +205,10 @@
                         <span class="title">Utulisateures</span>
                     </router-link>
                 </li>
-                <li class="sidebar-nav-item">
+                <li
+                    class="sidebar-nav-item"
+                    v-if="authStore.role && otherRoles.includes(authStore.role)"
+                >
                     <router-link
                         to="/sections"
                         class="sidebar-nav-link d-block pb-0 pt-0"
@@ -189,7 +217,10 @@
                         <span class="title">Sections</span>
                     </router-link>
                 </li>
-                <li class="sidebar-nav-item">
+                <li
+                    class="sidebar-nav-item"
+                    v-if="authStore.role && otherRoles.includes(authStore.role)"
+                >
                     <router-link
                         to="/modules"
                         class="sidebar-nav-link d-block pb-0 pt-0"
@@ -198,7 +229,10 @@
                         <span class="title">Modules</span>
                     </router-link>
                 </li>
-                <li class="sidebar-nav-item">
+                <li
+                    class="sidebar-nav-item"
+                    v-if="authStore.role && otherRoles.includes(authStore.role)"
+                >
                     <router-link
                         to="/sales"
                         class="sidebar-nav-link d-block pb-0 pt-0"
@@ -207,11 +241,15 @@
                         <span class="title">Salles</span>
                     </router-link>
                 </li>
-                <li class="sub-title sidebar-nav-item">
+                <li
+                    class="sub-title sidebar-nav-item"
+                    v-if="authStore.role && otherRoles.includes(authStore.role)"
+                >
                     <span class="d-block text-uppercase fw-medium">Params</span>
                 </li>
                 <li
                     class="sidebar-nav-item accordion-item bg-transparent border-0 rounded-0"
+                    v-if="authStore.role && otherRoles.includes(authStore.role)"
                 >
                     <a
                         href="#param"
@@ -251,6 +289,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
 import { useAuthStore } from "../store/auth";
 import { useLayoutStore } from "../store/layout";
 
@@ -259,6 +298,16 @@ const authStore = useAuthStore();
 let changeLayout = () => {
     layoutStore.open = !layoutStore.open;
 };
+let planingRoles = ref(["admin", "pinia", "founder", "assistant", "coach"]);
+let clientRoles = ref(["admin", "pinia", "founder", "assistant"]);
+let otherRoles = ref(["admin", "pinia", "founder", "assistant"]);
+let fncRoles = ref([
+    "admin",
+    "pinia",
+    "founder",
+    "financial_agent",
+    "assistant",
+]);
 </script>
 
 <style scoped>

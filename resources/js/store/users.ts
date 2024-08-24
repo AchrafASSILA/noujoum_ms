@@ -38,6 +38,17 @@ export const useUsersStore = defineStore("users", {
             formData.append("active", user.active);
             await axiosClient.post("/users/" + user.id, formData);
         },
+        async updatePassword(user: any, form: any) {
+            const formData = new FormData();
+            formData.append("_method", "put");
+            formData.append("password", form.password);
+            formData.append(
+                "password_confirmation",
+                form.password_confirmation
+            );
+
+            await axiosClient.post("/update-password/" + user.id, formData);
+        },
         async delete(user: any) {
             await axiosClient.delete("/users/" + user.id);
         },

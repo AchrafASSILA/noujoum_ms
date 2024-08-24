@@ -26,7 +26,14 @@ const routes = [
         component: Home,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: [
+                "pinia",
+                "admin",
+                "assistant",
+                "founder",
+                "financial_agent",
+                "coach",
+            ],
         },
     },
     {
@@ -35,7 +42,7 @@ const routes = [
         component: Users,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "founder"],
         },
     },
     {
@@ -44,7 +51,7 @@ const routes = [
         component: Sections,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "founder"],
         },
     },
     {
@@ -53,7 +60,7 @@ const routes = [
         component: Modules,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "founder"],
         },
     },
     {
@@ -62,7 +69,7 @@ const routes = [
         component: Sales,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "founder"],
         },
     },
     {
@@ -71,7 +78,13 @@ const routes = [
         component: Services,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: [
+                "pinia",
+                "admin",
+                "assistant",
+                "financial_agent",
+                "founder",
+            ],
         },
     },
     {
@@ -80,7 +93,7 @@ const routes = [
         component: Calendar,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "coach", "founder"],
         },
     },
     {
@@ -89,7 +102,7 @@ const routes = [
         component: EcronCalendar,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "coach", "founder"],
         },
     },
     {
@@ -98,7 +111,7 @@ const routes = [
         component: Clients,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "founder"],
         },
     },
     {
@@ -107,7 +120,13 @@ const routes = [
         component: Encaissements,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: [
+                "pinia",
+                "admin",
+                "assistant",
+                "financial_agent",
+                "founder",
+            ],
         },
     },
     {
@@ -116,7 +135,13 @@ const routes = [
         component: EtatFinancierPerServices,
         meta: {
             requiresAuth: true,
-            roles: ["pinia", "founder"],
+            roles: [
+                "pinia",
+                "admin",
+                "assistant",
+                "financial_agent",
+                "founder",
+            ],
         },
     },
     {
@@ -125,7 +150,13 @@ const routes = [
         component: NewEncaissement,
         meta: {
             requiresAuth: true,
-            // roles: ["pinia", "founder"],
+            roles: [
+                "pinia",
+                "admin",
+                "assistant",
+                "financial_agent",
+                "founder",
+            ],
         },
     },
     {
@@ -134,7 +165,7 @@ const routes = [
         component: ArchivedClients,
         meta: {
             requiresAuth: true,
-            // roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "founder"],
         },
     },
     {
@@ -143,7 +174,7 @@ const routes = [
         component: Client,
         meta: {
             requiresAuth: true,
-            // roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "founder"],
         },
     },
     {
@@ -152,7 +183,7 @@ const routes = [
         component: AddClient,
         meta: {
             requiresAuth: true,
-            // roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "founder"],
         },
     },
     {
@@ -161,7 +192,7 @@ const routes = [
         component: EditClient,
         meta: {
             requiresAuth: true,
-            // roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "founder"],
         },
     },
     {
@@ -170,7 +201,7 @@ const routes = [
         component: Config,
         meta: {
             requiresAuth: true,
-            // roles: ["pinia", "founder"],
+            roles: ["pinia", "admin", "assistant", "founder"],
         },
     },
     // auth
@@ -178,6 +209,9 @@ const routes = [
         path: "/auth/login",
         name: "Login",
         component: Login,
+        meta: {
+            requiresAuth: false,
+        },
     },
     // not found
     {
@@ -217,7 +251,18 @@ router.beforeEach((to, from, next) => {
     } else if (localStorage.getItem("TOKEN") && to.name == "Login") {
         next({ name: "Home" });
     } else {
-        next();
+        if (!to.meta.requiresAuth) {
+            next();
+        } else if (
+            to.meta.roles &&
+            to.meta.roles.includes(localStorage.getItem("ROLE"))
+        ) {
+            next();
+        } else {
+            console.log("to");
+
+            next({ name: "Home" });
+        }
     }
 });
 

@@ -3,20 +3,13 @@
         <div v-if="loaded">
             <div class="row">
                 <div class="col-xxxl-6"></div>
-                <div class="col-xxxl-3">
-                    <a
-                        href="/edt-full"
-                        target="_blank"
-                        type="button"
-                        class="default-btn mb-25 border-0 text-none transition d-block w-100 text-center position-relative text-white fs-md-15 fs-lg-16 fw-medium pt-18 pb-18 ps-15 pe-15"
-                    >
-                        Afficher
-                        <i
-                            class="flaticon-view lh-1 fs-13 position-relative top-1 ms-5"
-                        ></i>
-                    </a>
-                </div>
-                <div class="col-xxxl-3">
+                <div
+                    class="col-xxxl-3"
+                    v-if="
+                        useAuthStore().role &&
+                        otherRoles.includes(useAuthStore().role)
+                    "
+                >
                     <button
                         type="button"
                         @click="initialize()"
@@ -29,6 +22,19 @@
                             class="flaticon-plus lh-1 fs-13 position-relative top-1 ms-5"
                         ></i>
                     </button>
+                </div>
+                <div class="col-xxxl-3">
+                    <a
+                        href="/edt-full"
+                        target="_blank"
+                        type="button"
+                        class="default-btn mb-25 border-0 text-none transition d-block w-100 text-center position-relative text-white fs-md-15 fs-lg-16 fw-medium pt-18 pb-18 ps-15 pe-15"
+                    >
+                        Afficher
+                        <i
+                            class="flaticon-view lh-1 fs-13 position-relative top-1 ms-5"
+                        ></i>
+                    </a>
                 </div>
             </div>
             <div class="row">
@@ -52,6 +58,12 @@
                                                 class="actions d-flex justify-content-end"
                                             >
                                                 <button
+                                                    v-if="
+                                                        useAuthStore().role &&
+                                                        otherRoles.includes(
+                                                            useAuthStore().role
+                                                        )
+                                                    "
                                                     class="dropdown-item cl-btn"
                                                     @click.prevent="edit(arg)"
                                                     data-bs-toggle="modal"
@@ -62,6 +74,12 @@
                                                     ></i>
                                                 </button>
                                                 <button
+                                                    v-if="
+                                                        useAuthStore().role &&
+                                                        otherRoles.includes(
+                                                            useAuthStore().role
+                                                        )
+                                                    "
                                                     class="dropdown-item cl-btn"
                                                     @click.prevent="remove(arg)"
                                                 >
@@ -347,6 +365,7 @@ import Loader from "../../../Components/ui/Loader.vue";
 import { VTimePicker } from "vuetify/labs/VTimePicker";
 
 import VueMultiselect from "vue-multiselect";
+import { useAuthStore } from "../../../store/auth";
 onMounted(async () => {
     await getSeances();
     await getFormdata();
@@ -486,7 +505,7 @@ let initialize = () => {
     };
     isEdit.value = false;
 };
-
+let otherRoles = ref(["admin", "pinia", "founder", "assistant"]);
 let calendarOptions = ref({
     plugins: [timeGridPlugin, interactionPlugin],
     initialView: "timeGridWeek",

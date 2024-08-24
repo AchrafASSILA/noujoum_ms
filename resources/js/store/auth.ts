@@ -36,6 +36,8 @@ export const useAuthStore = defineStore("auth", {
                     errorStore.errors = [];
                     // this.router.push({ path: "/" });
                     // console.log("hello");
+              
+            
                 })
                 .catch((err) => {
                     errorStore.errors = [];

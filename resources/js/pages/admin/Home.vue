@@ -31,7 +31,7 @@
             </div>
         </div>
         <div
-            v-if="loaded"
+            v-if="loaded && roles.includes(authStore.role)"
             class="card mb-25 border-0 rounded-0 bg-white number-of-tickets-box"
         >
             <div class="card-body p-15 p-sm-20 p-sm-25 p-lg-30 letter-spacing">
@@ -173,4 +173,5 @@ let chartServices = ref([
         data: [],
     },
 ]);
+let roles = ref(["admin", "pinia", "founder", "financial_agent"]);
 </script>

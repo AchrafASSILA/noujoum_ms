@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         try {
             //code...
-            $list = User::where('role', '<>', 1)->where('role', '<>', 2)->orderBy('created_at', 'DESC')->get();
+            $list = User::where('role', '<>', 1)->where('role', '<>', 2)->where('role', '<>', 3)->orderBy('created_at', 'DESC')->get();
             $data = [];
             $data['users'] = [];
             foreach ($list as $user) {
@@ -26,13 +26,13 @@ class UserController extends Controller
                     'email' => $user->email,
                     'tel' => $user->tel,
                     'role' => [
-                        'id'=>$user->roles->id,
-                        'Label'=>$user->roles->Label
+                        'id' => $user->roles->id,
+                        'Label' => $user->roles->Label
                     ],
-                    'active' => $user->active ?true:false,
+                    'active' => $user->active ? true : false,
                     'roleLabel' => $user->roles->Label,
                     'adress' => $user->adress,
-                    'age' => $user->age, 
+                    'age' => $user->age,
                     'image' => $user->getImage(),
                 ];
             }
@@ -52,6 +52,7 @@ class UserController extends Controller
                 'email' => 'required|max:100|email|unique:users',
                 'tel' => 'required|max:100|unique:users',
                 'role' => 'required',
+
             ]);
             if ($validation->messages()->all()) {
                 return response(['msg' => $validation->messages()->all()], 403);
@@ -63,9 +64,9 @@ class UserController extends Controller
             $user->role = $request->role;
             $user->age = $request->age;
             $user->tel = $request->tel;
-            $user->active = $request->active == 'true' ? 1 :0;
+            $user->active = $request->active == 'true' ? 1 : 0;
             $user->email = $request->email;
-            $user->password = Hash::make($request->password);
+            $user->password = Hash::make($request->email);
             $user->save();
 
             if ($request->hasFile('file')) {
@@ -91,6 +92,7 @@ class UserController extends Controller
                 'name' => 'required|max:100',
                 'email' => 'required|max:100|email|unique:users,email,' . $user->id,
                 'tel' => 'required|max:100|unique:users,tel,' . $user->id,
+
             ]);
             if ($validation->messages()->all()) {
                 return response(['msg' => $validation->messages()->all()], 403);
@@ -103,7 +105,7 @@ class UserController extends Controller
             $user->age = $request->age ?: null;
             $user->role = $request->role;
             $user->tel = $request->tel ?: null;
-            $user->active = $request->active == 'true' ? 1 :0;
+            $user->active = $request->active == 'true' ? 1 : 0;
             $user->email = $request->email ?: null;
             $user->save();
             if ($request->hasFile('file')) {
@@ -126,7 +128,7 @@ class UserController extends Controller
         try {
             $user = User::find($id);
             $validation = Validator::make($request->all(), [
-                'password' => 'required|confirmed',
+                'password' => 'required|confirmed|min:8',
             ]);
             if ($validation->messages()->all()) {
                 return response(['msg' => $validation->messages()->all()], 403);

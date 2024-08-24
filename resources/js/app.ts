@@ -25,6 +25,6 @@ App.use(VueApexCharts);
 App.use(createBootstrap());
 
 App.use(vuetify);
+router.isReady().then(() => {
 App.mount("#app");
-// router.isReady().then(() => {
-// });
+});
