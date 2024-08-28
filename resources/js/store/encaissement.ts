@@ -11,6 +11,8 @@ export const useEncaissementStore = defineStore("encaissement", {
         services: [],
         inscription: null,
         lastEncaissement: null,
+        inscriptions: [],
+        date: null,
     }),
     getters: {},
     actions: {
@@ -30,6 +32,22 @@ export const useEncaissementStore = defineStore("encaissement", {
                 .then((res: any) => {
                     this.services = res.data.services;
                     this.total = res.data.total;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        async getEtatJournalier(search) {
+            await axiosClient
+                .get("/fnc/get-etat-journalier", {
+                    params: {
+                        date: search,
+                    },
+                })
+                .then((res: any) => {
+                    this.inscriptions = res.data.inscriptions;
+                    this.total = res.data.total;
+                    this.date = res.data.date;
                 })
                 .catch((err) => {
                     console.log(err);
@@ -68,10 +86,11 @@ export const useEncaissementStore = defineStore("encaissement", {
                 });
         },
         async saveAffectation(affecation: any) {
+            console.log(affecation);
             const formData = new FormData();
             formData.append("inscription", affecation.inscription);
             formData.append("price", affecation.price);
-            formData.append("reduction", affecation.reduction.id);
+            // formData.append("reduction", affecation.reduction?.id);
             formData.append("service", affecation.service.id);
             await axiosClient.post("/encaissement-inscription", formData);
         },

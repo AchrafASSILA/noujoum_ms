@@ -24,6 +24,8 @@ Route::get('/impressions-clients', [ClientController::class, 'exportPdf']);
 Route::get('/impressions-encaissement-recu/{id}', [FncEncaissementsController::class, 'recu']);
 Route::get('/impressions-client-badge/{id}', [ClientController::class, 'badge']);
 Route::get('/impressions-export-etat-services-pdf', [FncController::class, 'exportEtatServicesPdf']);
+Route::get('/impressions-export-etat-journalier-pdf', [FncController::class, 'exportEtatJournalierPdf']);
+Route::get('/export-etat-journalier-excel', [FncController::class, 'exportEtatJournalier']);
 Route::get('/exports-clients', [ClientController::class, 'export']);
 Route::get('/export-etat-services-excel', [FncController::class, 'exportEtats']);
 

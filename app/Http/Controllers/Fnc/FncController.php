@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Fnc;
 
 use App\Exports\EtatExport;
+use App\Exports\EtatJournalierExport;
 use App\Http\Controllers\Controller;
 use App\Models\Config\Config;
+use App\Models\Fnc\FncEncaissementInscription;
+use App\Models\Fnc\FncEncaissementLine;
 use App\Models\Service\Service;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\Request;
+
 use PDF;
 
 class FncController extends Controller
@@ -49,6 +54,45 @@ class FncController extends Controller
             return response(['msg' => $e->getMessage()], 400);
         }
     }
+    public function etat_journalier(Request $request)
+    {
+        try {
+
+            $data = [
+                'inscriptions' => [],
+            ];
+            $inscriptions = [];
+            $where = [];
+            $date = $request->has('date') && $request->date ? $request->date : date('Y-m-d');
+
+
+
+            $fnc_inscriptions = FncEncaissementLine::where('created_at', 'like', $date . '%')->orderBy('created_at')->get();
+            $total = 0;
+            foreach ($fnc_inscriptions as $fnc_inscription) {
+                if (in_array($fnc_inscription->inscription->id, $inscriptions)) continue;
+                $totalPayed = FncEncaissementLine::where('Inscription', $fnc_inscription->inscription->id)->where('created_at', 'like', $date . '%')->whereNull('Canceled')->sum('Amount');
+
+                $total += $totalPayed;
+                $data['inscriptions'][$fnc_inscription->inscription->id] = [
+                    'name' => $fnc_inscription->inscription->client->user->getFullName(),
+                    'image' => $fnc_inscription->inscription->client->user->getImage(),
+                    'totalPayed' => number_format($totalPayed, 2) . ' DH',
+                    'date' => $date,
+
+                ];
+                $inscriptions[] = $fnc_inscription->inscription->id;
+            }
+            $data['inscriptions'] = array_values($data['inscriptions']);
+            $data['total'] = number_format($total, 2) . ' DH';
+            $data['date'] = $date;
+
+            return response($data, 200);
+        } catch (\Exception $e) {
+            //throw $th;
+            return response(['msg' => $e->getMessage()], 400);
+        }
+    }
     public function exportEtatServicesPdf()
     {
 
@@ -76,5 +120,38 @@ class FncController extends Controller
     {
 
         return Excel::download(new EtatExport, 'etat_par_services.xlsx');
+    }
+    public function exportEtatJournalierPdf(Request $request)
+    {
+
+
+
+
+        $date = $request->has('date') && $request->date ? $request->date : date('Y-m-d');
+
+
+
+        $fnc_inscriptions = FncEncaissementLine::where('created_at', 'like', $date . '%')->orderBy('created_at')->get();
+
+
+
+
+
+
+        $html = view()->make('impressions/etat_journalier', [
+            'fnc_inscriptions' => $fnc_inscriptions,
+            'date' => $date,
+            'config' => Config::first(),
+        ])->render();
+        PDF::SetTitle('Etat journalier');
+        PDF::AddPage();
+        PDF::writeHTML($html);;
+        PDF::Output('etat_journalier.pdf');
+    }
+    public function exportEtatJournalier(Request $request)
+    {
+        $date = $request->has('date') && $request->date ? $request->date : date('Y-m-d');
+
+        return Excel::download(new EtatJournalierExport($date), 'etat_journalier.xlsx');
     }
 }

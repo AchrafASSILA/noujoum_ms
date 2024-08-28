@@ -18,6 +18,7 @@ import NewEncaissement from "../pages/admin/encaissements/NewEncaissement.vue";
 import EcronCalendar from "../pages/admin/edt/EcronCalendar.vue";
 import EtatFinancierPerServices from "../pages/admin/encaissements/EtatFinancierPerServices.vue";
 import Config from "../pages/admin/config/Config.vue";
+import EtatJournalier from "../pages/admin/encaissements/EtatJournalier.vue";
 
 const routes = [
     {
@@ -133,6 +134,21 @@ const routes = [
         path: "/etat-financier-per-services",
         name: "EtatFinancierPerServices",
         component: EtatFinancierPerServices,
+        meta: {
+            requiresAuth: true,
+            roles: [
+                "pinia",
+                "admin",
+                "assistant",
+                "financial_agent",
+                "founder",
+            ],
+        },
+    },
+    {
+        path: "/etat-journalier",
+        name: "EtatJournalier",
+        component: EtatJournalier,
         meta: {
             requiresAuth: true,
             roles: [

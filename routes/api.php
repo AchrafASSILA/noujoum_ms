@@ -70,8 +70,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('users/{id}', [UserController::class, 'update']);
     Route::put('update-password/{id}', [UserController::class, 'updatePassword']);
     Route::delete('users/{id}', [UserController::class, 'delete']);
-    Route::get('/fnc/etat-financier-global-per-services', [FncController::class, 'etat_financier_global_per_services']);
     Route::get('/statistics/etats', [StatisticController::class, 'etats']);
     Route::get('/reductions', [ServiceController::class, 'reductions']);
+    Route::get('/fnc/etat-financier-global-per-services', [FncController::class, 'etat_financier_global_per_services']);
+    Route::get('/fnc/get-etat-journalier', [FncController::class, 'etat_journalier']);
 });
 Route::resource('config', ConfigController::class);
