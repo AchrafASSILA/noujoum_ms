@@ -144,7 +144,8 @@
 
 								</td>
 								<td>
-									Total : <?= $total ?> DH
+									Total : <?= $total ?> DH <br> <br>
+									<span style="font-size: 10px">Paiement non remboursable</span>
 								</td>
 							</tr>
 						</table>
@@ -276,7 +277,8 @@
 
 								</td>
 								<td>
-									Total : <?= $total ?> DH
+									Total : <?= $total ?> DH <br> <br>
+									<span style="font-size: 10px">Paiement non remboursable</span>
 								</td>
 							</tr>
 						</table>

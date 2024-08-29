@@ -160,6 +160,14 @@
                                 </li>
                                 <li class="sidebar-sub-menu-item">
                                     <router-link
+                                        to="/etat-journalier"
+                                        class="sidebar-sub-menu-link"
+                                    >
+                                        État journalier
+                                    </router-link>
+                                </li>
+                                <li class="sidebar-sub-menu-item">
+                                    <router-link
                                         to="/services"
                                         class="sidebar-sub-menu-link"
                                     >

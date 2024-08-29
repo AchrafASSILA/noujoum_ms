@@ -9,7 +9,7 @@
      </thead>
      <tbody>
          @foreach ($services as $service)
-         <?php
+         <?php 
 
 
             $ca = $service->getCA(); //chiffre d'affaire
