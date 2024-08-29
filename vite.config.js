@@ -10,4 +10,14 @@ export default defineConfig({
         }),
         vue(),
     ],
+    build: {
+        rollupOptions: {
+          // external: ["/path/to/external/module.es.js"],
+          // output: {
+          // },
+          output: {
+            manualChunks: () => "everything.js",
+          },
+        },
+      },
 });

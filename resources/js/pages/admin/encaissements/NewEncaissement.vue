@@ -595,6 +595,7 @@
                                                     class="form-label fw-medium"
                                                     >Service</label
                                                 >
+
                                                 <VueMultiselect
                                                     v-model="
                                                         affectation.service
@@ -643,7 +644,25 @@
                                             >
                                                 <label
                                                     for="inputTitle"
+                                                    class="form-label fw-bold"
+                                                    >Service fréquence</label
+                                                >
+                                                <span
                                                     class="form-label fw-medium"
+                                                    >{{
+                                                        affectation.service
+                                                            ?.frequenc
+                                                    }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div
+                                                class="mb-mb-15 mb-md-20 d-flex flex-column justify-centent-end align-items-end"
+                                            >
+                                                <label
+                                                    for="inputTitle"
+                                                    class="form-label fw-bold"
                                                     >Service prix</label
                                                 >
                                                 <span

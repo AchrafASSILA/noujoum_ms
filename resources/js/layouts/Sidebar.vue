@@ -214,7 +214,7 @@
                         class="sidebar-nav-link d-block pb-0 pt-0"
                     >
                         <i class="ph ph-buildings"></i>
-                        <span class="title">Sections</span>
+                        <span class="title">Pôles</span>
                     </router-link>
                 </li>
                 <li

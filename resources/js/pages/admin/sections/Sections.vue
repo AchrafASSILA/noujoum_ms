@@ -340,7 +340,7 @@ let updateSection = async () => {
         .update(section.value)
         .then(() => {
             initialize();
-            Swal.fire("Success", "Section mises à jour avec succès", "");
+            Swal.fire("Success", "Pôle mises à jour avec succès", "");
             closeBtn.value.click();
             getSections();
         })
@@ -354,7 +354,7 @@ let saveSection = async () => {
         .save(section.value)
         .then(() => {
             initialize();
-            Swal.fire("Success", "Section sauvegardée avec succès", "");
+            Swal.fire("Success", "Pôle sauvegardée avec succès", "");
             closeBtn.value.click();
             getSections();
         })
@@ -365,7 +365,7 @@ let saveSection = async () => {
 };
 let deleteSection = async (sec) => {
     await Swal.fire({
-        title: "Voulez-vous supprimer cette section ?",
+        title: "Voulez-vous supprimer cette pôle ?",
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: "Yes",
@@ -374,7 +374,7 @@ let deleteSection = async (sec) => {
             sectionStore
                 .delete(sec)
                 .then(() => {
-                    Swal.fire("success", "section supprimée avec succès");
+                    Swal.fire("success", "pôle supprimée avec succès");
                     getSections();
                 })
                 .catch((err) => {

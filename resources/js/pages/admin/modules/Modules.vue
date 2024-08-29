@@ -185,7 +185,7 @@
                                 <label
                                     for="inputTitle"
                                     class="form-label fw-medium"
-                                    >Section</label
+                                    >Pôle</label
                                 >
                                 <VueMultiselect
                                     v-model="module.section"
@@ -194,7 +194,7 @@
                                     :close-on-select="true"
                                     label="label"
                                     track-by="id"
-                                    placeholder="Choisissez une section"
+                                    placeholder="Choisissez un pôle"
                                     value="id"
                                 >
                                     <template #noResult>
@@ -303,7 +303,7 @@ let headers = ref([
         align: "center",
         key: "sectionLabel",
         sortable: true,
-        title: "Section",
+        title: "Pôle",
     },
     {
         align: "center",

@@ -71,8 +71,8 @@ export const useEncaissementStore = defineStore("encaissement", {
             const formData = new FormData();
             formData.append("inscription", affecation.inscription);
             formData.append("price", affecation.price);
-            formData.append("reduction", affecation.reduction.id);
-            formData.append("service", affecation.service.id);
+            formData.append("reduction", affecation.reduction?.id);
+            formData.append("service", affecation.service?.id);
             await axiosClient.post("/encaissement-inscription", formData);
         },
         async deleteAffectation(id: any) {
