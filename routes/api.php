@@ -4,9 +4,11 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Config\ConfigController;
 use App\Http\Controllers\Edt\SeanceController;
+use App\Http\Controllers\Email\EmailController;
 use App\Http\Controllers\Fnc\FncController;
 use App\Http\Controllers\Fnc\FncEncaissementInscriptionController;
 use App\Http\Controllers\Fnc\FncEncaissementsController;
+use App\Http\Controllers\HandicapCause\HandicapCauseController;
 use App\Http\Controllers\Modules\ModuleController;
 use App\Http\Controllers\Region\RegionController;
 use App\Http\Controllers\Role\RoleRoleController;
@@ -59,6 +61,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('encaissement-inscription', FncEncaissementInscriptionController::class);
     Route::resource('regions', RegionController::class);
     Route::resource('villes', VilleController::class);
+    Route::resource('handicapcauses', HandicapCauseController::class);
     Route::get('encaissements-inscription/{id}', [FncEncaissementInscriptionController::class, 'getEncaissements']);
     Route::get('archived-clients', [ClientController::class, 'archivedClients']);
     Route::post('/unarchived-client/{id}', [ClientController::class, 'unarchived']);
@@ -74,5 +77,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/reductions', [ServiceController::class, 'reductions']);
     Route::get('/fnc/etat-financier-global-per-services', [FncController::class, 'etat_financier_global_per_services']);
     Route::get('/fnc/get-etat-journalier', [FncController::class, 'etat_journalier']);
+    Route::post('/emails/send-etat-journalier', [EmailController::class, 'sendEtatJournalierToFounders']);
 });
 Route::resource('config', ConfigController::class);

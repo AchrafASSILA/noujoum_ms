@@ -19,6 +19,7 @@ import EcronCalendar from "../pages/admin/edt/EcronCalendar.vue";
 import EtatFinancierPerServices from "../pages/admin/encaissements/EtatFinancierPerServices.vue";
 import Config from "../pages/admin/config/Config.vue";
 import EtatJournalier from "../pages/admin/encaissements/EtatJournalier.vue";
+import HandicapCauses from "../pages/admin/handicapcauses/HandicapCauses.vue";
 
 const routes = [
     {
@@ -215,6 +216,15 @@ const routes = [
         path: "/config",
         name: "Config",
         component: Config,
+        meta: {
+            requiresAuth: true,
+            roles: ["pinia", "admin", "assistant", "founder"],
+        },
+    },
+    {
+        path: "/handicap-cuase",
+        name: "Handicap",
+        component: HandicapCauses,
         meta: {
             requiresAuth: true,
             roles: ["pinia", "admin", "assistant", "founder"],

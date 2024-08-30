@@ -61,6 +61,7 @@ export const useClientStore = defineStore("client", {
             formData.append("province", client.province);
             formData.append("ville", client.ville);
             formData.append("arrondissement", client.arrondissement);
+            formData.append("causeH", client.causeH?.id);
             formData.append("facebook", client.facebook);
             formData.append("instagram", client.instagram);
             formData.append("tiktok", client.tiktok);
@@ -86,6 +87,7 @@ export const useClientStore = defineStore("client", {
             formData.append("region", client.region);
             formData.append("dateNaissance", client.dateNaissance);
             formData.append("province", client.province);
+            formData.append("causeH", client.causeH?.id);
             formData.append("ville", client.ville);
             formData.append("birthday", client.birthday);
             formData.append("arrondissement", client.arrondissement);

@@ -24,8 +24,8 @@
                     </button>
                 </div>
                 <div class="col-xxxl-3">
-                    <a
-                        href="/edt-full"
+                    <router-link
+                        to="/edt-full"
                         target="_blank"
                         type="button"
                         class="default-btn mb-25 border-0 text-none transition d-block w-100 text-center position-relative text-white fs-md-15 fs-lg-16 fw-medium pt-18 pb-18 ps-15 pe-15"
@@ -34,7 +34,7 @@
                         <i
                             class="flaticon-view lh-1 fs-13 position-relative top-1 ms-5"
                         ></i>
-                    </a>
+                    </router-link>
                 </div>
             </div>
             <div class="row">

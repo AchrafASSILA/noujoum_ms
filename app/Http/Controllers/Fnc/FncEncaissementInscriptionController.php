@@ -94,6 +94,7 @@ class FncEncaissementInscriptionController extends Controller
                 'service' => 'required',
                 'price' => 'required',
                 'inscription' => 'required',
+                'module' => 'required',
             ]);
             if ($validation->messages()->all()) {
                 return response(['msg' => $validation->messages()->all()], 403);
@@ -111,6 +112,7 @@ class FncEncaissementInscriptionController extends Controller
                     $affectation->Amount = $request->price;
                     $affectation->Frequenc = $item;
                     $affectation->Service = $service->id;
+                    $affectation->Module = $request->module;
                     $affectation->Inscription = $inscription->id;
                     $affectation->Promotion = $inscription->promotion->id;
                     $affectation->User = Auth::user()->id;
@@ -125,6 +127,7 @@ class FncEncaissementInscriptionController extends Controller
                     $affectation->Amount = $request->price;
                     $affectation->Frequenc = $item;
                     $affectation->Service = $service->id;
+                    $affectation->Module = $request->module;
                     $affectation->Inscription = $inscription->id;
                     $affectation->Promotion = $inscription->promotion->id;
                     $affectation->User = Auth::user()->id;
@@ -142,6 +145,7 @@ class FncEncaissementInscriptionController extends Controller
                     }
 
                     $affectation->Service = $service->id;
+                    $affectation->Module = $request->module;
                     $affectation->Inscription = $inscription->id;
                     $affectation->Promotion = $inscription->promotion->id;
                     $affectation->User = Auth::user()->id;

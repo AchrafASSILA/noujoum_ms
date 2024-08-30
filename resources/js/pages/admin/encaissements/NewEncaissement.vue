@@ -675,6 +675,26 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="mb-mb-15 mb-md-20">
+                                            <label
+                                                for="inputTitle"
+                                                class="form-label fw-medium"
+                                                >Module</label
+                                            >
+                                            <VueMultiselect
+                                                v-model="affectation.module"
+                                                :options="modules"
+                                                :multiple="false"
+                                                :close-on-select="true"
+                                                placeholder="Choisissez un module"
+                                                label="label"
+                                                value="id"
+                                                track-by="id"
+                                            >
+                                            </VueMultiselect>
+                                        </div>
+                                    </div>
 
                                     <div class="col" v-if="false">
                                         <div class="mb-mb-15 mb-md-20">
@@ -765,12 +785,14 @@ import VueMultiselect from "vue-multiselect";
 import { useEncaissementStore } from "../../../store/encaissement";
 import { useClientStore } from "../../../store/client";
 import { useServiceStore } from "../../../store/service";
+import { useModuleStore } from "../../../store/module";
 
 // lifecycle
 onMounted(async () => {
     await getClients();
     await getServices();
     await getReductions();
+    await getModules();
     loaded.value = true;
 });
 
@@ -819,6 +841,7 @@ let headers = ref([
 let closeBtn = ref("");
 let clients = ref([]);
 let reductions = ref([]);
+let modules = ref([]);
 let inscription = ref(null);
 let clientSearch = ref(null);
 let errors = ref([]);
@@ -826,6 +849,7 @@ let affectation = ref({
     service: null,
     price: "00.00",
     reduction: null,
+    module: null,
     inscription: null,
 });
 
@@ -837,6 +861,7 @@ const encaissementStore = useEncaissementStore();
 const clientStore = useClientStore();
 const errorStore = useErrorStore();
 const serviceStore = useServiceStore();
+const moduleStore = useModuleStore();
 
 // functions
 let getClients = async () => {
@@ -878,6 +903,17 @@ let getServices = async () => {
         .getSections()
         .then((res) => {
             services.value = serviceStore.services;
+        })
+        .catch((err) => {
+            errorStore.errors = [];
+            errorStore.errors.push(err.response.data.msg);
+        });
+};
+let getModules = async () => {
+    await moduleStore
+        .getModules()
+        .then((res) => {
+            modules.value = moduleStore.modules;
         })
         .catch((err) => {
             errorStore.errors = [];
@@ -982,7 +1018,7 @@ let makePayement = async (pay: any) => {
                     Swal.fire("Succès", "payement avec succès");
                     getClientEncaissements();
                     window.open(
-                        "/impressions-encaissement-recu/" +
+                        "/noujoum/impressions-encaissement-recu/" +
                             encaissementStore.lastEncaissement
                     );
                 })

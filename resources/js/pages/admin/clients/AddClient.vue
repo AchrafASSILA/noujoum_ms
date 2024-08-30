@@ -183,12 +183,23 @@
                                     >
                                         Type Handicap
                                     </label>
-                                    <input
+                                    <VueMultiselect
+                                        v-model="client.causeH"
+                                        :options="handicapCauses"
+                                        :multiple="false"
+                                        :close-on-select="true"
+                                        placeholder="Type"
+                                        label="label"
+                                        track-by="id"
+                                        value="id"
+                                    >
+                                    </VueMultiselect>
+                                    <!-- <input
                                         type="text"
                                         class="form-control shadow-none rounded-0 text-black"
                                         placeholder=""
                                         v-model="client.typeHandicap"
-                                    />
+                                    /> -->
                                 </div>
                             </div>
 
@@ -407,8 +418,10 @@ import { useRouter } from "vue-router";
 import VueMultiselect from "vue-multiselect";
 import citiesList from "../../../data/cities";
 import regionsList from "../../../data/regions";
+import { useHandicapCauseStore } from "../../../store/handicapcause";
 // lifecycle
 onMounted(async () => {
+    await getHandicapCauses();
     imageUrl.value =
         "https://www.eclosio.ong/wp-content/uploads/2018/08/default.png";
     loaded.value = true;
@@ -434,6 +447,7 @@ let client = ref({
     instagram: "",
     tiktok: "",
     whatsapp: "",
+    causeH: "",
     handicap: false,
     typeHandicap: "",
     dateHandicap: "",
@@ -443,12 +457,14 @@ let client = ref({
 });
 let loaded = ref(false);
 let closeBtn = ref("");
+let handicapCauses = ref([]);
 
 let imageUrl = ref("");
 const router = useRouter();
 
 // stores
 const clientStore = useClientStore();
+const handicapCauseStore = useHandicapCauseStore();
 const errorStore = useErrorStore();
 // funcs
 
@@ -464,7 +480,17 @@ let saveClient = async () => {
             errorStore.errors.push(err.response.data.msg);
         });
 };
-
+let getHandicapCauses = async () => {
+    await handicapCauseStore
+        .getCauses()
+        .then((res) => {
+            handicapCauses.value = handicapCauseStore.handicapCauses;
+        })
+        .catch((err) => {
+            errorStore.errors = [];
+            errorStore.errors.push(err.response.data.msg);
+        });
+};
 let handleFileChange = (event) => {
     const input = event.target;
     client.value.image = input.files?.[0] || null;

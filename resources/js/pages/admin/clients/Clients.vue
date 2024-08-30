@@ -27,7 +27,7 @@
                         >
                             <a
                                 target="_blank"
-                                href="/impressions-clients"
+                                href="/noujoum/impressions-clients"
                                 class="dropdown-item"
                             >
                                 <i
@@ -35,7 +35,10 @@
                                 ></i>
                                 export pdf
                             </a>
-                            <a href="/exports-clients" class="dropdown-item">
+                            <a
+                                href="/noujoum/exports-clients"
+                                class="dropdown-item"
+                            >
                                 <i
                                     class="flaticon-file lh-1 me-8 position-relative top-1"
                                 ></i>
@@ -100,7 +103,7 @@
                                         class="shadow-none lh-1 fw-medium text-black-emphasis title ps-0 text-center"
                                     >
                                         <a
-                                            :href="'/client/' + item.id"
+                                            :href="'/noujoum/client/' + item.id"
                                             class="link text-center"
                                             style="
                                                 color: black;
@@ -158,7 +161,8 @@
                                                     <a
                                                         class="dropdown-item d-flex align-items-center"
                                                         :href="
-                                                            '/client/' + item.id
+                                                            '/noujoum/client/' +
+                                                            item.id
                                                         "
                                                     >
                                                         <i
@@ -171,7 +175,7 @@
                                                     <a
                                                         class="dropdown-item d-flex align-items-center"
                                                         :href="
-                                                            '/edit-client/' +
+                                                            '/noujoum/edit-client/' +
                                                             item.id
                                                         "
                                                     >

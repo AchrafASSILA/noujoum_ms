@@ -1,8 +1,43 @@
 <?php
 
+use App\Models\Config\Config;
 use App\Models\Fnc\FncEncaissementLine;
+
+$date =   date('Y-m-d');
+
+
+
+$fnc_inscriptions = FncEncaissementLine::where('created_at', 'like', $date . '%')->orderBy('created_at')->get();
+$config = Config::first();
+
+
 ?>
 
+
+<h1>Noujoum centre</h1>
+<h2>etat journalier</h2>
+<h2>{{$date}}</h2>
+<table>
+    <tr>
+        <td style="vertical-align:center">
+            <img src="<?= $config->getLogo() ?>" width="70" alt="">
+        </td>
+        <td></td>
+        <td style="vertical-align:center">
+            <br /><br />
+
+            Etat journalier
+
+        </td>
+        <td></td>
+        <td style="text-align: end;" style="vertical-align:center">
+            <br /><br />
+            {{$config->Title}}
+        </td>
+    </tr>
+</table>
+<br>
+<br>
 <table border="1">
     <thead>
         <tr>

@@ -3,6 +3,7 @@
 namespace App\Models\Fnc;
 
 use App\Models\Inscription\Inscription;
+use App\Models\Module\Module;
 use App\Models\Promotion\Promotion;
 use App\Models\Service\Service;
 use App\Models\User;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class FncEncaissementInscription extends Model
 {
     use HasFactory;
-    protected $fillable = ['Amount', 'Frequenc', 'Service', 'Inscription', 'Promotion', 'User'];
+    protected $fillable = ['Amount', 'Frequenc', 'Service', 'Module', 'Inscription', 'Promotion', 'User'];
 
 
     // relations 
@@ -23,6 +24,10 @@ class FncEncaissementInscription extends Model
     public function inscription()
     {
         return $this->belongsTo(Inscription::class, 'Inscription');
+    }
+    public function module()
+    {
+        return $this->belongsTo(Module::class, 'Module');
     }
     public function service()
     {

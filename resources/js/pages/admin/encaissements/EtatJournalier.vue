@@ -4,9 +4,18 @@
             <div class="d-flex justify-content-between">
                 <h4 class="mb-5 mb-sm-0 fw-bold">État journalier</h4>
                 <div class="print d-flex">
+                    <button class="upload email mr-1" @click="sendToFounders()">
+                        <i
+                            style="font-size: 24px; font-weight: 500"
+                            class="ph ph-envelope"
+                        ></i>
+                    </button>
                     <a
                         target="_blank"
-                        :href="'./export-etat-journalier-excel?date=' + search"
+                        :href="
+                            '/noujoum/export-etat-journalier-excel?date=' +
+                            search
+                        "
                         class="upload excel mr-1"
                         ><i
                             style="font-size: 24px; font-weight: 500"
@@ -16,7 +25,7 @@
                     <a
                         target="_blank"
                         :href="
-                            './impressions-export-etat-journalier-pdf?date=' +
+                            '/noujoum/impressions-export-etat-journalier-pdf?date=' +
                             search
                         "
                         class="upload pdf"
@@ -164,6 +173,7 @@ import { useErrorStore } from "../../../store/error";
 
 import VueMultiselect from "vue-multiselect";
 import { useEncaissementStore } from "../../../store/encaissement";
+import axiosClient from "../../../axios";
 
 // lifecycle
 onMounted(async () => {
@@ -199,6 +209,25 @@ let getEtatJournalier = async () => {
             errorStore.errors = [];
             errorStore.errors.push(err.response.data.msg);
         });
+};
+let sendToFounders = async () => {
+    await Swal.fire({
+        title: "Voulez-vous envoyer etat journalier aux foundateures ?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axiosClient
+                .post("/emails/send-etat-journalier")
+                .then(() => {
+                    Swal.fire("Succès", "emails envoyer avec succès");
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    });
 };
 </script>
 
@@ -269,5 +298,9 @@ let getEtatJournalier = async () => {
 .pdf {
     background-color: #ffeaea;
     color: #f23c3c;
+}
+.email {
+    background-color: #ff725d2b;
+    color: #ff725d;
 }
 </style>

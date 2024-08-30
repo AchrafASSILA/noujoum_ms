@@ -2,11 +2,14 @@
 
 namespace App\Models\Client;
 
+use App\Models\HandicapCause\handicapCause;
 use App\Models\Inscription\Inscription;
+use App\Models\Module\Module;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Client extends Model
 {
@@ -25,6 +28,7 @@ class Client extends Model
         'Tiktok',
         'Handicap',
         'TypeHandicap',
+        'causeH',
         'DateHandicap',
         'Birthday',
         'Whatsapp',
@@ -39,9 +43,28 @@ class Client extends Model
     {
         return $this->belongsTo(User::class, 'User');
     }
+    public function cause()
+    {
+        return $this->belongsTo(handicapCause::class, 'causeH');
+    }
     public function inscriptions()
     {
         return $this->hasMany(Inscription::class, 'Client');
+    }
+    public function getModules()
+    {
+        $list = [];
+        $inscription = $this->inscription();
+        $modules =  DB::select('select * from modules where id in (select distinct(Module) from fnc_encaissement_inscriptions where Inscription = ' . $inscription->id . ')');
+
+        foreach ($modules as $key => $value) {
+            $list[] = [
+                'id' => $value->id,
+                'alias' => $value->Alias,
+                'label' => $value->Label,
+            ];
+        }
+        return $list;
     }
     public function inscription()
     {

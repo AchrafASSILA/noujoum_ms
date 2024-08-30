@@ -1,34 +1,55 @@
 <template>
     <MainLayout>
-        <div v-if="loaded">
+        <div v-if="loaded" class="row">
             <div class="col-4">
-                <div class="card mb-25 border-0 rounded-0 bg-white letter-spacing lead-info-box">
+                <div
+                    class="card mb-25 border-0 rounded-0 bg-white letter-spacing lead-info-box"
+                >
                     <div class="card-body p-15 p-sm-20 p-md-25 p-lg-30">
-                        <div class="d-sm-flex align-items-start" style="justify-content: space-between">
-                            <div class="profile-info d-sm-flex align-items-start">
-                                <img :src="client.image" class="rounded" alt="user" />
+                        <div
+                            class="d-sm-flex align-items-start"
+                            style="justify-content: space-between"
+                        >
+                            <div
+                                class="profile-info d-sm-flex align-items-start"
+                            >
+                                <img
+                                    :src="client.image"
+                                    class="rounded"
+                                    alt="user"
+                                />
                                 <div class="title mt-12 mt-sm-0">
                                     <h5 class="text-black fw-medium mb-8">
                                         {{ client.name }}
                                     </h5>
 
-                                    <span class="d-block fs-md-15 fs-lg-16 text-dark-emphasis mb-8">
+                                    <span
+                                        class="d-block fs-md-15 fs-lg-16 text-dark-emphasis mb-8"
+                                    >
                                         Handicap :
                                         {{ client.handicapLabel }}
                                     </span>
-                                    <span class="d-block fs-md-15 fs-lg-16 text-dark-emphasis mb-8">
+                                    <span
+                                        class="d-block fs-md-15 fs-lg-16 text-dark-emphasis mb-8"
+                                    >
                                         Type :
                                         {{ client.typeHandicap }}
                                     </span>
-                                    <span class="d-block fs-md-15 fs-lg-16 text-dark-emphasis mb-8">
+                                    <span
+                                        class="d-block fs-md-15 fs-lg-16 text-dark-emphasis mb-8"
+                                    >
                                         Date :
                                         {{ client.dateHandicap }}
                                     </span>
-                                    <span class="d-block fs-md-15 fs-lg-16 text-dark-emphasis mb-8">
+                                    <span
+                                        class="d-block fs-md-15 fs-lg-16 text-dark-emphasis mb-8"
+                                    >
                                         Cause :
                                         {{ client.causeHandicap }}
                                     </span>
-                                    <span class="d-block fs-md-15 fs-lg-16 text-dark-emphasis mb-8">
+                                    <span
+                                        class="d-block fs-md-15 fs-lg-16 text-dark-emphasis mb-8"
+                                    >
                                         Autonomie :
                                         {{ client.autonomie }}
                                     </span>
@@ -37,29 +58,50 @@
                             <div class="dropdown">
                                 <button
                                     class="dropdown-toggle card-dot-btn lh-1 position-relative top-4 bg-transparent border-0 shadow-none p-0 transition"
-                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
                                     <i class="flaticon-dots"></i>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item d-flex align-items-center"
-                                            :href="'/edit-client/' + client.id">
-                                            <i class="flaticon-pen lh-1 me-8 position-relative top-1"></i>
+                                        <a
+                                            class="dropdown-item d-flex align-items-center"
+                                            :href="
+                                                '/noujoum/edit-client/' +
+                                                client.id
+                                            "
+                                        >
+                                            <i
+                                                class="flaticon-pen lh-1 me-8 position-relative top-1"
+                                            ></i>
                                             Modifier
                                         </a>
                                     </li>
                                     <li>
-                                        <a target="_blank" class="dropdown-item d-flex align-items-center" :href="'/impressions-client-badge/' +
-                                            client.id
-                                            ">
-                                            <i class="flaticon-printing lh-1 me-8 position-relative top-1"></i>
+                                        <a
+                                            target="_blank"
+                                            class="dropdown-item d-flex align-items-center"
+                                            :href="
+                                                '/noujoum/impressions-client-badge/' +
+                                                client.id
+                                            "
+                                        >
+                                            <i
+                                                class="flaticon-printing lh-1 me-8 position-relative top-1"
+                                            ></i>
                                             Imprimer le badge
                                         </a>
                                     </li>
                                     <li>
-                                        <button class="dropdown-item d-flex align-items-center"
-                                            @click.prevent="deleteClient()">
-                                            <i class="flaticon-delete lh-1 me-8 position-relative top-1"></i>
+                                        <button
+                                            class="dropdown-item d-flex align-items-center"
+                                            @click.prevent="deleteClient()"
+                                        >
+                                            <i
+                                                class="flaticon-delete lh-1 me-8 position-relative top-1"
+                                            ></i>
                                             Archiver
                                         </button>
                                     </li>
@@ -67,64 +109,143 @@
                             </div>
                         </div>
 
-                        <div class="border-top mt-15 mb-15 mt-sm-20 mb-sm-20 mt-md-25 mb-md-25 mt-lg-30 mb-lg-30"></div>
-                        <div class="d-flex align-items-center justify-content-between">
+                        <div
+                            class="border-top mt-15 mb-15 mt-sm-20 mb-sm-20 mt-md-25 mb-md-25 mt-lg-30 mb-lg-30"
+                        ></div>
+                        <div
+                            class="d-flex align-items-center justify-content-between"
+                        >
                             <h5 class="fw-medium text-black-emphasis mb-0">
                                 Informations
                             </h5>
                         </div>
                         <ul class="info mt-25 ps-0 mb-0 list-unstyled">
                             <li class="position-relative">
-                                <div class="icon text-success rounded-circle text-center">
+                                <div
+                                    class="icon text-success rounded-circle text-center"
+                                >
                                     <i class="flaticon-mail-inbox-app"></i>
                                 </div>
-                                <span class="d-block text-black mb-5 fw-semibold">Email</span>
-                                <a :href="'mailto:' + client.email"
-                                    class="d-inline-block fs-md-15 fs-lg-16 text-primary text-decoration-none">
+                                <span
+                                    class="d-block text-black mb-5 fw-semibold"
+                                    >Email</span
+                                >
+                                <a
+                                    :href="'mailto:' + client.email"
+                                    class="d-inline-block fs-md-15 fs-lg-16 text-primary text-decoration-none"
+                                >
                                     {{ client.email }}
                                 </a>
                             </li>
                             <li class="position-relative">
-                                <div class="icon text-info rounded-circle text-center">
+                                <div
+                                    class="icon text-info rounded-circle text-center"
+                                >
                                     <i class="flaticon-telephone-call"></i>
                                 </div>
-                                <span class="d-block text-black mb-5 fw-semibold">Phone No</span>
-                                <a :href="'tel:' + client.tel"
-                                    class="d-inline-block fs-md-15 fs-lg-16 text-muted text-decoration-none">
+                                <span
+                                    class="d-block text-black mb-5 fw-semibold"
+                                    >Phone No</span
+                                >
+                                <a
+                                    :href="'tel:' + client.tel"
+                                    class="d-inline-block fs-md-15 fs-lg-16 text-muted text-decoration-none"
+                                >
                                     {{ client.tel }}
                                 </a>
                             </li>
                             <li class="position-relative">
-                                <div class="icon text-primary rounded-circle text-center">
-                                    <i class="ph-bold ph-facebook-logo lh-1 fs-md-18"></i>
+                                <div
+                                    class="icon text-primary rounded-circle text-center"
+                                >
+                                    <i
+                                        class="ph-bold ph-facebook-logo lh-1 fs-md-18"
+                                    ></i>
                                 </div>
-                                <span class="d-block text-black mb-5 fw-semibold">Facebook</span>
-                                <a :href="client.facebook" target="_blank"
-                                    class="d-inline-block fs-md-15 fs-lg-16 text-muted text-decoration-none">
+                                <span
+                                    class="d-block text-black mb-5 fw-semibold"
+                                    >Facebook</span
+                                >
+                                <a
+                                    :href="client.facebook"
+                                    target="_blank"
+                                    class="d-inline-block fs-md-15 fs-lg-16 text-muted text-decoration-none"
+                                >
                                     {{ client.facebook }}
                                 </a>
                             </li>
                             <li class="position-relative">
-                                <div class="icon text-primary rounded-circle text-center">
-                                    <i class="ph-bold ph-instagram-logo lh-1 fs-md-18"></i>
+                                <div
+                                    class="icon text-primary rounded-circle text-center"
+                                >
+                                    <i
+                                        class="ph-bold ph-instagram-logo lh-1 fs-md-18"
+                                    ></i>
                                 </div>
-                                <span class="d-block text-black mb-5 fw-semibold">Instagram</span>
-                                <a :href="client.instagram" target="_blank"
-                                    class="d-inline-block fs-md-15 fs-lg-16 text-muted text-decoration-none">
+                                <span
+                                    class="d-block text-black mb-5 fw-semibold"
+                                    >Instagram</span
+                                >
+                                <a
+                                    :href="client.instagram"
+                                    target="_blank"
+                                    class="d-inline-block fs-md-15 fs-lg-16 text-muted text-decoration-none"
+                                >
                                     {{ client.instagram }}
                                 </a>
                             </li>
                             <li class="position-relative">
-                                <div class="icon text-primary rounded-circle text-center">
-                                    <i class="ph-bold ph-tiktok-logo lh-1 fs-md-18"></i>
+                                <div
+                                    class="icon text-primary rounded-circle text-center"
+                                >
+                                    <i
+                                        class="ph-bold ph-tiktok-logo lh-1 fs-md-18"
+                                    ></i>
                                 </div>
-                                <span class="d-block text-black mb-5 fw-semibold">Tiktok</span>
-                                <a :href="client.tiktok" target="_blank"
-                                    class="d-inline-block fs-md-15 fs-lg-16 text-muted text-decoration-none">
+                                <span
+                                    class="d-block text-black mb-5 fw-semibold"
+                                    >Tiktok</span
+                                >
+                                <a
+                                    :href="client.tiktok"
+                                    target="_blank"
+                                    class="d-inline-block fs-md-15 fs-lg-16 text-muted text-decoration-none"
+                                >
                                     {{ client.tiktok }}
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-8"
+                v-if="client.modules && client.modules.length > 0"
+            >
+                <div
+                    class="card mb-25 border-0 rounded-0 bg-white letter-spacing"
+                >
+                    <div class="card-body p-15 p-sm-20 p-md-25 p-lg-30">
+                        <h5 class="card-title fw-bold mb-15 mb-sm-20 mb-md-25">
+                            Les modules
+                        </h5>
+                        <div class="row">
+                            <div
+                                v-for="(item, key) in client.modules"
+                                :key="key"
+                                class="col-sm-6 col-md-4 col-lg-4 col-xxl-3 col-xxxl-2"
+                            >
+                                <div
+                                    class="bg-gray text-center rounded-1 mb-15 mb-sm-20 mb-md-25 pt-35 pb-35 ps-15 pe-15"
+                                >
+                                    <span
+                                        class="d-inline-block text-decoration-none text-black fs-md-15 fs-lg-16 fw-medium"
+                                    >
+                                        {{ item.label }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -261,5 +382,14 @@ let deleteClient = async () => {
     background: #f5f4fa;
     padding-top: 14px;
     padding-bottom: 14px;
+}
+.module {
+    width: 300px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
 }
 </style>

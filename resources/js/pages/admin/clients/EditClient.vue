@@ -208,12 +208,23 @@
                                     >
                                         Type Handicap
                                     </label>
-                                    <input
+                                    <VueMultiselect
+                                        v-model="client.causeH"
+                                        :options="handicapCauses"
+                                        :multiple="false"
+                                        :close-on-select="true"
+                                        placeholder="Type"
+                                        label="label"
+                                        track-by="id"
+                                        value="id"
+                                    >
+                                    </VueMultiselect>
+                                    <!-- <input
                                         type="text"
                                         class="form-control shadow-none rounded-0 text-black"
                                         placeholder=""
                                         v-model="client.typeHandicap"
-                                    />
+                                    /> -->
                                 </div>
                             </div>
 
@@ -432,10 +443,12 @@ import { useRoute, useRouter } from "vue-router";
 import VueMultiselect from "vue-multiselect";
 import citiesList from "../../../data/cities";
 import regionsList from "../../../data/regions";
+import { useHandicapCauseStore } from "../../../store/handicapcause";
 
 // lifecycle
 onMounted(async () => {
     await getClient();
+    await getHandicapCauses();
     imageUrl.value = client.value.image;
     loaded.value = true;
 });
@@ -443,6 +456,7 @@ onMounted(async () => {
 // vars
 
 let client = ref(null);
+let handicapCauses = ref([]);
 let loaded = ref(false);
 let closeBtn = ref("");
 
@@ -450,6 +464,7 @@ let imageUrl = ref("");
 
 // stores
 const clientStore = useClientStore();
+const handicapCauseStore = useHandicapCauseStore();
 const errorStore = useErrorStore();
 const route = useRoute();
 const router = useRouter();
@@ -461,6 +476,17 @@ let getClient = async () => {
         .client(id)
         .then(() => {
             client.value = clientStore.client;
+        })
+        .catch((err) => {
+            errorStore.errors = [];
+            errorStore.errors.push(err.response.data.msg);
+        });
+};
+let getHandicapCauses = async () => {
+    await handicapCauseStore
+        .getCauses()
+        .then((res) => {
+            handicapCauses.value = handicapCauseStore.handicapCauses;
         })
         .catch((err) => {
             errorStore.errors = [];

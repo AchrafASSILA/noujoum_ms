@@ -287,6 +287,14 @@
                                         Config d'application
                                     </router-link>
                                 </li>
+                                <li class="sidebar-sub-menu-item">
+                                    <router-link
+                                        to="/handicap-cuase"
+                                        class="sidebar-sub-menu-link"
+                                    >
+                                        Handicap types
+                                    </router-link>
+                                </li>
                             </ul>
                         </div>
                     </div>

@@ -60,8 +60,8 @@ class User extends Authenticatable
     // functions
     public function getImage()
     {
-
-        $path =   '/storage/users/'  . $this->image;
+        $path = url('backend/storage/app/public/users/' . $this->image);
+        // $path =   '/storage/users/'  . $this->image;
         if ($this->image) {
             return $path;
         }

@@ -8,7 +8,7 @@
                 <div class="print d-flex">
                     <a
                         target="_blank"
-                        href="/export-etat-services-excel"
+                        href="/noujoum/export-etat-services-excel"
                         class="upload excel mr-1"
                         ><i
                             style="font-size: 24px; font-weight: 500"
@@ -17,7 +17,7 @@
                     ></a>
                     <a
                         target="_blank"
-                        href="/impressions-export-etat-services-pdf"
+                        href="/noujoum/impressions-export-etat-services-pdf"
                         class="upload pdf"
                         ><i
                             class="ph ph-file-pdf"
