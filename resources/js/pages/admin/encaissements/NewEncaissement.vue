@@ -307,10 +307,6 @@
                                                                     class="dropdown"
                                                                 >
                                                                     <button
-                                                                        v-if="
-                                                                            item.payedAmount ==
-                                                                            0
-                                                                        "
                                                                         class="dropdown-toggle lh-1 bg-transparent border-0 shadow-none p-0 transition"
                                                                         type="button"
                                                                         data-bs-toggle="dropdown"
@@ -325,18 +321,25 @@
                                                                     >
                                                                         <li
                                                                             v-if="
-                                                                                item.payedAmount ==
-                                                                                0
+                                                                                item.payedAmount !=
+                                                                                item.restePrice
                                                                             "
                                                                         >
                                                                             <button
                                                                                 class="dropdown-item d-flex align-items-center"
-                                                                                @click="
-                                                                                    makePayement(
+                                                                                @click.prevent="
+                                                                                    setPay(
                                                                                         item
                                                                                     )
                                                                                 "
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#basicModals"
                                                                             >
+                                                                                <!-- @click="
+                                                                                    makePayement(
+                                                                                        item
+                                                                                    )
+                                                                                " -->
                                                                                 <i
                                                                                     class="flaticon-view lh-1 me-8 position-relative top-1"
                                                                                 ></i>
@@ -637,6 +640,32 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div
+                                        class="row"
+                                        v-if="
+                                            affectation.service &&
+                                            affectation.service.frequenc &&
+                                            affectation.service.frequenc ==
+                                                'GroupementEntreprise'
+                                        "
+                                    >
+                                        <div class="col">
+                                            <div class="mb-mb-15 mb-md-20">
+                                                <label
+                                                    for="inputTitle"
+                                                    class="form-label fw-medium"
+                                                    >Personnes</label
+                                                >
+                                                <input
+                                                    type="number"
+                                                    class="form-control shadow-none text-black fs-md-15 fs-lg-16"
+                                                    @input="setPrice()"
+                                                    v-model="personneNumber"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col">
                                             <div
@@ -753,13 +782,80 @@
                             </div>
                         </div>
                     </div>
+                    <div
+                        class="modal fade"
+                        id="basicModals"
+                        tabindex="-1"
+                        aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 v-if="isEdit" class="modal-title fs-5">
+                                        Éditer {{ module.label }}
+                                    </h1>
+                                    <h1
+                                        v-else
+                                        class="modal-title fs-5"
+                                        id="addNiveauLabel"
+                                    >
+                                        Nouveau paiement
+                                    </h1>
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                    ></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="mb-mb-15 mb-md-20">
+                                        <label class="form-label fw-medium"
+                                            >montant pour payer</label
+                                        >
+                                        <input
+                                            v-model="currentPay.price"
+                                            type="number"
+                                            :max="payement.restePrice"
+                                            class="form-control shadow-none text-black fs-md-15 fs-lg-16"
+                                            id="inputTitle"
+                                            aria-describedby="TitleHelp"
+                                            placeholder="Enter title"
+                                        />
+                                    </div>
+
+                                    <Errors></Errors>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                        ref="closeBtns"
+                                    >
+                                        Fremer
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        @click="makePayement(payement)"
+                                        class="btn btn-primary"
+                                    >
+                                        Enregistrer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div v-else>
                     <div class="card">
                         <Emptybox> </Emptybox>
                         <p
                             class="text-center font-bold"
-                            style="font-weight: bold; font-family: monospace"
+                            style="font-weight: bold"
                         >
                             Merci de sélectionner un client
                         </p>
@@ -839,12 +935,14 @@ let headers = ref([
     { align: "end", key: "actions", title: "Actions" },
 ]);
 let closeBtn = ref("");
+let closeBtns = ref("");
 let clients = ref([]);
 let reductions = ref([]);
 let modules = ref([]);
 let inscription = ref(null);
 let clientSearch = ref(null);
 let errors = ref([]);
+let personneNumber = ref(1);
 let affectation = ref({
     service: null,
     price: "00.00",
@@ -854,6 +952,10 @@ let affectation = ref({
 });
 
 let loaded = ref(false);
+let payement = ref({});
+let currentPay = ref({
+    price: 0,
+});
 let clientLoaded = ref(true);
 
 // stores
@@ -885,6 +987,7 @@ let setPrice = () => {
 
         return;
     }
+
     if (affectation.value.reduction) {
         affectation.value.price =
             affectation.value.service.price -
@@ -893,6 +996,10 @@ let setPrice = () => {
                 100;
     } else {
         affectation.value.price = affectation.value.service.price;
+    }
+    if (affectation.value.service.frequenc == "GroupementEntreprise") {
+        affectation.value.price =
+            affectation.value.price * personneNumber.value;
     }
 };
 let removeReduction = () => {
@@ -937,6 +1044,7 @@ let getClientEncaissements = async () => {
         .getClientEncaissements(clientSearch.value.id)
         .then((res) => {
             inscription.value = encaissementStore.inscription;
+            errorStore.errors = [];
         })
         .catch((err) => {
             errorStore.errors = [];
@@ -955,6 +1063,7 @@ let saveAffectation = async () => {
             closeBtn.value.click();
             getClientEncaissements();
             inisialize();
+            errorStore.errors = [];
         })
         .catch((err) => {
             errorStore.errors = [];
@@ -1011,10 +1120,10 @@ let makePayement = async (pay: any) => {
         confirmButtonText: "Yes",
     }).then((result) => {
         if (result.isConfirmed) {
-            console.log(pay);
             encaissementStore
-                .makePayement(pay, inscription.value.id)
+                .makePayement(pay, inscription.value.id, currentPay.value.price)
                 .then((res) => {
+                    closeBtns.value.click();
                     Swal.fire("Succès", "payement avec succès");
                     getClientEncaissements();
                     window.open(
@@ -1035,5 +1144,10 @@ let inisialize = () => {
         reduction: null,
         inscription: null,
     };
+    personneNumber.value = 1;
+    errorStore.errors = [];
+};
+let setPay = (mod) => {
+    payement.value = mod;
 };
 </script>

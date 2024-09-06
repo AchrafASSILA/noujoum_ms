@@ -58,6 +58,7 @@ class Inscription extends Model
                 'payed' => $payed . ' DH',
                 'payedAmount' => $payed,
                 'reste' => ($affectation->Amount -  $payed) . ' DH',
+                'restePrice' => ($affectation->Amount -  $payed),
                 // 'lines' => $affectation->getLinesAmount(),
             ];
         }
@@ -77,7 +78,7 @@ class Inscription extends Model
     {
         $encaissements = [];
         $list =       $this->encaissements;
-        
+
         foreach ($list as $item) {
             $encaissements[] = [
                 'id' => $item->id,

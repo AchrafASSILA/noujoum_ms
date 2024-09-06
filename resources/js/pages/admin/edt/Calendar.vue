@@ -51,7 +51,12 @@
                                     <toolbar flat dense class="elvation-0">
                                         <div
                                             class="head d-flex align-items-center justify-content-between"
-                                            style="padding-left: 5px"
+                                            style="
+                                                padding-left: 5px;
+                                                color: black;
+                                                font-size: 13px;
+                                                font-weight: 600;
+                                            "
                                         >
                                             <span>{{ arg.timeText }}</span>
                                             <div
@@ -89,7 +94,14 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="body cl-body">
+                                        <div
+                                            class="body cl-body"
+                                            style="
+                                                color: black;
+                                                font-size: 13px;
+                                                font-weight: 600;
+                                            "
+                                        >
                                             <div
                                                 class="head d-flex align-items-center"
                                             >
@@ -535,7 +547,7 @@ let calendarOptions = ref({
 <style scoped>
 .cl-btn {
     width: fit-content;
-    border: 1px solid white;
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 7px;
     display: flex;
     align-items: center;

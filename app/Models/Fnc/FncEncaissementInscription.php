@@ -70,6 +70,7 @@ class FncEncaissementInscription extends Model
             'T2' => 'Trimèstre 2',
             'T3' => 'Trimèstre 3',
             'Annuel' => 'Annuel',
+            'OneTime' => 'une fois',
 
         ];
         return $list[$this->Frequenc];

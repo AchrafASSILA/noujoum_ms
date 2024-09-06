@@ -55,6 +55,11 @@ class ServiceController extends Controller
             $data = [];
             $data['reductions'] = [
                 [
+                    'id' => 7,
+                    'label' => '5%',
+                    'value' => '5',
+                ],
+                [
                     'id' => 1,
                     'label' => '10%',
                     'value' => '10',

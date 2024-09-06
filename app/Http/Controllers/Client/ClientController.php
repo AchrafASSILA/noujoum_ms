@@ -96,7 +96,7 @@ class ClientController extends Controller
             $validation = Validator::make($request->all(), [
                 'name' => 'required|max:100',
                 'email' => 'required|max:100|email|unique:users',
-                'tel' => 'required|max:100|unique:users',
+                // 'tel' => 'required|max:100|unique:users',
             ]);
             if ($validation->messages()->all()) {
                 return response(['msg' => $validation->messages()->all()], 403);
@@ -252,7 +252,7 @@ class ClientController extends Controller
             $validation = Validator::make($request->all(), [
                 'name' => 'required|max:100',
                 'email' => 'required|max:100|email|unique:users,email,' . $client->user->id,
-                'tel' => 'required|max:100|unique:users,tel,' . $client->user->id,
+                // 'tel' => 'required|max:100|unique:users,tel,' . $client->user->id,
             ]);
             if ($validation->messages()->all()) {
                 return response(['msg' => $validation->messages()->all()], 403);

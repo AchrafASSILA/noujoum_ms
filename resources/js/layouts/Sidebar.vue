@@ -6,8 +6,11 @@
         ]"
         id="sidebar-area"
     >
-        <div class="logo position-absolute start-0 end-0 top-0 bg-black">
-            <a
+        <div
+            class="logo position-absolute start-0 end-0 top-0 bg-black"
+            @click="changeLayout()"
+        >
+            <span
                 href="/"
                 class="d-flex align-items-center text-white text-decoration-none"
             >
@@ -17,11 +20,10 @@
                     alt="logo-icon"
                 />
                 <span class="fw-bold ms-10">{{ authStore.appname }}</span>
-            </a>
+            </span>
             <div class="border-bottom"></div>
             <button
                 class="sidebar-burger-menu position-absolute lh-1 bg-transparent p-0 border-0"
-                @click="changeLayout()"
             >
                 <i class="ph-duotone ph-caret-double-right"></i>
             </button>
@@ -234,7 +236,7 @@
                         class="sidebar-nav-link d-block pb-0 pt-0"
                     >
                         <i class="flaticon-sugar-cubes"></i>
-                        <span class="title">Modules</span>
+                        <span class="title">Activités</span>
                     </router-link>
                 </li>
                 <li

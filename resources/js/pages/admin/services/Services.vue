@@ -36,6 +36,7 @@
                         </div>
 
                         <button
+                            @click="initialize()"
                             data-bs-toggle="modal"
                             data-bs-target="#basicModal"
                             class="default-btn text-nowrap position-relative ms-sm-10 transition border-0 fw-medium text-white pt-11 pb-11 ps-25 pe-25 pt-md-11 pb-md-11 ps-md-30 pe-md-30 rounded-1 bg-success fs-md-15 fs-lg-16 d-inline-block d-inline-block text-decoration-none"
@@ -253,12 +254,15 @@
                                                 'Mensuel',
                                                 'Trimestriel',
                                                 'Annuel',
+                                                'Heure',
+                                                'GroupementEntreprise',
                                             ]"
                                             :multiple="false"
                                             :close-on-select="true"
                                             placeholder="Choisissez fréquence"
                                         >
                                         </VueMultiselect>
+                                        <!-- @select="showCalucalation()" -->
                                     </div>
                                 </div>
                             </div>
@@ -517,6 +521,7 @@ let updateService = async () => {
             initialize();
             Swal.fire("Succès", "service mises à jour avec succès", "");
             closeBtn.value.click();
+            errorStore.errors = [];
             getServices();
         })
         .catch((err) => {
@@ -532,6 +537,7 @@ let saveService = async () => {
             Swal.fire("Succès", "service enregistré avec succès", "");
             closeBtn.value.click();
             getServices();
+            errorStore.errors = [];
         })
         .catch((err) => {
             errorStore.errors = [];
@@ -571,6 +577,7 @@ let initialize = () => {
         alias: "",
         image: "",
     };
+    errorStore.errors = [];
     isEdit.value = false;
     imageUrl.value =
         "https://www.eclosio.ong/wp-content/uploads/2018/08/default.png";

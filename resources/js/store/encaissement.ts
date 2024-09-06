@@ -74,10 +74,11 @@ export const useEncaissementStore = defineStore("encaissement", {
             formData.append("frequenc", service.frequenc);
             await axiosClient.post("/services", formData);
         },
-        async makePayement(service: any, inscription: any) {
+        async makePayement(service: any, inscription: any, currentPay: any) {
             const formData = new FormData();
 
             formData.append("service", service.id);
+            formData.append("price", currentPay);
             formData.append("inscription", inscription);
             await axiosClient
                 .post("/encaissements", formData)

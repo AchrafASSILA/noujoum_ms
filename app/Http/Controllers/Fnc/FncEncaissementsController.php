@@ -63,6 +63,7 @@ class FncEncaissementsController extends Controller
             $validation = Validator::make($request->all(), [
                 'service' => 'required',
                 'inscription' => 'required',
+                'price' => 'required',
                 // 'total' => 'required',
             ]);
             if ($validation->messages()->all()) {
@@ -72,7 +73,8 @@ class FncEncaissementsController extends Controller
             $affectation = FncEncaissementInscription::find($request->service);
 
             $encaissement = new FncEncaissements();
-            $encaissement->Total = $affectation->Amount;
+            $encaissement->Total = $request->price;
+            // $encaissement->Total = $affectation->Amount;
             $encaissement->Inscription = $inscription->id;
             $encaissement->Promotion = $inscription->promotion->id;
             $encaissement->RecuNumber = FncEncaissements::getRecuNumber();
@@ -84,7 +86,8 @@ class FncEncaissementsController extends Controller
 
             $service = Service::find($affectation->service->id);
             $encaissment_line = new FncEncaissementLine();
-            $encaissment_line->Amount = $affectation->Amount;
+            $encaissment_line->Amount = $request->price;
+            // $encaissment_line->Amount = $affectation->Amount;
             $encaissment_line->Frequenc = $affectation->Frequenc;
             $encaissment_line->Service = $service->id;
             $encaissment_line->Affectation = $affectation->id;

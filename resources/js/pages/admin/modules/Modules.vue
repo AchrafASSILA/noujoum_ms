@@ -2,7 +2,7 @@
     <MainLayout>
         <div v-if="loaded">
             <h4 class="mb-5 mb-sm-0 fw-bold">
-                Les modules/ <span>{{ modules?.length }}</span>
+                Les activités/ <span>{{ modules?.length }}</span>
             </h4>
             <div
                 class="card mb-25 border-0 rounded-0 bg-white letter-spacing mt-4"
@@ -39,7 +39,7 @@
                                 margin-right: 0 !important;
                             "
                         >
-                            Nouveau module
+                            Nouvelle activitée
                             <i
                                 class="flaticon-plus position-relative ms-5 fs-12"
                             ></i>
@@ -155,7 +155,7 @@
                                 class="modal-title fs-5"
                                 id="addNiveauLabel"
                             >
-                                Nouveau module
+                                Nouvelle activitée
                             </h1>
                             <button
                                 type="button"
