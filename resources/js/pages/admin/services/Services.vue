@@ -251,6 +251,7 @@
                                         <VueMultiselect
                                             v-model="service.frequenc"
                                             :options="[
+                                                'FI',
                                                 'Mensuel',
                                                 'Trimestriel',
                                                 'Annuel',

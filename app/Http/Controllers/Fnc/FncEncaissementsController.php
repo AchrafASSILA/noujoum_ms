@@ -60,10 +60,11 @@ class FncEncaissementsController extends Controller
     {
         try {
             //code...
+
             $validation = Validator::make($request->all(), [
                 'service' => 'required',
                 'inscription' => 'required',
-                'price' => 'required',
+                'price' => 'required|numeric|min:0|not_in:0',
                 // 'total' => 'required',
             ]);
             if ($validation->messages()->all()) {
@@ -71,6 +72,15 @@ class FncEncaissementsController extends Controller
             }
             $inscription = Inscription::find($request->inscription);
             $affectation = FncEncaissementInscription::find($request->service);
+            $payedLines = FncEncaissementLine::where('Affectation', $affectation->id)->whereNull('Canceled')->sum('Amount');
+            // $payedLines = FncEncaissementLine::where('Service', $request->service)->where('Inscription', $request->inscription)->whereNull('Canceled')->sum('Amount');
+            // if ($affectation->Amount < $request->price) {
+            //     return response(['msg' => ['le prix payant devrait être inférieur à ' . $affectation->Amount]], 403);
+            // }
+            if (($payedLines + $request->price)  > $affectation->Amount) {
+                return response(['msg' => ['le prix payant devrait être inférieur à ' . ($affectation->Amount - $payedLines)]], 403);
+            }
+            // return ($payedLines + $request->price);
 
             $encaissement = new FncEncaissements();
             $encaissement->Total = $request->price;

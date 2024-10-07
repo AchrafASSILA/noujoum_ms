@@ -322,7 +322,9 @@
                                                                         <li
                                                                             v-if="
                                                                                 item.payedAmount !=
-                                                                                item.restePrice
+                                                                                    item.restePrice &&
+                                                                                item.restePrice !=
+                                                                                    0
                                                                             "
                                                                         >
                                                                             <button
@@ -343,7 +345,7 @@
                                                                                 <i
                                                                                     class="flaticon-view lh-1 me-8 position-relative top-1"
                                                                                 ></i>
-                                                                                Paye
+                                                                                Payé
                                                                             </button>
                                                                         </li>
                                                                         <!-- <li>
@@ -1130,9 +1132,11 @@ let makePayement = async (pay: any) => {
                         "/noujoum/impressions-encaissement-recu/" +
                             encaissementStore.lastEncaissement
                     );
+                    errorStore.errors = [];
                 })
                 .catch((err) => {
-                    console.log(err);
+                    errorStore.errors = [];
+                    errorStore.errors.push(err.response.data.msg);
                 });
         }
     });
@@ -1149,5 +1153,7 @@ let inisialize = () => {
 };
 let setPay = (mod) => {
     payement.value = mod;
+    currentPay.value.price = 0;
+    errorStore.errors = [];
 };
 </script>
